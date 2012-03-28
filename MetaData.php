@@ -15,7 +15,7 @@ class MusicOrganizer_MetaData
         static $id3Instance;
 
         if (!is_object($id3Instance)) {
-            require_once('external/getid3/getid3.php');
+            require_once('vendor/getid3/getid3.php');
             /*
             $getID3->setOption(array('encoding'=>$TaggingFormat));
             getid3_lib::IncludeDependency(GETID3_INCLUDEPATH.'write.php', __FILE__, true);
