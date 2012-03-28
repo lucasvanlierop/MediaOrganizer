@@ -21,7 +21,7 @@ function printr($r, $s = '')
 require_once "MusicOrganizer.php";
 require_once "Directory.php";
 require_once "File.php";
-require_once "Mp3File.php";
+require_once "File/Mp3.php";
 require_once "MetaData.php";
 $musicOrganizer = new MusicOrganizer();
 $musicOrganizer->run();

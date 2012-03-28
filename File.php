@@ -8,7 +8,7 @@ class MusicOrganizer_File
         $pathInfo = pathinfo($filePath);
         switch ($pathInfo['extension']) {
             case 'mp3' :
-                return new MusicOrganizer_Mp3File($filePath);
+                return new MusicOrganizer_File_Mp3($filePath);
         }
 
         throw new Exception('Unknown file format');
