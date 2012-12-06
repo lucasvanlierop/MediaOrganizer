@@ -55,11 +55,13 @@ class MusicOrganizer_File
 //        }
         return false;
 
-        if (!isset($ThisFileInfo['comments'])) {
-            $this->_getMetadataFromApi($file);
-        } else {
-           // $this->_
-        }
+
+        // Disabled for now
+//        if (!isset($ThisFileInfo['comments'])) {
+//            $this->_getMetadataFromApi($file);
+//        } else {
+//           // $this->_
+//        }
 
         $file_path = $this->_buildFilename($ThisFileInfo);
 
