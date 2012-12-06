@@ -7,9 +7,9 @@ class MusicOrganizer
     public function __construct()
     {
         // @todo move to config
-        $musicDir = '/data/shared/music/';
+        $musicDir = '/home/lucasvanlierop/Music/';
         define('ROOT_DIR', $musicDir);
-        $this->_destinationDirectory = '/data/shared/music/';
+        $this->_destinationDirectory = $musicDir;
         $this->_sourceDirectory = $musicDir;
     }
 
