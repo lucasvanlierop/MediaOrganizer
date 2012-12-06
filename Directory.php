@@ -33,8 +33,8 @@ class MusicOrganizer_Directory extends DirectoryIterator
 
     protected function _convertDir($file) {
         // @todo convert this to filter
-        $fileName = $file->getFilename();
-        if ($fileName[0] == '_') {
+        $directoryName = $file->getFilename();
+        if ($directoryName[0] == '_') {
             return false;
         }
 
