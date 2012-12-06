@@ -43,16 +43,11 @@ class MusicOrganizer_File
 
     public function parse()
     {
-        $FullFileName = $this->_filePath;
-
-        echo "parsing file " . $FullFileName . PHP_EOL;
-
+        echo "parsing file " . $this->_filePath . PHP_EOL;
 
         $fileInfo = $this->getMetaData()->getComments();
-        return;
-
-
-        $isMp3 = 'mp3' == substr($file, -3);
+        
+        $isMp3 = 'mp3' == substr($this->_filePath, -3);
 
         if ($isMp3) {
             $this->_createAudioHashSoftLink();
