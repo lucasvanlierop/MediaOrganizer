@@ -3,6 +3,8 @@ class MusicOrganizer_File
 {
     private $_filePath;
 
+    private $metaData;
+
     public function factory($filePath)
     {
         $pathInfo = pathinfo($filePath);
@@ -33,11 +35,10 @@ class MusicOrganizer_File
     }
 
     public function getMetaData() {
-        static $metaData;
-        //if(empty($metaData)) {
-            $metaData = new MusicOrganizer_MetaData($this->_filePath);
-        //}
-        return $metaData;
+        if(empty($this->metaData)) {
+            $this->metaData = new MusicOrganizer_MetaData($this->_filePath);
+        }
+        return $this->metaData;
     }
 
     public function parse()
@@ -45,10 +46,11 @@ class MusicOrganizer_File
         $FullFileName = $this->_filePath;
 
         echo "parsing file " . $FullFileName . PHP_EOL;
+
+
+        $fileInfo = $this->getMetaData()->getComments();
         return;
 
-
-        $ThisFileInfo = MEtaData::getComments();
 
         $isMp3 = 'mp3' == substr($file, -3);
 

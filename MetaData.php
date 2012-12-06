@@ -126,11 +126,9 @@ class MusicOrganizer_MetaData
      * @todo improve this
      */
     public function getComments() {
-        
-        $ThisFileInfo = $getID3->analyze($FullFileName);
-        getid3_lib::CopyTagsToComments($ThisFileInfo);
+        getid3_lib::CopyTagsToComments($this->_info);
 
-        return $ThisFileInfo;
+        return $this->_info;
     }
 
 }
