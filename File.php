@@ -49,9 +49,10 @@ class MusicOrganizer_File
         
         $isMp3 = 'mp3' == substr($this->_filePath, -3);
 
-        if ($isMp3) {
-            $this->_createAudioHashSoftLink();
-        }
+        // Disabled for now
+//        if ($isMp3) {
+//            $this->_createAudioHashSoftLink();
+//        }
         return false;
 
         if (!isset($ThisFileInfo['comments'])) {
