@@ -43,6 +43,9 @@ class MusicOrganizer_Directory extends DirectoryIterator
     }
 
     protected function _convertFile($file) {
+        return false;
+
+
         try {
            $file = MusicOrganizer_File::factory($file->getPathName());
         } catch (Exception $ex) {
