@@ -10,7 +10,7 @@ class MusicOrganizer_MetaData
         $this->_info = $id3->analyze($fileName);
         getid3_lib::CopyTagsToComments($this->_info);
 
-        var_dump($this->_info);die;
+        //var_dump($this->_info);die;
 
         if (isset($this->info['comments'])) {
             printvar_dump($this->_info['comments']);die;

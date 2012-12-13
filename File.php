@@ -61,10 +61,7 @@ class MusicOrganizer_File
 //           // $this->_
 //        }
 
-        $file_path = $this->_buildFilename($fileInfo);
-
-//        File::Create();
-
+        $this->rename($this->_buildFilename($fileInfo));
     }
 
     /**
@@ -95,15 +92,20 @@ class MusicOrganizer_File
         return trim(preg_replace('/[^a-z]+/', '', strtolower($name)));
     }
 
-    protected function _create()
+    /**
+     * @param $filePath
+     */
+    protected function rename($filePath)
     {
-        if (!file_exists($s_file_path)) {
-            if (!file_exists($s_dir)) mkdir($s_dir, 0777, true);
-            rename($FullFileName, $s_file_path);
-            echo "copied: " . $s_file_path . " (" . $s_org_genre . ")\n";
-        }
-        else {
-            //echo "skipping: " . $s_file_path . " (" . $s_org_genre . ")\n";
+        if (!file_exists($filePath)) {
+            $dirPath = dirname($filePath);
+            if (!file_exists($dirPath)) {
+                //mkdir($dirPath, 0777, true);
+            }
+            //rename($this->_filePath, $filePath);
+            echo "copied: " . $this->_filePath . ' to: ' . $filePath . PHP_EOL;
+        }    else {
+            echo "skipping: " . $this->_filePath;
         }
 
     }
