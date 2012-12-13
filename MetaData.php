@@ -46,7 +46,12 @@ class MusicOrganizer_MetaData
 
     public function mapGenre($s_genre)
     {
+        $s_genre = strtolower($s_genre);
+
         switch (true) {
+            case preg_match('/ambient/', $s_genre) :
+                $s_genre = 'dance';
+                break;
             case preg_match('/alt|emo|wave|hippie|indie|rock/', $s_genre) :
                 $s_genre = 'rock';
                 break;
@@ -60,8 +65,11 @@ class MusicOrganizer_MetaData
                 $s_genre = 'country';
                 break;
             // @todo correct
-            case preg_match('/grunge|heavy|punk|metal/', $s_genre) :
-                $s_genre = 'rock_hard';
+            case preg_match('/emo|ska|punk/', $s_genre) :
+                $s_genre = 'punk';
+                break;
+            case preg_match('/metal/', $s_genre) :
+                $s_genre = 'metal';
                 break;
             case preg_match('/reggae/', $s_genre) :
                 $s_genre = 'reggae';
@@ -76,7 +84,7 @@ class MusicOrganizer_MetaData
                 $s_genre = 'pop';
                 break;
             default :
-                $s_genre = 'div';
+                throw new Exception('Could not map genre ' . $s_genre);
                 break;
         }
         return $s_genre;

@@ -64,7 +64,11 @@ class MusicOrganizer_File
 //           // $this->_
 //        }
 
-        $this->rename($this->_buildFilename());
+        try {
+            $this->rename($this->_buildFilename());
+        } catch (Exception $ex) {
+            echo 'Error: ' . $ex->getMessage() . PHP_EOL;
+        }
     }
 
     /**
@@ -168,10 +172,9 @@ class MusicOrganizer_File
 //            mkdir($genre_dir, 0777, true);
 //        }
 
-//        $genre = _mapGenre($genre);
-//        if ('div' == $genre) {
-//            $genre = $this->metaData->_mapGenre($sourceDirectory);
-//        }
+        $genre = $this->metaData->mapGenre($genre);
+
+        // @todo check for div
 
         // @todo test code
         return ROOT_DIR . $genre . DIRECTORY_SEPARATOR . $artist . DIRECTORY_SEPARATOR . $album . DIRECTORY_SEPARATOR . $track . '-' . $title . '.mp3';
