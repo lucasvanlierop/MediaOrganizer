@@ -65,6 +65,8 @@ class FileVisitor
         foreach($fileNameFilters as $fileNameFilter) {
             $filePath = $fileNameFilter->filter($file);
             if ($filePath) {
+                echo "name provided by " . get_class($fileNameFilter);
+
                 try {
                     $file->rename($filePath);
                 } catch (Exception $ex) {
