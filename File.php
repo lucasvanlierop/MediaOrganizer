@@ -106,7 +106,9 @@ class MusicOrganizer_File
                 //mkdir($dirPath, 0777, true);
             }
             //rename($this->_filePath, $filePath);
-            echo "copied: " . $this->_filePath . ' to: ' . $filePath . PHP_EOL;
+            echo "copy: " . PHP_EOL .$dirPath . PHP_EOL .
+                "from : " . $this->_filePath . PHP_EOL .
+                'to   : ' . $filePath . PHP_EOL;
         }    else {
             echo "skipping: " . $this->_filePath;
         }
@@ -172,7 +174,7 @@ class MusicOrganizer_File
 //        }
 
         // @todo test code
-        return $genre . DIRECTORY_SEPARATOR . $artist . DIRECTORY_SEPARATOR . $album . DIRECTORY_SEPARATOR . $track . '-' . $title;
+        return ROOT_DIR . $genre . DIRECTORY_SEPARATOR . $artist . DIRECTORY_SEPARATOR . $album . DIRECTORY_SEPARATOR . $track . '-' . $title . '.mp3';
 
 //        if (preg_match('/radio-soulwax/i', $album)) {
 //            $comments['album_artist'][0] = '2-many-djs';
