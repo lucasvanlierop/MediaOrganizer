@@ -47,10 +47,8 @@ class MusicOrganizer_File
 
         $fileInfo = $this->getMetaData()->getComments();
         
-        $isMp3 = 'mp3' == substr($this->_filePath, -3);
-
         // Disabled for now
-//        if ($isMp3) {
+//        if ($this instanceof MusicOrganizer_File_Mp3) {
 //            $this->_createAudioHashSoftLink();
 //        }
 
@@ -112,9 +110,8 @@ class MusicOrganizer_File
 
     protected function _getMetadataFromApi($file)
     {
-        if ($isMp3) {
+        if ($this instanceof MusicOrganizer_File_Mp3) {
             $comments = findInfoByFilename($file);
-
         }
 
         if (empty($comments)) {
