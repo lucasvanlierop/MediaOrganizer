@@ -63,7 +63,7 @@ class MusicOrganizer_MetaData
         return $s_artist;
     }
 
-    public function getAlbumArtist()
+    public function buildAlbumArtist()
     {
         if (empty($this->_info['comments']['album_artist'])) {
             return;

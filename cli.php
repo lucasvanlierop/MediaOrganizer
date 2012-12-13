@@ -27,5 +27,6 @@ require_once "GenreToDirMapper.php";
 require_once "FileVisitor.php";
 require_once "File/NameFilter/SingleTrackFilter.php";
 require_once "File/NameFilter/AlbumTrackFilter.php";
+require_once "File/NameFilter/CompilationTrackFilter.php";
 $musicOrganizer = new MusicOrganizer();
 $musicOrganizer->run();
