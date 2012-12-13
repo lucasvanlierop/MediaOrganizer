@@ -8,7 +8,7 @@ class MusicOrganizer_HashCreator
     }
 
 
-    protected function _createAudioHashSoftLink(MusicOrganizer_File $file)
+    protected function _createAudioHashSoftLink(\MediaOrganizer\File $file)
     {
         $hash = $file->getHash();
         $command = 'ln -s "' . $FullFileName . '" ' . $this->getHashDir() . $hash;

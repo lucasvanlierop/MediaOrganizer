@@ -18,7 +18,7 @@ class MusicOrganizer_Directory extends DirectoryIterator
                 $directory->accept($visitor);
             } else {
                 try {
-                    $mediaFile = MusicOrganizer_File::factory($file->getPathName());
+                    $mediaFile = \MediaOrganizer\File::factory($file->getPathName());
                     $mediaFile->accept($visitor);
                 } catch (Exception $ex) {
                     // @todo add logging

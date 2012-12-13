@@ -21,7 +21,7 @@ function printr($r, $s = '')
 require_once "MusicOrganizer.php";
 require_once "Directory.php";
 require_once "File.php";
-require_once "File/Mp3.php";
+require_once "File/Type/Mp3.php";
 require_once "MetaData.php";
 require_once "GenreToDirMapper.php";
 require_once "FileVisitor.php";

@@ -1,5 +1,8 @@
 <?php
-class MusicOrganizer_File
+
+namespace MediaOrganizer;
+
+class File
 {
     private $_filePath;
 
@@ -17,7 +20,7 @@ class MusicOrganizer_File
         $pathInfo = pathinfo($filePath);
         switch ($pathInfo['extension']) {
             case 'mp3' :
-                return new MusicOrganizer_File_Mp3($filePath);
+                return new \MediaOrganizer\File\Type\Mp3($filePath);
         }
 
         throw new Exception('Unknown file format');
@@ -51,7 +54,7 @@ class MusicOrganizer_File
      */
     public function getMetaData() {
         if(empty($this->metaData)) {
-            $this->metaData = new MusicOrganizer_MetaData($this->_filePath);
+            $this->metaData = new \MusicOrganizer_MetaData($this->_filePath);
         }
         return $this->metaData;
     }
@@ -62,7 +65,7 @@ class MusicOrganizer_File
     public function parse($rootDir)
     {
         // Disabled for now
-//        if ($this instanceof MusicOrganizer_File_Mp3) {
+//        if ($this instanceof \MediaOrganizer\File\Type\Mp3) {
 //            $this->_createAudioHashSoftLink();
 //        }
 
@@ -130,7 +133,7 @@ class MusicOrganizer_File
 
     protected function _getMetadataFromApi($file)
     {
-        if ($this instanceof MusicOrganizer_File_Mp3) {
+        if ($this instanceof \MediaOrganizer\File\Type\Mp3) {
             $comments = findInfoByFilename($file);
         }
 

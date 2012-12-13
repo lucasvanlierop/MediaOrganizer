@@ -29,7 +29,7 @@ class FileVisitor
     public function visit($file) {
         if ($file instanceof \MusicOrganizer_Directory) {
             $this->visitDir($file);
-        } else if ($file instanceof \MusicOrganizer_File) {
+        } else if ($file instanceof \MediaOrganizer\File) {
             $this->visitFile($file);
         }
     }
@@ -49,10 +49,10 @@ class FileVisitor
     }
 
     /**
-     * @param \MusicOrganizer_File $file
+     * @param \MediaOrganizer\File $file
      * @return bool
      */
-    protected function visitFile(\MusicOrganizer_File $file) {
+    protected function visitFile(\MediaOrganizer\File $file) {
         echo "scannining file: " . $file->getPath() . "\n";
 
         if (!$file->parse($this->getRootDir())) {
