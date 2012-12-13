@@ -56,7 +56,10 @@ class MusicOrganizer_File
         return $this->metaData;
     }
 
-    public function parse()
+    /**
+     * @param $rootDir
+     */
+    public function parse($rootDir)
     {
         // Disabled for now
 //        if ($this instanceof MusicOrganizer_File_Mp3) {
@@ -71,7 +74,7 @@ class MusicOrganizer_File
 //        }
 
         try {
-            $this->rename($this->_buildFilename());
+            $this->rename($this->_buildFilename($rootDir));
         } catch (Exception $ex) {
             echo 'Error: ' . $ex->getMessage() . PHP_EOL;
         }
@@ -153,9 +156,12 @@ class MusicOrganizer_File
     }
 
     /**
+     * @param $rootDir
+     * @return string
+     *
      * @todo support unicode
      */
-    protected function _buildFilename()
+    protected function _buildFilename($rootDir)
     {
         $artist = $this->metaData->buildArtist();
         $album = $this->metaData->buildAlbum();
@@ -185,7 +191,7 @@ class MusicOrganizer_File
         // @todo check for div
 
         // @todo test code
-        return ROOT_DIR . $genreDir . DIRECTORY_SEPARATOR . $artist . DIRECTORY_SEPARATOR . $album . DIRECTORY_SEPARATOR . $track . '-' . $title . '.mp3';
+        return $rootDir . $genreDir . DIRECTORY_SEPARATOR . $artist . DIRECTORY_SEPARATOR . $album . DIRECTORY_SEPARATOR . $track . '-' . $title . '.mp3';
 
 //        if (preg_match('/radio-soulwax/i', $album)) {
 //            $comments['album_artist'][0] = '2-many-djs';

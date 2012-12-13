@@ -8,6 +8,24 @@ namespace MediaOrganizer;
  */
 class FileVisitor
 {
+    /**
+     * @var string
+     */
+    private $rootDir;
+
+    public function __construct($rootDir)
+    {
+        $this->rootDir = $rootDir;
+    }
+
+    /**
+     * @return string
+     */
+    public function getRootDir()
+    {
+        return $this->rootDir;
+    }
+
     public function visit($file) {
         if ($file instanceof \MusicOrganizer_Directory) {
             $this->visitDir($file);
@@ -37,7 +55,7 @@ class FileVisitor
     protected function visitFile(\MusicOrganizer_File $file) {
         echo "scannining file: " . $file->getPath() . "\n";
 
-        if (!$file->parse()) {
+        if (!$file->parse($this->getRootDir())) {
             return false;
         }
     }

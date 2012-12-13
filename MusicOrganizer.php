@@ -23,7 +23,7 @@ class MusicOrganizer
     public function run()
     {
         $sourceDirectory = new MusicOrganizer_Directory($this->_sourceDirectory);
-        $fileVisitor = new FileVisitor();
+        $fileVisitor = new FileVisitor(ROOT_DIR);
         $sourceDirectory->accept($fileVisitor);
         //$sourceDirectory->RemoveEmptyDirs();
     }
