@@ -8,6 +8,13 @@ class MusicOrganizer_MetaData
 
       //  echo PHP_EOL . 'FN: ' . $fileName;
         $this->_info = $id3->analyze($fileName);
+        getid3_lib::CopyTagsToComments($this->_info);
+
+        var_dump($this->_info);die;
+
+        if (isset($this->info['comments'])) {
+            printvar_dump($this->_info['comments']);die;
+        }
     }
 
     protected function _getId3Instance()
@@ -43,7 +50,7 @@ class MusicOrganizer_MetaData
         return $hash;
     }
 
-    protected function _mapGenre($s_genre)
+    public function mapGenre($s_genre)
     {
         switch (true) {
             case preg_match('/alt|emo|wave|hippie|indie|rock/', $s_genre) :
@@ -77,46 +84,68 @@ class MusicOrganizer_MetaData
         return $s_genre;
     }
 
-    protected function _guessIsCompilation($albumTitle)
+    public function guessIsCompilation($albumTitle)
     {
 
     }
 
-    protected function _buildArtist()
+    public function buildArtist()
     {
-        $s_artist = _cleanName($a_comments['artist'][0]);
+        if (empty($this->_info['artist'])) {
+            return;
+        }
+
+        $s_artist = $this->_info['artist'][0];
+        // @todo move this to rename filter
         if (substr($s_artist, 0, 4) == 'The-') $s_artist = substr($s_artist, 4) . '_(the)';
         return $s_artist;
     }
 
-    protected function _buildTitle() {
-        $s_title = _cleanName($a_comments['title'][0]);
+    public function buildTitle() {
+        if (empty($this->_info['title'])) {
+            return;
+        }
+
+        $s_title = $this->_info['title'][0];
         return $s_title;
     }
 
-    protected function _buildGenre() {
+    public function buildGenre() {
+        if (empty($this->_info['genre'])) {
+            return;
+        }
+
         // Todo check clean name for genre
-        $s_genre = _cleanName($a_comments['genre'][0]);
+        $s_genre = $this->_info['genre'][0];
         return $s_genre;
     }
 
-    protected function _buildAlbum()
+    public function buildAlbum()
     {
+        if (empty($this->_info['album'])) {
+            return;
+        }
+
         $s_album = '';
-        if (!empty($a_comments['album'][0])) {
-            $s_album = _cleanName($a_comments['album'][0]);
-            if (!empty($a_comments['year'][0]) && preg_match('/\d{4}/', $a_comments['year'][0])) {
-                $s_album = $a_comments['year'][0] . '-' . $s_album;
+        if (!empty($this->_info['album'][0])) {
+            $s_album = $this->_info['album'][0];
+            // @todo move this to rename filter
+            if (!empty($this->_info['year'][0]) && preg_match('/\d{4}/', $this->_info['year'][0])) {
+                $s_album = $this->_info['year'][0] . '-' . $s_album;
             }
         }
 
         return $s_album;
     }
 
-    protected function _buildTrackNr()
+    public function buildTrackNr()
     {
-        $i_track = !isset($a_comments['track_number']) ? ''
-            : intval(trim(reset($a_comments['track_number'])));
+        if (empty($this->_info['track_number'])) {
+            return;
+        }
+
+        $i_track = !isset($this->_info['track_number']) ? ''
+            : intval(trim(reset($this->_info['track_number'])));
         $s_track = str_pad($i_track, 3, '0', STR_PAD_LEFT);
         return $s_track;
     }
@@ -126,7 +155,7 @@ class MusicOrganizer_MetaData
      * @todo improve this
      */
     public function getComments() {
-        getid3_lib::CopyTagsToComments($this->_info);
+
 
         return $this->_info;
     }

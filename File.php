@@ -53,21 +53,18 @@ class MusicOrganizer_File
 //        if ($isMp3) {
 //            $this->_createAudioHashSoftLink();
 //        }
-        return false;
-
 
         // Disabled for now
-//        if (!isset($ThisFileInfo['comments'])) {
+//        if (!isset($info['comments'])) {
 //            $this->_getMetadataFromApi($file);
 //        } else {
 //           // $this->_
 //        }
 
-        $file_path = $this->_buildFilename($ThisFileInfo);
+        $file_path = $this->_buildFilename($fileInfo);
 
-        File::Create();
+//        File::Create();
 
-        $i++;
     }
 
     protected function _cleanName($s)
@@ -134,25 +131,27 @@ class MusicOrganizer_File
         }
     }
 
-    protected function _buildFilename(array $ThisFileInfo)
+    protected function _buildFilename(array $info)
     {
-        $comments = $ThisFileInfo['comments'];
+        $comments = $info['comments'];
         if (empty($comments['artist'])
             || empty($comments['title'])
             || empty($comments['genre'])) {
             return;
         }
 
-        $metadata = new MusicOrganizer_MetaData();
+        $artist = $this->metaData->buildArtist();
+        $album = $this->metaData->buildAlbum();
+        $title = $this->metaData->buildTitle();
+        $track = $this->metaData->buildTrackNr();
 
-        $artist = $metadata->_buildArtist();
-        $album = $metadata->_buildAlbum();
-        $title = $metadata->_buildTitle();
-        $track = $metadata->_buildTrackNr();
 
+        echo PHP_EOL . $artist . '-' . $album . '-' . $track . '-' . $title;
+
+        return;
 
         // Genre
-        $genre = $metadata->_buildGenre();
+        $genre = $this->metaData->buildGenre();
         $org_genre = $genre;
         // todo clean genre
         // todo use folder as genre
@@ -162,7 +161,7 @@ class MusicOrganizer_File
         }
         $genre = _mapGenre($genre);
         if ('div' == $genre) {
-            $genre = $metadata->_mapGenre($sourceDirectory);
+            $genre = $this->metaData->_mapGenre($sourceDirectory);
         }
 
 
