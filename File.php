@@ -67,19 +67,24 @@ class MusicOrganizer_File
 
     }
 
-    protected function _cleanName($s)
+    /**
+     * @param string $name
+     * @return mixed|string
+     */
+    protected function _cleanName($name)
     {
-        $patterns[] = '/[.]/';
-        $replacements[] = '';
-        $patterns[] = '/&/';
-        $replacements[] = 'and';
-        $patterns[] = '/[^\w().]+/';
-        $replacements[] = ' ';
+        // Replace unwanted characters
+        $replacements = array(
+            '/[.]/'        => '',       // Unknown characters
+            '/&/'          => 'and',    // And sign
+            '/[^\w().]+/'  => ' '       // Non word characters
+        );
+        $out = preg_replace(array_keys($replacements), $replacements, $name);
 
-        $out = preg_replace($patterns, $replacements, $s);
+        // Upper case every first word
+        $out = ucwords(strtolower(trim($out)));
 
-        //printr($out);
-        $out = ucwords(strtolower(trim($s)));
+        // Concatenate every word
         $out = preg_replace('/( )+/', '-', $out);
 
         return $out;
