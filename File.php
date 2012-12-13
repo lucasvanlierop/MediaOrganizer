@@ -172,12 +172,14 @@ class MusicOrganizer_File
 //            mkdir($genre_dir, 0777, true);
 //        }
 
-        $genre = $this->metaData->mapGenre($genre);
+        // @todo pass to visitor
+        $genreToDirMapper = new \MediaOrganizer\GenreToDirMapper();
+        $genreDir = $genreToDirMapper->toDir($genre);
 
         // @todo check for div
 
         // @todo test code
-        return ROOT_DIR . $genre . DIRECTORY_SEPARATOR . $artist . DIRECTORY_SEPARATOR . $album . DIRECTORY_SEPARATOR . $track . '-' . $title . '.mp3';
+        return ROOT_DIR . $genreDir . DIRECTORY_SEPARATOR . $artist . DIRECTORY_SEPARATOR . $album . DIRECTORY_SEPARATOR . $track . '-' . $title . '.mp3';
 
 //        if (preg_match('/radio-soulwax/i', $album)) {
 //            $comments['album_artist'][0] = '2-many-djs';
