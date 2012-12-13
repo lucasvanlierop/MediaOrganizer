@@ -46,7 +46,7 @@ class MusicOrganizer_MetaData
 
     public function mapGenre($s_genre)
     {
-        $s_genre = strtolower($s_genre);
+        $s_genre = preg_replace('[^a-z]+', '', strtolower($s_genre));
 
         switch (true) {
             case preg_match('/ambient/', $s_genre) :
@@ -58,7 +58,7 @@ class MusicOrganizer_MetaData
             case preg_match('/blues/', $s_genre) :
                 $s_genre = 'blues';
                 break;
-            case preg_match('/folk|ethnic/', $s_genre) :
+            case preg_match('/folk|ethnic|celtic/', $s_genre) :
                 $s_genre = 'folk';
                 break;
             case preg_match('/country/', $s_genre) :
@@ -68,8 +68,14 @@ class MusicOrganizer_MetaData
             case preg_match('/emo|ska|punk/', $s_genre) :
                 $s_genre = 'punk';
                 break;
+            case preg_match('/rap|hiphop|nederhop|r&b|swingbeat/', $s_genre) :
+                $s_genre = 'Hip-Hop_-_R&B';
+                break;
             case preg_match('/metal/', $s_genre) :
                 $s_genre = 'metal';
+                break;
+            case preg_match('/nederlands/', $s_genre) :
+                $s_genre = 'nederlands';
                 break;
             case preg_match('/reggae/', $s_genre) :
                 $s_genre = 'reggae';
@@ -80,8 +86,14 @@ class MusicOrganizer_MetaData
             case preg_match('/dance|house|rave|techno|club|electro/', $s_genre) :
                 $s_genre = 'dance';
                 break;
+            case preg_match('/piratenfeest/', $s_genre) :
+                $s_genre = 'feest';
+                break;
             case preg_match('/pop|top/', $s_genre) :
                 $s_genre = 'pop';
+                break;
+            case preg_match('/scandinavian/', $s_genre) :
+                $s_genre = 'scandinavian';
                 break;
             default :
                 throw new Exception('Could not map genre ' . $s_genre);
