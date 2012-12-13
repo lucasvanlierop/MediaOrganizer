@@ -3,6 +3,12 @@ namespace MediaOrganizer;
 
 class GenreToDirMapper
 {
+    /**
+     * @param $s_genre
+     * @return mixed|string
+     * @throws \Exception
+     * @todo support subgenres for Dance
+     */
     public function toDir($s_genre)
     {
         $s_genre = preg_replace('/[^a-z]*/', '', strtolower($s_genre));

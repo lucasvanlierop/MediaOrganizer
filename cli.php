@@ -26,5 +26,6 @@ require_once "MetaData.php";
 require_once "GenreToDirMapper.php";
 require_once "FileVisitor.php";
 require_once "File/NameFilter/SingleTrackFilter.php";
+require_once "File/NameFilter/AlbumTrackFilter.php";
 $musicOrganizer = new MusicOrganizer();
 $musicOrganizer->run();

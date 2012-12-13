@@ -181,18 +181,6 @@ class File
         return $dir . DIRECTORY_SEPARATOR . $file;
     }
 
-    protected function _buildDefaultFileName()
-    {
-        $dir = $this->_destinationDirectory
-            . $subGenreDir . DIRECTORY_SEPARATOR
-            . $artist . DIRECTORY_SEPARATOR;
-        $file = '';
-        if (!empty($album)) {
-            $dir .= $album . DIRECTORY_SEPARATOR;
-            $file .= $track . '_';
-        }
-        $file .= $title . '.mp3';
-        return $dir . DIRECTORY_SEPARATOR . $file;
-    }
+
 
 }
