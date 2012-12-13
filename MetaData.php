@@ -53,9 +53,13 @@ class MusicOrganizer_MetaData
             case preg_match('/blues/', $s_genre) :
                 $s_genre = 'blues';
                 break;
+            case preg_match('/folk|ethnic/', $s_genre) :
+                $s_genre = 'folk';
+                break;
             case preg_match('/country/', $s_genre) :
                 $s_genre = 'country';
                 break;
+            // @todo correct
             case preg_match('/grunge|heavy|punk|metal/', $s_genre) :
                 $s_genre = 'rock_hard';
                 break;
