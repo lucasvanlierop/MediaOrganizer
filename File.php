@@ -3,6 +3,9 @@ class MusicOrganizer_File
 {
     private $_filePath;
 
+    /**
+     * @var MusicOrganizer_MetaData
+     */
     private $metaData;
 
     public function factory($filePath)
@@ -34,6 +37,9 @@ class MusicOrganizer_File
         echo PHP_EOL;
     }
 
+    /**
+     * @return MusicOrganizer_MetaData
+     */
     public function getMetaData() {
         if(empty($this->metaData)) {
             $this->metaData = new MusicOrganizer_MetaData($this->_filePath);
@@ -45,8 +51,7 @@ class MusicOrganizer_File
     {
         echo "parsing file " . $this->_filePath . PHP_EOL;
 
-        $fileInfo = $this->getMetaData()->getComments();
-        
+
         // Disabled for now
 //        if ($this instanceof MusicOrganizer_File_Mp3) {
 //            $this->_createAudioHashSoftLink();
@@ -59,7 +64,7 @@ class MusicOrganizer_File
 //           // $this->_
 //        }
 
-        $this->rename($this->_buildFilename($fileInfo));
+        $this->rename($this->_buildFilename());
     }
 
     /**
@@ -135,61 +140,61 @@ class MusicOrganizer_File
         }
     }
 
-    protected function _buildFilename(array $info)
+    /**
+     * @todo support unicode
+     */
+    protected function _buildFilename()
     {
-        $comments = $info['comments'];
-        if (empty($comments['artist'])
-            || empty($comments['title'])
-            || empty($comments['genre'])) {
-            return;
-        }
-
         $artist = $this->metaData->buildArtist();
         $album = $this->metaData->buildAlbum();
         $title = $this->metaData->buildTitle();
         $track = $this->metaData->buildTrackNr();
 
-
-        echo PHP_EOL . $artist . '-' . $album . '-' . $track . '-' . $title;
-
-        return;
+        if (empty($artist) || empty($title)) {
+            return;
+        }
 
         // Genre
         $genre = $this->metaData->buildGenre();
-        $org_genre = $genre;
-        // todo clean genre
-        // todo use folder as genre
-        $genre_dir = $this->_destinationDirectory . '_genres_found/' . $genre;
-        if (!file_exists($genre_dir)) {
-            mkdir($genre_dir, 0777, true);
-        }
-        $genre = _mapGenre($genre);
-        if ('div' == $genre) {
-            $genre = $this->metaData->_mapGenre($sourceDirectory);
-        }
 
 
-        if (preg_match('/radio-soulwax/i', $album)) {
-            $comments['album_artist'][0] = '2-many-djs';
-        }
+//        $org_genre = $genre;
+//        // todo clean genre
+//        // todo use folder as genre
+//        $genre_dir = $this->_destinationDirectory . '_genres_found/' . $genre;
+//        if (!file_exists($genre_dir)) {
+//            mkdir($genre_dir, 0777, true);
+//        }
 
-        $fullFileNameParts = explode(DIRECTORY_SEPARATOR, str_replace(ROOT_DIR, '', $FullFileName));
-        $mainGenre = $fullFileNameParts[0];
+//        $genre = _mapGenre($genre);
+//        if ('div' == $genre) {
+//            $genre = $this->metaData->_mapGenre($sourceDirectory);
+//        }
 
-       // @todo move
-        $subGenreDir = $mainGenre;
-        if ('Dance' == $mainGenre) {
-            $subGenreDir .= DIRECTORY_SEPARATOR . $fullFileNameParts[1];
-        }
+        // @todo test code
+        return $genre . DIRECTORY_SEPARATOR . $artist . DIRECTORY_SEPARATOR . $album . DIRECTORY_SEPARATOR . $track . '-' . $title;
 
-        if (isset($comments['album_artist'][0])) {
-            $file = $this->_buildCompilationFileName();
-        } else {
-            $file = $this->_buildDefaultFileName();
-        }
+//        if (preg_match('/radio-soulwax/i', $album)) {
+//            $comments['album_artist'][0] = '2-many-djs';
+//        }
 
-        $file_path = $dir . $file;
-        return $file_path;
+//        $fullFileNameParts = explode(DIRECTORY_SEPARATOR, str_replace(ROOT_DIR, '', $this->_filePath));
+//        $mainGenre = $fullFileNameParts[0];
+//
+//       // @todo move
+//        $subGenreDir = $mainGenre;
+//        if ('Dance' == $mainGenre) {
+//            $subGenreDir .= DIRECTORY_SEPARATOR . $fullFileNameParts[1];
+//        }
+
+//        if (isset($comments['album_artist'][0])) {
+//            $file = $this->_buildCompilationFileName();
+//        } else {
+//            $file = $this->_buildDefaultFileName();
+//        }
+//
+//        $file_path = $dir . $file;
+//        return $file_path;
     }
 
 
