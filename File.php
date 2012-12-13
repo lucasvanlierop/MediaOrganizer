@@ -23,7 +23,7 @@ class File
                 return new \MediaOrganizer\File\Type\Mp3($filePath);
         }
 
-        throw new Exception('Unknown file format');
+        throw new \Exception('Unknown file format');
     }
 
     protected function __construct($filePath) {
