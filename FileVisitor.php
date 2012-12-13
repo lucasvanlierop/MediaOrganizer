@@ -56,6 +56,7 @@ class FileVisitor
         echo "scannining file: " . $file->getPath() . "\n";
 
         $fileNameFilters = array(
+            new \MediaOrganizer\File\NameFilter\CompilationTrackFilter($this->getRootDir()),
             new \MediaOrganizer\File\NameFilter\AlbumTrackFilter($this->getRootDir()),
             new \MediaOrganizer\File\NameFilter\SingleTrackFilter($this->getRootDir())
         );

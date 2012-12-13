@@ -166,20 +166,6 @@ class File
     }
 
 
-    protected function _buildCompilationFileName()
-    {
-        $albumArtist = _cleanName($comments['album_artist'][0]);
-        $dir = $this->_destinationDirectory
-            . $subGenreDir . DIRECTORY_SEPARATOR
-            . $albumArtist . DIRECTORY_SEPARATOR
-            . $album . DIRECTORY_SEPARATOR;
-        $file = '';
-        $file .= $track . '_';
-        //"todo get extension from file
-        $file .= $artist . '-' . $title . '.mp3';
-
-        return $dir . DIRECTORY_SEPARATOR . $file;
-    }
 
 
 
