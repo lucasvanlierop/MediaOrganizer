@@ -8,7 +8,11 @@ class MusicOrganizer_File
      */
     private $metaData;
 
-    public function factory($filePath)
+    public function accept(\MediaOrganizer\FileVisitor $fileVisitor) {
+        $fileVisitor->visit($this);
+    }
+
+    public static function factory($filePath)
     {
         $pathInfo = pathinfo($filePath);
         switch ($pathInfo['extension']) {
@@ -37,6 +41,11 @@ class MusicOrganizer_File
         echo PHP_EOL;
     }
 
+    public function getPath()
+    {
+        return $this->_filePath;
+    }
+
     /**
      * @return MusicOrganizer_MetaData
      */
@@ -49,9 +58,6 @@ class MusicOrganizer_File
 
     public function parse()
     {
-        echo "parsing file " . $this->_filePath . PHP_EOL;
-
-
         // Disabled for now
 //        if ($this instanceof MusicOrganizer_File_Mp3) {
 //            $this->_createAudioHashSoftLink();

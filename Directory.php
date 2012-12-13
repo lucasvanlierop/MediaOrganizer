@@ -1,58 +1,35 @@
 <?php
+use \MediaOrganizer\FileVisitor;
+
 class MusicOrganizer_Directory extends DirectoryIterator
 {
-    /**
-     * TODO: Add support for compilations
-     * TODO: Add support for disc nrs
-     * todo add support for unicode
-     */
-    public function convert()
+    public function getPath()
     {
-        $sourceDirectory = $this->getPathName();
+        return $this->getFilename();
+    }
 
-        echo "scannining dir: " . $sourceDirectory . "\n";
-
+    public function accept(FileVisitor $visitor)
+    {
         foreach ($this as $file) {
-            if(!$this->_convertEntry($file)) {
-                continue;
+            if($file->isDot()) {
+                return false;
+            } elseif ($file->isDir()) {
+                $directory = new self($file->getPathName());
+                $directory->accept($visitor);
+            } else {
+                try {
+                    $mediaFile = MusicOrganizer_File::factory($file->getPathName());
+                    $mediaFile->accept($visitor);
+                } catch (Exception $ex) {
+                    // @todo add logging
+                    continue;
+                }
             }
         }
+
+        $visitor->visit($this);
     }
 
-    protected function _convertEntry($file) {
-        if($file->isDot()) {
-            return false;
-        }
-
-        if ($file->isDir()) {
-            return $this->_convertDir($file);
-        } else if ($file->isFile()) {
-            return $this->_convertFile($file);
-        }
-    }
-
-    protected function _convertDir($file) {
-        // @todo convert this to filter
-        $directoryName = $file->getFilename();
-        if ($directoryName[0] == '_') {
-            return false;
-        }
-
-        $directory = new self($file->getPathName());
-        $directory->convert();
-    }
-
-    protected function _convertFile($file) {
-        try {
-           $file = MusicOrganizer_File::factory($file->getPathName());
-        } catch (Exception $ex) {
-           return false;
-        }
-
-        if (!$file->parse()) {
-            return false;
-        }
-    }
 
     protected function _removeEmptyChildDirectories($srcDir)
     {

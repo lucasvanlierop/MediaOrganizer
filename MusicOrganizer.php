@@ -1,4 +1,6 @@
 <?php
+use \MediaOrganizer\FileVisitor;
+
 class MusicOrganizer
 {
     private $_sourceDirectory;
@@ -21,7 +23,8 @@ class MusicOrganizer
     public function run()
     {
         $sourceDirectory = new MusicOrganizer_Directory($this->_sourceDirectory);
-        $sourceDirectory->convert();
+        $fileVisitor = new FileVisitor();
+        $sourceDirectory->accept($fileVisitor);
         //$sourceDirectory->RemoveEmptyDirs();
     }
 }
