@@ -25,5 +25,6 @@ require_once "File/Type/Mp3.php";
 require_once "MetaData.php";
 require_once "GenreToDirMapper.php";
 require_once "FileVisitor.php";
+require_once "File/NameFilter/SingleTrackFilter.php";
 $musicOrganizer = new MusicOrganizer();
 $musicOrganizer->run();

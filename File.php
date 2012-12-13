@@ -60,30 +60,6 @@ class File
     }
 
     /**
-     * @param $rootDir
-     */
-    public function parse($rootDir)
-    {
-        // Disabled for now
-//        if ($this instanceof \MediaOrganizer\File\Type\Mp3) {
-//            $this->_createAudioHashSoftLink();
-//        }
-
-        // Disabled for now
-//        if (!isset($info['comments'])) {
-//            $this->_getMetadataFromApi($file);
-//        } else {
-//           // $this->_
-//        }
-
-        try {
-            $this->rename($this->_buildFilename($rootDir));
-        } catch (Exception $ex) {
-            echo 'Error: ' . $ex->getMessage() . PHP_EOL;
-        }
-    }
-
-    /**
      * @param string $name
      * @return mixed|string
      */
@@ -114,7 +90,7 @@ class File
     /**
      * @param $filePath
      */
-    protected function rename($filePath)
+    public function rename($filePath)
     {
         if (!file_exists($filePath)) {
             $dirPath = dirname($filePath);
@@ -166,37 +142,7 @@ class File
      */
     protected function _buildFilename($rootDir)
     {
-        $artist = $this->metaData->buildArtist();
-        $album = $this->metaData->buildAlbum();
-        $title = $this->metaData->buildTitle();
-        $track = $this->metaData->buildTrackNr();
-
-        if (empty($artist) || empty($title)) {
-            return;
-        }
-
-        // Genre
-        $genre = $this->metaData->buildGenre();
-
-
-//        $org_genre = $genre;
-//        // todo clean genre
-//        // todo use folder as genre
-//        $genre_dir = $this->_destinationDirectory . '_genres_found/' . $genre;
-//        if (!file_exists($genre_dir)) {
-//            mkdir($genre_dir, 0777, true);
-//        }
-
-        // @todo pass to visitor
-        $genreToDirMapper = new \MediaOrganizer\GenreToDirMapper();
-        $genreDir = $genreToDirMapper->toDir($genre);
-
-        // @todo check for div
-
-        // @todo test code
-        return $rootDir . $genreDir . DIRECTORY_SEPARATOR . $artist . DIRECTORY_SEPARATOR . $album . DIRECTORY_SEPARATOR . $track . '-' . $title . '.mp3';
-
-//        if (preg_match('/radio-soulwax/i', $album)) {
+//          if (preg_match('/radio-soulwax/i', $album)) {
 //            $comments['album_artist'][0] = '2-many-djs';
 //        }
 

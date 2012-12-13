@@ -55,8 +55,20 @@ class FileVisitor
     protected function visitFile(\MediaOrganizer\File $file) {
         echo "scannining file: " . $file->getPath() . "\n";
 
-        if (!$file->parse($this->getRootDir())) {
-            return false;
+        $fileNameFilters = array(
+            new \MediaOrganizer\File\NameFilter\SingleTrackFilter($this->getRootDir())
+        );
+
+        // Try to rename file
+        foreach($fileNameFilters as $fileNameFilter) {
+            $filePath = $fileNameFilter->filter($file);
+            if ($filePath) {
+                try {
+                    $file->rename($filePath);
+                } catch (Exception $ex) {
+                    echo 'Error: ' . $ex->getMessage() . PHP_EOL;
+                }
+            }
         }
     }
 }
