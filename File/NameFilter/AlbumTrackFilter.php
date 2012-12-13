@@ -53,6 +53,6 @@ class AlbumTrackFilter
         return $this->rootDir . $genreDir .
             DIRECTORY_SEPARATOR . $artist .
             DIRECTORY_SEPARATOR . $album .
-            DIRECTORY_SEPARATOR . $trackNr . '_' . $title . '.mp3';
+            DIRECTORY_SEPARATOR . $trackNr . '-' . $title . '.mp3';
     }
 }
