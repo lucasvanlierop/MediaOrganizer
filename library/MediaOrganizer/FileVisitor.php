@@ -55,6 +55,7 @@ class FileVisitor
     protected function visitFile(\MediaOrganizer\File $file) {
         echo "scannining file: " . $file->getPath() . "\n";
 
+        // Name filters in order of importance (most complex one first)
         $fileNameFilters = array(
             new \MediaOrganizer\File\NameFilter\CompilationTrackFilter($this->getRootDir()),
             new \MediaOrganizer\File\NameFilter\AlbumTrackFilter($this->getRootDir()),
@@ -72,6 +73,7 @@ class FileVisitor
                 } catch (\Exception $ex) {
                     echo 'Error: ' . $ex->getMessage() . PHP_EOL;
                 }
+                break;
             }
         }
     }
