@@ -28,17 +28,18 @@ class File
     protected function __construct($filePath) {
         $this->_filePath = $filePath;
 
-        $hashDir = ROOT_DIR . '_hashes' . '/';
-        $hash = $this->getMetaData()->getHash();
-        $hashLink = $hashDir . $hash;
-
-        if(file_exists($hashLink)){
-            echo "\n org file = " . realpath($hashLink);
-            exit;
-        } else {
-            echo "\n NO org file = " . $hashLink;
-
-        }
+// @todo move this to a separate task
+//        $hashDir = ROOT_DIR . '_hashes' . '/';
+//        $hash = $this->getMetaData()->getHash();
+//        $hashLink = $hashDir . $hash;
+//
+//        if(file_exists($hashLink)){
+//            echo "\n org file = " . realpath($hashLink);
+//            exit;
+//        } else {
+//            echo "\n NO org file = " . $hashLink;
+//
+//        }
 
         echo PHP_EOL;
     }
