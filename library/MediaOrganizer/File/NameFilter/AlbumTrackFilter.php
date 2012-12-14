@@ -2,8 +2,9 @@
 namespace MediaOrganizer\File\NameFilter;
 
 use MediaOrganizer\File;
+use MediaOrganizer\File\NameFilter\NameFilterAbstract;
 
-class AlbumTrackFilter
+class AlbumTrackFilter extends NameFilterAbstract
 {
     /**
      * @var string
@@ -51,8 +52,8 @@ class AlbumTrackFilter
 
         // @todo fix hardcoded extension
         return $this->rootDir . $genreDir .
-            DIRECTORY_SEPARATOR . $artist .
-            DIRECTORY_SEPARATOR . $album .
-            DIRECTORY_SEPARATOR . $trackNr . '-' . $title . '.mp3';
+            DIRECTORY_SEPARATOR . $this->cleanName($artist) .
+            DIRECTORY_SEPARATOR . $this->cleanName($album) .
+            DIRECTORY_SEPARATOR . $trackNr . '-' . $this->cleanName($title) . '.mp3';
     }
 }

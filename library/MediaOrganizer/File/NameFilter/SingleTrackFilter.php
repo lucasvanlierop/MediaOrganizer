@@ -2,8 +2,9 @@
 namespace MediaOrganizer\File\NameFilter;
 
 use MediaOrganizer\File;
+use MediaOrganizer\File\NameFilter\NameFilterAbstract;
 
-class SingleTrackFilter
+class SingleTrackFilter extends NameFilterAbstract
 {
     /**
      * @var string
@@ -40,7 +41,7 @@ class SingleTrackFilter
 
         // @todo fix hardcoded extension
         return $this->rootDir . $genreDir .
-            DIRECTORY_SEPARATOR . $artist .
-            DIRECTORY_SEPARATOR . $title . '.mp3';
+            DIRECTORY_SEPARATOR . $this->cleanName($artist) .
+            DIRECTORY_SEPARATOR . $this->cleanName($title) . '.mp3';
     }
 }
