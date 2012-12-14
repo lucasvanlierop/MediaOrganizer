@@ -44,7 +44,7 @@ class GenreToDirMapper
     /**
      * @todo support subgenres for Dance
      */
-    private $genreTokenToDirMapping = array(
+    private $genreToDirMapping = array(
         'ambient' => 'Dance/Ambient',
         'alt' => 'Rock',
         'wave' => 'Rock',
@@ -92,8 +92,8 @@ class GenreToDirMapper
         }
 
         $simplifiedGenre = preg_replace('/[^a-z]*/', '', strtolower($s_genre));
-        foreach($this->genreTokenToDirMapping as $token => $dir) {
-            if (stristr($token, $simplifiedGenre)) {
+        foreach($this->genreToDirMapping as $genre => $dir) {
+            if ($genre == $simplifiedGenre  ) {
                 if (!in_array($dir, $this->knownDirs)) {
                     throw new \Exception("Uknown dir '{$dir}'' configured");
                 }
