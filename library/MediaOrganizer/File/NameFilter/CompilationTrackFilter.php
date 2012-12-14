@@ -60,7 +60,7 @@ class CompilationTrackFilter extends NameFilterAbstract
         return $this->rootDir . $genreDir .
             DIRECTORY_SEPARATOR . $this->cleanName($albumArtist) .
             DIRECTORY_SEPARATOR . $this->cleanName($album) .
-            DIRECTORY_SEPARATOR . $trackNr . '-' . $this->cleanName($artist) . '-' . $this->cleanName($title) . '.mp3';
+            DIRECTORY_SEPARATOR . $trackNr . '-' . $this->cleanName($artist) . '_' . $this->cleanName($title) . '.mp3';
     }
 
     /**

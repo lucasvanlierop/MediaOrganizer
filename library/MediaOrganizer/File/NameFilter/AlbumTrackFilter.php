@@ -54,6 +54,6 @@ class AlbumTrackFilter extends NameFilterAbstract
         return $this->rootDir . $genreDir .
             DIRECTORY_SEPARATOR . $this->cleanName($artist) .
             DIRECTORY_SEPARATOR . $this->cleanName($album) .
-            DIRECTORY_SEPARATOR . $trackNr . '-' . $this->cleanName($title) . '.mp3';
+            DIRECTORY_SEPARATOR . $trackNr . '_' . $this->cleanName($title) . '.mp3';
     }
 }
