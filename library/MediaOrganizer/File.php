@@ -54,7 +54,7 @@ class File
      */
     public function getMetaData() {
         if(empty($this->metaData)) {
-            $this->metaData = new \MediaOrganizer\MetaData($this->_filePath);
+            $this->metaData = new \MediaOrganizer\File\MetaData($this->_filePath);
         }
         return $this->metaData;
     }

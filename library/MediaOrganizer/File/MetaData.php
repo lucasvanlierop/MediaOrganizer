@@ -1,5 +1,5 @@
 <?php
-namespace MediaOrganizer;
+namespace MediaOrganizer\File;
 
 class MetaData
 {
