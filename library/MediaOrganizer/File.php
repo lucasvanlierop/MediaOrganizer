@@ -40,8 +40,8 @@ class File
 //            echo "\n NO org file = " . $hashLink;
 //
 //        }
-
-        echo PHP_EOL;
+//
+//        echo PHP_EOL;
     }
 
     public function getPath()
@@ -81,7 +81,7 @@ class File
                 "from : " . $this->_filePath . PHP_EOL .
                 'to   : ' . $filePath . PHP_EOL;
         }    else {
-            echo "skipping: " . $this->_filePath;
+            //echo "skipping: " . $this->_filePath;
         }
 
     }
