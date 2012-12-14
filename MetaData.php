@@ -1,5 +1,7 @@
 <?php
-class MusicOrganizer_MetaData
+namespace MediaOrganizer;
+
+class MetaData
 {
     private $_info;
 
@@ -8,7 +10,7 @@ class MusicOrganizer_MetaData
 
       //  echo PHP_EOL . 'FN: ' . $fileName;
         $this->_info = $id3->analyze($fileName);
-        getid3_lib::CopyTagsToComments($this->_info);
+        \getid3_lib::CopyTagsToComments($this->_info);
     }
 
     protected function _getId3Instance()
@@ -28,7 +30,7 @@ class MusicOrganizer_MetaData
             $tagwriter->tag_encoding   = $TaggingFormat;
             */
 
-            $id3Instance = new getID3;
+            $id3Instance = new \getID3;
             $id3Instance->setOption('md5_data', true);
      //       $id3Instance->setOption('md5_data_source', true); // where is this for?
     		$id3Instance->setOption('encoding', 'UTF-8');

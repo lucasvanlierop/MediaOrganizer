@@ -1,4 +1,6 @@
 <?php
+namespace MediaOrganizer;
+
 /**
  * Created by JetBrains PhpStorm.
  * User: lucasvanlierop

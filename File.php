@@ -1,5 +1,4 @@
 <?php
-
 namespace MediaOrganizer;
 
 class File
@@ -7,7 +6,7 @@ class File
     private $_filePath;
 
     /**
-     * @var MusicOrganizer_MetaData
+     * @var \MediaOrganizer\MetaData
      */
     private $metaData;
 
@@ -50,11 +49,11 @@ class File
     }
 
     /**
-     * @return MusicOrganizer_MetaData
+     * @return \MediaOrganizer\MetaData
      */
     public function getMetaData() {
         if(empty($this->metaData)) {
-            $this->metaData = new \MusicOrganizer_MetaData($this->_filePath);
+            $this->metaData = new \MediaOrganizer\MetaData($this->_filePath);
         }
         return $this->metaData;
     }

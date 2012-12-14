@@ -1,7 +1,9 @@
 <?php
-use \MediaOrganizer\FileVisitor;
+namespace MediaOrganizer;
 
-class MusicOrganizer_Directory extends DirectoryIterator
+use MediaOrganizer\FileVisitor;
+
+class Directory extends \DirectoryIterator
 {
     public function getPath()
     {
@@ -20,7 +22,7 @@ class MusicOrganizer_Directory extends DirectoryIterator
                 try {
                     $mediaFile = \MediaOrganizer\File::factory($file->getPathName());
                     $mediaFile->accept($visitor);
-                } catch (Exception $ex) {
+                } catch (\Exception $ex) {
                     // @todo add logging
                     continue;
                 }

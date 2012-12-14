@@ -27,7 +27,7 @@ class FileVisitor
     }
 
     public function visit($file) {
-        if ($file instanceof \MusicOrganizer_Directory) {
+        if ($file instanceof \MediaOrganizer\Directory) {
             $this->visitDir($file);
         } else if ($file instanceof \MediaOrganizer\File) {
             $this->visitFile($file);
@@ -35,10 +35,10 @@ class FileVisitor
     }
 
     /**
-     * @param \MusicOrganizer_Directory $dir
+     * @param \MediaOrganizer\Directory $dir
      * @return bool
      */
-    protected function visitDir(\MusicOrganizer_Directory $dir) {
+    protected function visitDir(\MediaOrganizer\Directory $dir) {
         // @todo convert this to filter
         $directoryName = $dir->getFilename();
         if ($directoryName[0] == '_') {
@@ -69,7 +69,7 @@ class FileVisitor
 
                 try {
                     $file->rename($filePath);
-                } catch (Exception $ex) {
+                } catch (\Exception $ex) {
                     echo 'Error: ' . $ex->getMessage() . PHP_EOL;
                 }
             }

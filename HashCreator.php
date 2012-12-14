@@ -1,7 +1,9 @@
 <?php
+namespace MediaOrganizer;
+
 /**
  */
-class MusicOrganizer_HashCreator
+class HashCreator
 {
     public function getHashDir() {
         return $hashDir = ROOT_DIR . '_hashes' . '/';
