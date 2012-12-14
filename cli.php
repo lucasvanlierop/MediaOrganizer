@@ -17,16 +17,23 @@ function printr($r, $s = '')
     echo $top . '<pre style="text-align:left;">' . print_r($r, true) . '</pre>' . $bottom . "\n";
 }
 
-// @Todo fix auto loading
-require_once "MusicOrganizer.php";
-require_once "Directory.php";
-require_once "File.php";
-require_once "File/Type/Mp3.php";
-require_once "MetaData.php";
-require_once "GenreToDirMapper.php";
-require_once "FileVisitor.php";
-require_once "File/NameFilter/SingleTrackFilter.php";
-require_once "File/NameFilter/AlbumTrackFilter.php";
-require_once "File/NameFilter/CompilationTrackFilter.php";
+function __autoload($className)
+{
+    require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . str_replace('\\', DIRECTORY_SEPARATOR, $className) . '.php';
+}
+
+
+
+//// @Todo fix auto loading
+//require_once "MusicOrganizer.php";
+//require_once "Directory.php";
+//require_once "File.php";
+//require_once "File/Type/Mp3.php";
+//require_once "MetaData.php";
+//require_once "GenreToDirMapper.php";
+//require_once "FileVisitor.php";
+//require_once "File/NameFilter/SingleTrackFilter.php";
+//require_once "File/NameFilter/AlbumTrackFilter.php";
+//require_once "File/NameFilter/CompilationTrackFilter.php";
 $musicOrganizer = new \MediaOrganizer\MusicOrganizer();
 $musicOrganizer->run();

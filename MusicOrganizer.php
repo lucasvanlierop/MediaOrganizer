@@ -17,11 +17,6 @@ class MusicOrganizer
         $this->_sourceDirectory = $musicDir;
     }
 
-    public function autoload($className)
-    {
-
-    }
-
     public function run()
     {
         $sourceDirectory = new \MediaOrganizer\Directory($this->_sourceDirectory);
