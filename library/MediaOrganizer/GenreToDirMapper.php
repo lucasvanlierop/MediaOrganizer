@@ -3,68 +3,89 @@ namespace MediaOrganizer;
 
 class GenreToDirMapper
 {
+    private $knownDirs = array(
+        'Blues',
+        'Disco',
+        'Folk',
+        'Icelandic-Scandinavian',
+        'Oldies',
+        'Pop',
+        '80s',
+        'Componisten-Klassiek',
+        'Diversen',
+        'Funk-Soul',
+        'Jazz',
+        'Metal',
+        'Punk-Ska-Emo',
+        'Rock',
+        'Apart',
+        'Dance',
+        'Feest',
+        'Hiphop-RB',
+        'SingerSongwriter-Solo-Rustig'
+    );
+
+    /**
+     * @todo support subgenres for Dance
+     */
+    private $genreTokenToDirMapping = array(
+        'ambient' => 'Dance/Ambient',
+        'alt' => 'Rock',
+        'wave' => 'Rock',
+        'hippie' => 'Rock',
+        'indie' => 'Rock',
+        'rock' => 'Rock',
+        'blues' => 'Blues',
+        'folk' => 'Folk',
+        'ethnic' => 'Folk',
+        'celtic' => 'Folk',
+        'country' => 'Country',
+        'emo' => 'Punk',
+        'ska' => 'Punk',
+        'punk' => 'Punk',
+        'rap' => 'Hiphop-RB',
+        'hiphop' => 'Hiphop-RB',
+        'nederhop' => 'Hiphop-RB',
+        'r&b' => 'Hiphop-RB',
+        'swingbeat' => 'Hiphop-RB',
+        'metal' => 'Metal',
+        'nederlands' => 'Nederlandstalig',
+        'reggae' => 'Reggae',
+        'singersongwriter' => 'Singer_songwriter-solo',
+        'dance' => 'Dance/Diversen',
+        'house' => 'Dance/House-Techno',
+        'rave' => 'Dance/Rave',
+        'techno' => 'Dance/House-Techno',
+        'club' => 'Dance/Club',
+        'electro' => 'Dance/Electro',
+        'piratenfeest' => 'Feest',
+        'schlager' => 'Feest',
+        'pop' => 'Pop',
+        'scandinavian' => 'Scandinavian',
+    );
+
     /**
      * @param $s_genre
-     * @return mixed|string
+     * @return string
      * @throws \Exception
-     * @todo support subgenres for Dance
      */
     public function toDir($s_genre)
     {
-        $s_genre = preg_replace('/[^a-z]*/', '', strtolower($s_genre));
-
-        switch (true) {
-            case preg_match('/ambient/', $s_genre) :
-                $s_genre = 'Dance';
-                break;
-            case preg_match('/alt|emo|wave|hippie|indie|rock/', $s_genre) :
-                $s_genre = 'Rock';
-                break;
-            case preg_match('/blues/', $s_genre) :
-                $s_genre = 'Blues';
-                break;
-            case preg_match('/folk|ethnic|celtic/', $s_genre) :
-                $s_genre = 'Folk';
-                break;
-            case preg_match('/country/', $s_genre) :
-                $s_genre = 'Country';
-                break;
-            // @todo correct
-            case preg_match('/emo|ska|punk/', $s_genre) :
-                $s_genre = 'Punk';
-                break;
-            case preg_match('/rap|hiphop|nederhop|r&b|swingbeat/', $s_genre) :
-                $s_genre = 'Hiphop-RB';
-                break;
-            case preg_match('/metal/', $s_genre) :
-                $s_genre = 'Metal';
-                break;
-            case preg_match('/nederlands/', $s_genre) :
-                $s_genre = 'Nederlandstalig';
-                break;
-            case preg_match('/reggae/', $s_genre) :
-                $s_genre = 'Reggae';
-                break;
-            case preg_match('/singer|songwriter|solo/', $s_genre) :
-                $s_genre = 'Singer_songwriter';
-                break;
-            case preg_match('/dance|house|rave|techno|club|electro/', $s_genre) :
-                $s_genre = 'Dance';
-                break;
-            case preg_match('/piratenfeest/', $s_genre) :
-                $s_genre = 'Feest';
-                break;
-            case preg_match('/pop|top/', $s_genre) :
-                $s_genre = 'Pop';
-                break;
-            case preg_match('/scandinavian/', $s_genre) :
-                $s_genre = 'Scandinavian';
-                break;
-            default :
-                throw new \Exception('Could not map genre ' . $s_genre);
-                break;
+        if (empty($s_genre)) {
+            throw new \Exception("Could not map empty genre");
         }
-        return $s_genre;
-    }
 
+        $simplifiedGenre = preg_replace('/[^a-z]*/', '', strtolower($s_genre));
+        foreach($this->genreTokenToDirMapping as $token => $dir) {
+            if (stristr($token, $simplifiedGenre)) {
+                if (!in_array($dir, $this->knownDirs)) {
+                    throw new \Exception("Uknown dir '{$dir}'' configured");
+                }
+
+                return $dir;
+            }
+        }
+
+        throw new \Exception("Could not map genre '{$s_genre}'");
+    }
 }
