@@ -53,7 +53,7 @@ class FileVisitor
      * @return bool
      */
     protected function visitFile(\MediaOrganizer\File $file) {
-        echo "scannining file: " . $file->getPath() . "\n";
+        //echo "scannining file: " . $file->getPath() . "\n";
 
         // Name filters in order of importance (most complex one first)
         $fileNameFilters = array(
