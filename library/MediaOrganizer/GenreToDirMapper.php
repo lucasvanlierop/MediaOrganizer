@@ -34,7 +34,7 @@ class GenreToDirMapper
                 $s_genre = 'Punk';
                 break;
             case preg_match('/rap|hiphop|nederhop|r&b|swingbeat/', $s_genre) :
-                $s_genre = 'Hip-Hop_-_R&B';
+                $s_genre = 'Hiphop-RB';
                 break;
             case preg_match('/metal/', $s_genre) :
                 $s_genre = 'Metal';
