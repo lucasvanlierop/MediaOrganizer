@@ -32,12 +32,6 @@ class AlbumTrackFilter extends NameFilterAbstract
             return;
         }
 
-        // @todo format track
-        $trackNr = $metadata->buildTrackNr();
-        if(empty($trackNr)) {
-            return;
-        }
-        
         $title = $metadata->buildTitle();
         if(empty($title)) {
             return;
@@ -50,10 +44,18 @@ class AlbumTrackFilter extends NameFilterAbstract
         $genreToDirMapper = new \MediaOrganizer\GenreToDirMapper();
         $genreDir = $genreToDirMapper->toDir($genre);
 
+        // Try to prefix track number
+        $numberedTitle = $this->cleanName($title);
+        // @todo format track
+        $trackNr = $metadata->buildTrackNr();
+        if(!empty($trackNr)) {
+            $numberedTitle = $trackNr . '_' . $numberedTitle;
+        }
+
         // @todo fix hardcoded extension
         return $this->rootDir . $genreDir .
             DIRECTORY_SEPARATOR . $this->cleanName($artist) .
             DIRECTORY_SEPARATOR . $this->cleanName($album) .
-            DIRECTORY_SEPARATOR . $trackNr . '_' . $this->cleanName($title) . '.mp3';
+            DIRECTORY_SEPARATOR . $numberedTitle . '.mp3';
     }
 }
