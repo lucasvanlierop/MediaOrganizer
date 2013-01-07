@@ -57,7 +57,7 @@ class DiscogsClient
     }
 
 
-    // @todo use zend http client
+    // @todo use guzzle
     protected function _loadUrl($url)
     {
         $curlResource = curl_init($url);
