@@ -9,6 +9,7 @@ abstract class NameFilterAbstract
      */
     protected function cleanName($name)
     {
+        // @todo move 'the ' prefix to  ' (the)' suffix
         // Replace unwanted characters
         $replacements = array(
             '/[.]/'        => '',       // Unknown characters
