@@ -8,9 +8,15 @@ class FileVisitor
      */
     private $rootDir;
 
-    public function __construct($rootDir)
+    /**
+     * @var array
+     */
+    private $config;
+
+    public function __construct($rootDir, array $config)
     {
         $this->rootDir = $rootDir;
+        $this->config = $config;
     }
 
     /**
@@ -51,7 +57,8 @@ class FileVisitor
         //echo "scannining file: " . $file->getPath() . "\n";
 
         $tasks = array(
-            new \MediaOrganizer\Visitor\FileVisitor\Task\RenameTask($this->getRootDir())
+            new \MediaOrganizer\Visitor\FileVisitor\Task\AddMetaDataTask(),
+            new \MediaOrganizer\Visitor\FileVisitor\Task\RenameTask($this->getRootDir(), $this->config)
         );
 
         foreach($tasks as $task) {

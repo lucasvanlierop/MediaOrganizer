@@ -19,15 +19,21 @@ class RenameTask
      */
     private $filters;
 
-    public function __construct($rootDir)
+    /**
+     * @param string $rootDir
+     * @param array $config
+     */
+    public function __construct($rootDir, array $config)
     {
         $this->rootDir = $rootDir;
 
+        $genreToDirMapper = new \MediaOrganizer\GenreToDirMapper($config['genre']);
+
         // Filters in order of importance (most complex one first)
         $this->filters = array(
-            new CompilationTrackFilter($this->rootDir),
-            new AlbumTrackFilter($this->rootDir),
-            new SingleTrackFilter($this->rootDir)
+            new CompilationTrackFilter($this->rootDir, $genreToDirMapper),
+            new AlbumTrackFilter($this->rootDir, $genreToDirMapper),
+            new SingleTrackFilter($this->rootDir, $genreToDirMapper)
         );
     }
 

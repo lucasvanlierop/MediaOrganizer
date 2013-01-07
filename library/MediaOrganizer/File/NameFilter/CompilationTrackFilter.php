@@ -2,6 +2,7 @@
 namespace MediaOrganizer\File\NameFilter;
 
 use MediaOrganizer\File;
+use MediaOrganizer\GenreToDirMapper;
 use MediaOrganizer\File\NameFilter\NameFilterAbstract;
 
 /**
@@ -16,11 +17,17 @@ class CompilationTrackFilter extends NameFilterAbstract
     private $rootDir;
 
     /**
+     * @var GenreToDirMapper
+     */
+    private $genreToDirMapper;
+
+    /**
      * @param string $rootDir
      */
-    public function __construct($rootDir)
+    public function __construct($rootDir, GenreToDirMapper $genreToDirMapper)
     {
         $this->rootDir = $rootDir;
+        $this->genreToDirMapper = $genreToDirMapper;
     }
 
     public function filter(File $file)
@@ -55,9 +62,7 @@ class CompilationTrackFilter extends NameFilterAbstract
         // Genre
         $genre = $metadata->getGenre();
 
-        // @todo pass to visitor
-        $genreToDirMapper = new \MediaOrganizer\GenreToDirMapper();
-        $genreDir = $genreToDirMapper->toDir($genre);
+        $genreDir = $this->genreToDirMapper->toDir($genre);
 
         // Try to prefix track number
         $numberedTitle = $this->cleanName($artist) . '-' . $this->cleanName($title);

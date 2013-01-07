@@ -3,82 +3,23 @@ namespace MediaOrganizer;
 
 class GenreToDirMapper
 {
-    private $knownDirs = array(
-        'Blues',
-        'Disco',
-        'Folk',
-        'Icelandic-Scandinavian',
-        'Oldies',
-        'Pop',
-        '80s',
-        'Componisten-Klassiek',
-        'Diversen',
-        'Funk-Soul',
-        'Jazz',
-        'Metal',
-        'Punk-Ska-Emo',
-        'Rock',
-        'Apart',
-        'Dance\AcidHouse',
-        'Dance\Breakbeat',
-        'Dance\Club',
-        'Dance\Deephouse-Progressive',
-        'Dance\Diversen',
-        'Dance\Electro',
-        'Dance\Eurodance',
-        'Dance\Happy_Hardcore',
-        'Dance\Hardcore-Hardstyle-jump',
-        'Dance\Houseclassics',
-        'Dance\House-Techno',
-        'Dance\Jungle-DrumBass-Dubstep',
-        'Dance\Lounge',
-        'Dance\Minimal',
-        'Dance\Rave',
-        'Dance\Trance',
-        'Dance\Triphop',
-        'Feest',
-        'Hiphop-RB',
-        'SingerSongwriter-Solo-Rustig'
-    );
+    /**
+     * @var array
+     */
+    private $knownDirs;
 
     /**
-     *
+     * @var array
      */
-    private $genreToDirMapping = array(
-        'ambient' => 'Dance/Ambient',
-        'alt' => 'Rock',
-        'wave' => 'Rock',
-        'hippie' => 'Rock',
-        'indie' => 'Rock',
-        'rock' => 'Rock',
-        'blues' => 'Blues',
-        'folk' => 'Folk',
-        'ethnic' => 'Folk',
-        'celtic' => 'Folk',
-        'country' => 'Country',
-        'emo' => 'Punk',
-        'ska' => 'Punk',
-        'punk' => 'Punk',
-        'rap' => 'Hiphop-RB',
-        'hiphop' => 'Hiphop-RB',
-        'nederhop' => 'Hiphop-RB',
-        'r&b' => 'Hiphop-RB',
-        'swingbeat' => 'Hiphop-RB',
-        'metal' => 'Metal',
-        'nederlands' => 'Nederlandstalig',
-        'reggae' => 'Reggae',
-        'singersongwriter' => 'Singer_songwriter-solo',
-        'dance' => 'Dance/Diversen',
-        'house' => 'Dance/House-Techno',
-        'rave' => 'Dance/Rave',
-        'techno' => 'Dance/House-Techno',
-        'club' => 'Dance/Club',
-        'electro' => 'Dance/Electro',
-        'piratenfeest' => 'Feest',
-        'schlager' => 'Feest',
-        'pop' => 'Pop',
-        'scandinavian' => 'Scandinavian',
-    );
+    private $genreToDirMapping;
+
+    /**
+     * @param array $genreConfig
+     */
+    public function __construct(array $genreConfig) {
+        $this->knownDirs = $genreConfig['knownDirs'];
+        $this->genreToDirMapping = $genreConfig['dirMapping'];
+    }
 
     /**
      * @param $s_genre
