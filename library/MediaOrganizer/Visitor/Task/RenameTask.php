@@ -6,7 +6,7 @@ use MediaOrganizer\File\NameFilter\CompilationTrackFilter;
 use MediaOrganizer\File\NameFilter\AlbumTrackFilter;
 use MediaOrganizer\File\NameFilter\SingleTrackFilter;
 
-class Rename
+class RenameTask
     implements TaskInterface
 {
     /**

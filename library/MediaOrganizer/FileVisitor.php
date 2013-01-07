@@ -56,7 +56,7 @@ class FileVisitor
         //echo "scannining file: " . $file->getPath() . "\n";
 
         $tasks = array(
-            new \MediaOrganizer\Visitor\Task\Rename($this->getRootDir())
+            new \MediaOrganizer\Visitor\Task\RenameTask($this->getRootDir())
         );
 
         foreach($tasks as $task) {
