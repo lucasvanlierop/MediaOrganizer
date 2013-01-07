@@ -61,6 +61,7 @@ class FileVisitor
             new \MediaOrganizer\Visitor\FileVisitor\Task\RenameTask($this->getRootDir(), $this->config)
         );
 
+        /** @var $task \MediaOrganizer\Visitor\FileVisitor\Task\TaskInterface */
         foreach($tasks as $task) {
             $task->execute($file);
         }
