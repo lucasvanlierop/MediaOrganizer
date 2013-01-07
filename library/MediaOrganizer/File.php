@@ -41,7 +41,7 @@ class File
     }
 
     /**
-     * @return \MediaOrganizer\MetaData
+     * @return \MediaOrganizer\File\MetaData
      */
     public function getMetaData() {
         if(empty($this->metaData)) {
