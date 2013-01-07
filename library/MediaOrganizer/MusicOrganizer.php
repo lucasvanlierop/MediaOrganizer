@@ -3,6 +3,13 @@ namespace MediaOrganizer;
 
 use \MediaOrganizer\FileVisitor;
 
+/**
+ * @todo support remote metadata fetching
+ * @todo support duplicate detection
+ * @too add logging
+ * @todo support multiple tasks
+ * @todo support command line support
+ */
 class MusicOrganizer
 {
     private $_sourceDirectory;
