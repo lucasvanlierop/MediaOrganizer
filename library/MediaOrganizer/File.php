@@ -67,6 +67,5 @@ class File
         }    else {
             //echo "skipping: " . $this->_filePath;
         }
-
     }
 }
