@@ -1,5 +1,5 @@
 <?php
-namespace MediaOrganizer\Visitor\Task;
+namespace MediaOrganizer\Visitor\FileVisitor\Task;
 
 use MediaOrganizer\File;
 use MediaOrganizer\File\NameFilter\CompilationTrackFilter;
