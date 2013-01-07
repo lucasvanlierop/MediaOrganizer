@@ -108,12 +108,6 @@ class File
 //        if ('Dance' == $mainGenre) {
 //            $subGenreDir .= DIRECTORY_SEPARATOR . $fullFileNameParts[1];
 //        }
-
-//        if (isset($comments['album_artist'][0])) {
-//            $file = $this->_buildCompilationFileName();
-//        } else {
-//            $file = $this->_buildDefaultFileName();
-//        }
 //
 //        $file_path = $dir . $file;
 //        return $file_path;

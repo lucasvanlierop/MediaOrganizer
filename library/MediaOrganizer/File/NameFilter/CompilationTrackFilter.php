@@ -24,8 +24,13 @@ class CompilationTrackFilter extends NameFilterAbstract
         $metadata = $file->getMetaData();
 
         $albumArtist = $metadata->buildAlbumArtist();
+        $isCompilation = $metadata->getIsCompilation();
         if (empty($albumArtist)) {
-            return;
+            if ($isCompilation) {
+                $albumArtist = 'various';
+            } else {
+                return;
+            }
         }
 
         $artist = $metadata->buildArtist();

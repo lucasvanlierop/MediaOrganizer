@@ -11,6 +11,11 @@ class MetaData
       //  echo PHP_EOL . 'FN: ' . $fileName;
         $this->_info = $id3->analyze($fileName);
         \getid3_lib::CopyTagsToComments($this->_info);
+
+//        if (isset($this->_info['comments']['part_of_a_compilation'])) {
+//            print_r($this->_info['comments']);die;
+//        }
+
     }
 
     protected function _getId3Instance()
@@ -51,6 +56,18 @@ class MetaData
     public function guessIsCompilation($albumTitle)
     {
 
+    }
+
+    /**
+     * @return bool
+     */
+    public function getIsCompilation()
+    {
+        if (!empty($this->_info['comments']['part_of_a_compilation']) ) {
+            return (bool) $this->_info['comments']['part_of_a_compilation'];
+        }
+
+        return false;
     }
 
     public function buildArtist()
