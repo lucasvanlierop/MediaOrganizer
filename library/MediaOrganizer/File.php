@@ -27,21 +27,6 @@ class File
 
     protected function __construct($filePath) {
         $this->_filePath = $filePath;
-
-// @todo move this to a separate task
-//        $hashDir = ROOT_DIR . '_hashes' . '/';
-//        $hash = $this->getMetaData()->getHash();
-//        $hashLink = $hashDir . $hash;
-//
-//        if(file_exists($hashLink)){
-//            echo "\n org file = " . realpath($hashLink);
-//            exit;
-//        } else {
-//            echo "\n NO org file = " . $hashLink;
-//
-//        }
-//
-//        echo PHP_EOL;
     }
 
     public function getPath()
