@@ -13,9 +13,15 @@ class FileVisitor
      */
     private $config;
 
+    /**
+     * @var string
+     */
+    private $currentGenreDir;
+
     public function __construct($rootDir, array $config)
     {
         $this->rootDir = $rootDir;
+
         $this->config = $config;
     }
 
@@ -40,10 +46,16 @@ class FileVisitor
      * @return bool
      */
     protected function visitDir(\MediaOrganizer\Directory $dir) {
+        $relativePath = str_replace($this->rootDir, '', $dir->getPath());
+
         // @todo convert this to filter
-        $directoryName = $dir->getFilename();
-        if ($directoryName[0] == '_') {
+        if ($relativePath[0] == '_') {
             return false;
+        }
+
+        // Update current genre dir
+        if (in_array($relativePath, $this->config['genre']['knownDirs'])) {
+            $this->currentGenreDir = $relativePath;
         }
 
         echo "scannining dir: " . $dir->getPath() . "\n";

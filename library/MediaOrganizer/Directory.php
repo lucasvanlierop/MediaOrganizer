@@ -5,16 +5,31 @@ use MediaOrganizer\FileVisitor;
 
 class Directory extends \DirectoryIterator
 {
+    /**
+     * @var
+     */
+    private $path;
+
+    public function __construct($path)
+    {
+        parent::__construct($path);
+
+        $this->path = $path;
+    }
+
     public function getPath()
     {
-        return $this->getFilename();
+        return $this->path;
     }
 
     public function accept(FileVisitor $visitor)
     {
+        // @todo check if it's ok to do this first
+        $visitor->visit($this);
+
         foreach ($this as $file) {
             if($file->isDot()) {
-                return false;
+                continue;
             } elseif ($file->isDir()) {
                 $directory = new self($file->getPathName());
                 $directory->accept($visitor);
@@ -28,7 +43,5 @@ class Directory extends \DirectoryIterator
                 }
             }
         }
-
-        $visitor->visit($this);
     }
 }
