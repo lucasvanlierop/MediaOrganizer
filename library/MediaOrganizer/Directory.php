@@ -31,7 +31,4 @@ class Directory extends \DirectoryIterator
 
         $visitor->visit($this);
     }
-
-
-
 }
