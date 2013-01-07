@@ -22,18 +22,18 @@ class SingleTrackFilter extends NameFilterAbstract
     public function filter(File $file)
     {
         $metadata = $file->getMetaData();
-        $artist = $metadata->buildArtist();
+        $artist = $metadata->getArtist();
         if (empty($artist)) {
             return;
         }
 
-        $title = $metadata->buildTitle();
+        $title = $metadata->getTitle();
         if(empty($title)) {
             return;
         }
 
         // Genre
-        $genre = $metadata->buildGenre();
+        $genre = $metadata->getGenre();
 
         // @todo pass to visitor
         $genreToDirMapper = new \MediaOrganizer\GenreToDirMapper();

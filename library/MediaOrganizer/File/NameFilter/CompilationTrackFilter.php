@@ -27,7 +27,7 @@ class CompilationTrackFilter extends NameFilterAbstract
     {
         $metadata = $file->getMetaData();
 
-        $albumArtist = $metadata->buildAlbumArtist();
+        $albumArtist = $metadata->getAlbumArtist();
         $isCompilation = $metadata->getIsCompilation();
         if (empty($albumArtist)) {
             if ($isCompilation) {
@@ -37,23 +37,23 @@ class CompilationTrackFilter extends NameFilterAbstract
             }
         }
 
-        $artist = $metadata->buildArtist();
+        $artist = $metadata->getArtist();
         if (empty($artist)) {
             return;
         }
 
-        $album = $metadata->buildAlbum();
+        $album = $metadata->getAlbum();
         if(empty($album)) {
             return;
         }
 
-        $title = $metadata->buildTitle();
+        $title = $metadata->getTitle();
         if(empty($title)) {
             return;
         }
         
         // Genre
-        $genre = $metadata->buildGenre();
+        $genre = $metadata->getGenre();
 
         // @todo pass to visitor
         $genreToDirMapper = new \MediaOrganizer\GenreToDirMapper();
@@ -62,7 +62,7 @@ class CompilationTrackFilter extends NameFilterAbstract
         // Try to prefix track number
         $numberedTitle = $this->cleanName($artist) . '-' . $this->cleanName($title);
         // @todo format track
-        $trackNr = $metadata->buildTrackNr();
+        $trackNr = $metadata->getTrackNr();
         if(!empty($trackNr)) {
             $numberedTitle = $trackNr . '_' . $numberedTitle;
         }

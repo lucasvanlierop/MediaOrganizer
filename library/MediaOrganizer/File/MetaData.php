@@ -70,7 +70,7 @@ class MetaData
         return false;
     }
 
-    public function buildArtist()
+    public function getArtist()
     {
         if (empty($this->_info['comments']['artist'])) {
             return;
@@ -80,7 +80,7 @@ class MetaData
         return $s_artist;
     }
 
-    public function buildAlbumArtist()
+    public function getAlbumArtist()
     {
         if (empty($this->_info['comments']['album_artist'])) {
             return;
@@ -89,7 +89,7 @@ class MetaData
         return $this->_info['comments']['album_artist'];
     }
 
-    public function buildTitle() {
+    public function getTitle() {
         if (empty($this->_info['comments']['title'])) {
             return;
         }
@@ -98,7 +98,7 @@ class MetaData
         return $s_title;
     }
 
-    public function buildGenre() {
+    public function getGenre() {
         if (empty($this->_info['comments']['genre'])) {
             return;
         }
@@ -108,7 +108,7 @@ class MetaData
         return $s_genre;
     }
 
-    public function buildAlbum()
+    public function getAlbum()
     {
         if (empty($this->_info['comments']['album'])) {
             return;
@@ -126,7 +126,7 @@ class MetaData
         return $s_album;
     }
 
-    public function buildTrackNr()
+    public function getTrackNr()
     {
         if (empty($this->_info['comments']['track_number'])) {
             return;
