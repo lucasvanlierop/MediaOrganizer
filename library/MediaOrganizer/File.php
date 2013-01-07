@@ -1,6 +1,10 @@
 <?php
 namespace MediaOrganizer;
 
+/**
+ * @todo support m4a
+ * @todo support wma
+ */
 class File
 {
     const EXTENSION = 'abstract';
