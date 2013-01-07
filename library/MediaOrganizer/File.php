@@ -3,6 +3,8 @@ namespace MediaOrganizer;
 
 class File
 {
+    const EXTENSION = 'abstract';
+
     private $_filePath;
 
     /**
@@ -42,6 +44,10 @@ class File
             $this->metaData = new \MediaOrganizer\File\MetaData($this->_filePath);
         }
         return $this->metaData;
+    }
+
+    public function getExtension() {
+        return static::EXTENSION;
     }
 
     /**

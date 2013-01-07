@@ -67,11 +67,11 @@ class CompilationTrackFilter extends NameFilterAbstract
             $numberedTitle = $trackNr . '_' . $numberedTitle;
         }
 
-        // @todo fix hardcoded extension
         return $this->rootDir . $genreDir .
             DIRECTORY_SEPARATOR . $this->cleanName($albumArtist) .
             DIRECTORY_SEPARATOR . $this->cleanName($album) .
-            DIRECTORY_SEPARATOR . $numberedTitle . '.mp3';
+            DIRECTORY_SEPARATOR . $numberedTitle .
+            '.' . $file->getExtension();
     }
 
     /**

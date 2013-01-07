@@ -39,9 +39,9 @@ class SingleTrackFilter extends NameFilterAbstract
         $genreToDirMapper = new \MediaOrganizer\GenreToDirMapper();
         $genreDir = $genreToDirMapper->toDir($genre);
 
-        // @todo fix hardcoded extension
         return $this->rootDir . $genreDir .
             DIRECTORY_SEPARATOR . $this->cleanName($artist) .
-            DIRECTORY_SEPARATOR . $this->cleanName($title) . '.mp3';
+            DIRECTORY_SEPARATOR . $this->cleanName($title) .
+            '.' . $file->getExtension();
     }
 }
