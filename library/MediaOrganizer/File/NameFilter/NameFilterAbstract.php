@@ -1,6 +1,9 @@
 <?php
 namespace MediaOrganizer\File\NameFilter;
 
+/**
+ * @todo support unicode
+ */
 abstract class NameFilterAbstract
 {
     /**
