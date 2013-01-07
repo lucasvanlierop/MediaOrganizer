@@ -70,36 +70,4 @@ class File
         }
 
     }
-
-
-
-    /**
-     * @param $rootDir
-     * @return string
-     *
-     * @todo support unicode
-     */
-    protected function _buildFilename($rootDir)
-    {
-//          if (preg_match('/radio-soulwax/i', $album)) {
-//            $comments['album_artist'][0] = '2-many-djs';
-//        }
-
-//        $fullFileNameParts = explode(DIRECTORY_SEPARATOR, str_replace(ROOT_DIR, '', $this->_filePath));
-//        $mainGenre = $fullFileNameParts[0];
-//
-//       // @todo move
-//        $subGenreDir = $mainGenre;
-//        if ('Dance' == $mainGenre) {
-//            $subGenreDir .= DIRECTORY_SEPARATOR . $fullFileNameParts[1];
-//        }
-//
-//        $file_path = $dir . $file;
-//        return $file_path;
-    }
-
-
-
-
-
 }
