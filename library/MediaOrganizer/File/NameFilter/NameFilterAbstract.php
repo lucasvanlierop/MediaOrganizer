@@ -2,7 +2,7 @@
 namespace MediaOrganizer\File\NameFilter;
 
 /**
- * @todo support unicode
+ * @todo add support for unicode
  */
 abstract class NameFilterAbstract
 {

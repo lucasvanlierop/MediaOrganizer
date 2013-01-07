@@ -4,6 +4,9 @@ namespace MediaOrganizer\File\NameFilter;
 use MediaOrganizer\File;
 use MediaOrganizer\File\NameFilter\NameFilterAbstract;
 
+/**
+ * @todo add support for disc nrs
+ */
 class AlbumTrackFilter extends NameFilterAbstract
 {
     /**

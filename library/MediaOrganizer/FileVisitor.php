@@ -1,11 +1,6 @@
 <?php
 namespace MediaOrganizer;
 
-/**
- * TODO: Add support for compilations
- * TODO: Add support for disc nrs
- * todo add support for unicode
- */
 class FileVisitor
 {
     /**

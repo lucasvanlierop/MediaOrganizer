@@ -4,6 +4,10 @@ namespace MediaOrganizer\File\NameFilter;
 use MediaOrganizer\File;
 use MediaOrganizer\File\NameFilter\NameFilterAbstract;
 
+/**
+ * @todo add support for disc nrs
+ * @todo Improve support for detecting compilations
+ */
 class CompilationTrackFilter extends NameFilterAbstract
 {
     /**
