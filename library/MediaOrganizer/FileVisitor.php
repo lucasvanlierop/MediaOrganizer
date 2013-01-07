@@ -55,26 +55,12 @@ class FileVisitor
     protected function visitFile(\MediaOrganizer\File $file) {
         //echo "scannining file: " . $file->getPath() . "\n";
 
-        // Name filters in order of importance (most complex one first)
-        $fileNameFilters = array(
-            new \MediaOrganizer\File\NameFilter\CompilationTrackFilter($this->getRootDir()),
-            new \MediaOrganizer\File\NameFilter\AlbumTrackFilter($this->getRootDir()),
-            new \MediaOrganizer\File\NameFilter\SingleTrackFilter($this->getRootDir())
+        $tasks = array(
+            new \MediaOrganizer\Visitor\Task\Rename($this->getRootDir())
         );
 
-        // Try to rename file
-        foreach($fileNameFilters as $fileNameFilter) {
-            $filePath = $fileNameFilter->filter($file);
-            if ($filePath) {
-                echo "name provided by " . get_class($fileNameFilter) . PHP_EOL;
-
-                try {
-                    $file->rename($filePath);
-                } catch (\Exception $ex) {
-                    echo 'Error: ' . $ex->getMessage() . PHP_EOL;
-                }
-                break;
-            }
+        foreach($tasks as $task) {
+            $task->execute($file);
         }
     }
 }
