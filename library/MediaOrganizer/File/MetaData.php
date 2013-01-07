@@ -77,8 +77,6 @@ class MetaData
         }
 
         $s_artist = $this->_info['comments']['artist'][0];
-        // @todo move this to rename filter
-        if (substr($s_artist, 0, 4) == 'The-') $s_artist = substr($s_artist, 4) . '_(the)';
         return $s_artist;
     }
 

@@ -12,7 +12,6 @@ abstract class NameFilterAbstract
      */
     protected function cleanName($name)
     {
-        // @todo move 'the ' prefix to  ' (the)' suffix
         // Replace unwanted characters
         $replacements = array(
             '/[.]/'        => '',       // Unknown characters
@@ -26,6 +25,9 @@ abstract class NameFilterAbstract
 
         // Concatenate every word
         $out = preg_replace('/( )+/', '-', $out);
+
+        // suffix 'the'
+        if (substr($out, 0, 4) == 'The-') $out = substr($out, 4) . '-(the)';
 
         return $out;
     }
