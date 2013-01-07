@@ -23,7 +23,6 @@ class HashTask
 
     public function execute(File $file)
     {
-        // @todo move this to a separate task
 //        $hashDir = ROOT_DIR . '_hashes' . '/';
 //        $hash = $this->getMetaData()->getHash();
 //        $hashLink = $hashDir . $hash;
