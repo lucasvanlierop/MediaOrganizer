@@ -42,7 +42,7 @@ class GenreToDirMapper
     );
 
     /**
-     * @todo support subgenres for Dance
+     *
      */
     private $genreToDirMapping = array(
         'ambient' => 'Dance/Ambient',
