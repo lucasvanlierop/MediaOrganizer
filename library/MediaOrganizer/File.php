@@ -44,13 +44,6 @@ class File
         return $this->metaData;
     }
 
-
-
-    protected function _createComparableName($name)
-    {
-        return trim(preg_replace('/[^a-z]+/', '', strtolower($name)));
-    }
-
     /**
      * @param $filePath
      */
