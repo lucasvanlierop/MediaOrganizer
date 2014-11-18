@@ -1,0 +1,64 @@
+{
+	"composerBinDir": "vendor\/bin",
+	"projectName": "MediaOrganizer",
+	"buildArtifacts": {
+		"enabled": true,
+		"path": "build\/artifacts"
+	},
+	"travis": {
+		"enabled": true,
+		"phpVersions": {
+			"1": "5.6",
+			"2": "5.5",
+			"3": "5.4",
+			"4": "5.3",
+			"5": "hhvm"
+		},
+		"env": {
+			"enabled": true,
+			"vars": [
+				"SYMFONY_ENV=ci"
+			]
+		},
+		"slack": {
+			"enabled": false
+		}
+	},
+	"enablePhpTools": true,
+	"enableComposer": false,
+	"enablePhpLint": true,
+	"enablePhpMessDetector": true,
+	"phpMdExcludePatterns": [
+
+	],
+	"enablePhpCodeSniffer": true,
+	"phpCodeSnifferCodingStyle": "PSR2",
+	"phpCsExcludeSymfony": false,
+	"phpCsExcludeCustomPatterns": [
+
+	],
+	"phpCsExcludePatterns": [
+
+	],
+	"enablePhpCopyPasteDetection": true,
+	"phpCpdExcludePatterns": [
+
+	],
+	"enablePhpSecurityChecker": true,
+	"phpSrcPath": [
+		"library"
+	],
+	"enablePhpUnit": true,
+	"customPhpUnitXml": false,
+	"phpTestsPath": [
+		"tests"
+	],
+	"enablePhpUnitAutoload": true,
+	"phpUnitAutoloadPath": "vendor\/autoload.php",
+	"enableJsTools": false,
+	"enableJsHint": false,
+	"enableBehat": false,
+	"enablePreCommitHook": true,
+	"md5Command": "md5sum",
+	"_qa_tools_run_completed": true
+}

@@ -1,6 +1,12 @@
 <?php
 namespace MediaOrganizer;
 
+/**
+ * Visits files in a collection
+ *
+ * Class FileVisitor
+ * @package MediaOrganizer
+ */
 class FileVisitor
 {
     /**
@@ -18,6 +24,10 @@ class FileVisitor
      */
     private $currentGenreDir;
 
+    /**
+     * @param string $rootDir
+     * @param array $config
+     */
     public function __construct($rootDir, array $config)
     {
         $this->rootDir = $rootDir;
@@ -33,7 +43,12 @@ class FileVisitor
         return $this->rootDir;
     }
 
-    public function visit($file) {
+    /**
+     * @param stdClass $file
+     * @return void
+     */
+    public function visit(stdClass $file)
+    {
         if ($file instanceof \MediaOrganizer\Directory) {
             $this->visitDir($file);
         } else if ($file instanceof \MediaOrganizer\File) {
@@ -43,9 +58,10 @@ class FileVisitor
 
     /**
      * @param \MediaOrganizer\Directory $dir
-     * @return bool
+     * @return boolean
      */
-    protected function visitDir(\MediaOrganizer\Directory $dir) {
+    protected function visitDir(\MediaOrganizer\Directory $dir)
+    {
         $relativePath = str_replace($this->rootDir, '', $dir->getPath());
 
         // @todo convert this to filter
@@ -57,15 +73,15 @@ class FileVisitor
         if (in_array($relativePath, $this->config['genre']['knownDirs'])) {
             $this->currentGenreDir = $relativePath;
         }
-
 //        echo "scannining dir: " . $dir->getPath() . "\n";
     }
 
     /**
      * @param \MediaOrganizer\File $file
-     * @return bool
+     * @return void
      */
-    protected function visitFile(\MediaOrganizer\File $file) {
+    protected function visitFile(\MediaOrganizer\File $file)
+    {
         //echo "scannining file: " . $file->getPath() . "\n";
 
         $tasks = array(
@@ -74,7 +90,7 @@ class FileVisitor
         );
 
         /** @var $task \MediaOrganizer\Visitor\FileVisitor\Task\TaskInterface */
-        foreach($tasks as $task) {
+        foreach ($tasks as $task) {
             $task->execute($file);
         }
     }

@@ -1,0 +1,21 @@
+{
+    "name": "lucasvanlierop/media-organizer",
+    "description": "A tool which can rename/move files based on metadata like ID3 tags.",
+    "authors": [
+        {
+            "name": "lucasvanlierop",
+            "email": "lucas@vanlierop.org"
+        }
+    ],
+    "require": {
+
+    },
+    "require-dev": {
+        "ibuildings/qa-tools": "1.*"
+    },
+    "autoload": {
+        "psr-4": {
+            "MediaOrganizer\\": "library/MediaOrganizer"
+        }
+    }
+}

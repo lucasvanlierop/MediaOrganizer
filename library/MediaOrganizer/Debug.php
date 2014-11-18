@@ -1,16 +1,25 @@
 <?php
 namespace MediaOrganizer;
 
+/**
+ * Debug helper, should be phased out in favor of a logger
+ *
+ * Class Debug
+ * @package MediaOrganizer
+ */
 class Debug
 {
+    /**
+     * @param string $r
+     * @param string $s
+     * @return void
+     */
     public function printR($r, $s = '')
     {
         if (!empty($s)) {
             $top = "<div style='background-color:whitesmoke;font-weight:bold;'>" . $s;
             $bottom = '</div>';
-        }
-        else
-        {
+        } else {
             $top = '';
             $bottom = '';
         }

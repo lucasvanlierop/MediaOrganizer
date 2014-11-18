@@ -6,8 +6,11 @@ use MediaOrganizer\File\NameFilter\CompilationTrackFilter;
 use MediaOrganizer\File\NameFilter\AlbumTrackFilter;
 use MediaOrganizer\File\NameFilter\SingleTrackFilter;
 
-class RenameTask
-    implements TaskInterface
+/**
+ * Class RenameTask
+ * @package MediaOrganizer\Visitor\FileVisitor\Task
+ */
+class RenameTask implements TaskInterface
 {
     /**
      * @var string
@@ -40,11 +43,12 @@ class RenameTask
     /**
      * Tries to rename file
      *
-     * @param \MediaOrganizer\File $file
+     * @param File $file
+     * @return void
      */
     public function execute(File $file)
     {
-        foreach($this->filters as $fileNameFilter) {
+        foreach ($this->filters as $fileNameFilter) {
             $filePath = $fileNameFilter->filter($file);
             if ($filePath) {
                 if ($filePath == $file->getPath()) {

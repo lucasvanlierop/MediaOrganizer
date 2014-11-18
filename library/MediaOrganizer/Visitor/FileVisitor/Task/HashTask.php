@@ -3,15 +3,26 @@ namespace MediaOrganizer\Visitor\FileVisitor\Task;
 
 use MediaOrganizer\File;
 
-// @todo make this work
-class HashTask
-    implements TaskInterface
+/**
+ * Class HashTask
+ * @package MediaOrganizer\Visitor\FileVisitor\Task
+ * @todo make this work
+ */
+class HashTask implements TaskInterface
 {
-    private  function getHashDir() {
-        return $hashDir = ROOT_DIR . '_hashes' . '/';
+    /**
+     * @return string
+     */
+    private function getHashDir()
+    {
+        return ROOT_DIR . '_hashes' . '/';
     }
 
-    protected function _createAudioHashSoftLink(\MediaOrganizer\File $file)
+    /**
+     * @param File $file
+     * @return void
+     */
+    protected function createAudioHashSoftLink(File $file)
     {
         $hash = $file->getHash();
         $command = 'ln -s "' . $file->getPath() . '" ' . $this->getHashDir() . $hash;
@@ -20,7 +31,10 @@ class HashTask
         echo "\n" . $command;
     }
 
-
+    /**
+     * @param File $file
+     * @return void
+     */
     public function execute(File $file)
     {
 //        $hashDir = ROOT_DIR . '_hashes' . '/';

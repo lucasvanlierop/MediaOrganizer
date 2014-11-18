@@ -1,6 +1,12 @@
 <?php
 namespace MediaOrganizer;
 
+/**
+ * Maps a given genre to a directory
+ *
+ * Class GenreToDirMapper
+ * @package MediaOrganizer
+ */
 class GenreToDirMapper
 {
     /**
@@ -10,33 +16,35 @@ class GenreToDirMapper
 
     /**
      * @var array
+     * @return void
      */
     private $genreToDirMapping;
 
     /**
      * @param array $genreConfig
      */
-    public function __construct(array $genreConfig) {
+    public function __construct(array $genreConfig)
+    {
         $this->knownDirs = $genreConfig['knownDirs'];
         $this->genreToDirMapping = $genreConfig['dirMapping'];
     }
 
     /**
-     * @param $s_genre
-     * @return string
+     * @param string $genre
+     * @return void
      * @throws \Exception
      */
-    public function toDir($s_genre)
+    public function toDir($genre)
     {
         return;
 
-        if (empty($s_genre)) {
+        if (empty($genre)) {
             throw new \Exception("Could not map empty genre");
         }
 
-        $simplifiedGenre = preg_replace('/[^a-z]*/', '', strtolower($s_genre));
-        foreach($this->genreToDirMapping as $genre => $dir) {
-            if ($genre == $simplifiedGenre  ) {
+        $simplifiedGenre = preg_replace('/[^a-z]*/', '', strtolower($genre));
+        foreach ($this->genreToDirMapping as $genre => $dir) {
+            if ($genre == $simplifiedGenre) {
                 if (!$this->isKnownDir($dir)) {
                     throw new \Exception("Uknown dir '{$dir}'' configured");
                 }
@@ -45,12 +53,12 @@ class GenreToDirMapper
             }
         }
 
-        throw new \Exception("Could not map genre '{$s_genre}'");
+        throw new \Exception("Could not map genre '{$genre}'");
     }
 
     /**
      * @param string $dir
-     * @return bool
+     * @return boolean
      */
     private function isKnownDir($dir)
     {

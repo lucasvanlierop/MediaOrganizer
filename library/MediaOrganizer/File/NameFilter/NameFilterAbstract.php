@@ -2,6 +2,8 @@
 namespace MediaOrganizer\File\NameFilter;
 
 /**
+ * Base class for name filters
+ *
  * @todo add support for unicode
  */
 abstract class NameFilterAbstract
@@ -14,9 +16,9 @@ abstract class NameFilterAbstract
     {
         // Replace unwanted characters
         $replacements = array(
-            '/[.\']/'        => '',       // Unknown characters
-            '/&/'          => 'and',    // And sign
-            '/[^\w()]+/'  => ' '       // Non word characters
+            '/[.\']/' => '',       // Unknown characters
+            '/&/' => 'and',    // And sign
+            '/[^\w()]+/' => ' '       // Non word characters
         );
         $out = preg_replace(array_keys($replacements), $replacements, $name);
 
@@ -27,7 +29,9 @@ abstract class NameFilterAbstract
         $out = preg_replace('/( )+/', '-', $out);
 
         // suffix 'the'
-        if (substr($out, 0, 4) == 'The-') $out = substr($out, 4) . '-(the)';
+        if (substr($out, 0, 4) == 'The-') {
+            $out = substr($out, 4) . '-(the)';
+        }
 
         return $out;
     }

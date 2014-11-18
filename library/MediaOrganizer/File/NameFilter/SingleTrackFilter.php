@@ -5,6 +5,12 @@ use MediaOrganizer\File;
 use MediaOrganizer\GenreToDirMapper;
 use MediaOrganizer\File\NameFilter\NameFilterAbstract;
 
+/**
+ * Filters album tracks by metadata
+ *
+ * Class SingleTrackFilter
+ * @package MediaOrganizer\File\NameFilter
+ */
 class SingleTrackFilter extends NameFilterAbstract
 {
     /**
@@ -19,6 +25,7 @@ class SingleTrackFilter extends NameFilterAbstract
 
     /**
      * @param string $rootDir
+     * @param GenreToDirMapper $genreToDirMapper
      */
     public function __construct($rootDir, GenreToDirMapper $genreToDirMapper)
     {
@@ -26,6 +33,11 @@ class SingleTrackFilter extends NameFilterAbstract
         $this->genreToDirMapper = $genreToDirMapper;
     }
 
+    /**
+     * @param File $file
+     * @return void
+     * @throws \Exception
+     */
     public function filter(File $file)
     {
         $metadata = $file->getMetaData();
@@ -35,7 +47,7 @@ class SingleTrackFilter extends NameFilterAbstract
         }
 
         $title = $metadata->getTitle();
-        if(empty($title)) {
+        if (empty($title)) {
             return;
         }
 
@@ -45,8 +57,8 @@ class SingleTrackFilter extends NameFilterAbstract
         $genreDir = $this->genreToDirMapper->toDir($genre);
 
         return $this->rootDir . $genreDir .
-            DIRECTORY_SEPARATOR . $this->cleanName($artist) .
-            DIRECTORY_SEPARATOR . $this->cleanName($title) .
-            '.' . $file->getExtension();
+        DIRECTORY_SEPARATOR . $this->cleanName($artist) .
+        DIRECTORY_SEPARATOR . $this->cleanName($title) .
+        '.' . $file->getExtension();
     }
 }

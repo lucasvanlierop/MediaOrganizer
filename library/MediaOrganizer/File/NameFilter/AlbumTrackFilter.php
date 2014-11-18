@@ -6,6 +6,8 @@ use MediaOrganizer\GenreToDirMapper;
 use MediaOrganizer\File\NameFilter\NameFilterAbstract;
 
 /**
+ * Filters album tracks by metadata
+ *
  * @todo add support for disc nrs
  */
 class AlbumTrackFilter extends NameFilterAbstract
@@ -22,6 +24,7 @@ class AlbumTrackFilter extends NameFilterAbstract
 
     /**
      * @param string $rootDir
+     * @param GenreToDirMapper $genreToDirMapper
      */
     public function __construct($rootDir, GenreToDirMapper $genreToDirMapper)
     {
@@ -29,6 +32,11 @@ class AlbumTrackFilter extends NameFilterAbstract
         $this->genreToDirMapper = $genreToDirMapper;
     }
 
+    /**
+     * @param File $file
+     * @return void
+     * @throws \Exception
+     */
     public function filter(File $file)
     {
         $metadata = $file->getMetaData();
@@ -38,15 +46,15 @@ class AlbumTrackFilter extends NameFilterAbstract
         }
 
         $album = $metadata->getAlbum();
-        if(empty($album)) {
+        if (empty($album)) {
             return;
         }
 
         $title = $metadata->getTitle();
-        if(empty($title)) {
+        if (empty($title)) {
             return;
         }
-        
+
         // Genre
         $genre = $metadata->getGenre();
 
@@ -56,14 +64,14 @@ class AlbumTrackFilter extends NameFilterAbstract
         $numberedTitle = $this->cleanName($title);
         // @todo format track
         $trackNr = $metadata->getTrackNr();
-        if(!empty($trackNr)) {
+        if (!empty($trackNr)) {
             $numberedTitle = $trackNr . '_' . $numberedTitle;
         }
 
         return $this->rootDir . $genreDir .
-            DIRECTORY_SEPARATOR . $this->cleanName($artist) .
-            DIRECTORY_SEPARATOR . $this->cleanName($album) .
-            DIRECTORY_SEPARATOR . $numberedTitle .
-            '.' . $file->getExtension();
+        DIRECTORY_SEPARATOR . $this->cleanName($artist) .
+        DIRECTORY_SEPARATOR . $this->cleanName($album) .
+        DIRECTORY_SEPARATOR . $numberedTitle .
+        '.' . $file->getExtension();
     }
 }
