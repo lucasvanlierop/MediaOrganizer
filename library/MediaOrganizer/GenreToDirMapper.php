@@ -28,6 +28,8 @@ class GenreToDirMapper
      */
     public function toDir($s_genre)
     {
+        return;
+
         if (empty($s_genre)) {
             throw new \Exception("Could not map empty genre");
         }
@@ -35,7 +37,7 @@ class GenreToDirMapper
         $simplifiedGenre = preg_replace('/[^a-z]*/', '', strtolower($s_genre));
         foreach($this->genreToDirMapping as $genre => $dir) {
             if ($genre == $simplifiedGenre  ) {
-                if (!in_array($dir, $this->knownDirs)) {
+                if (!$this->isKnownDir($dir)) {
                     throw new \Exception("Uknown dir '{$dir}'' configured");
                 }
 
@@ -44,5 +46,14 @@ class GenreToDirMapper
         }
 
         throw new \Exception("Could not map genre '{$s_genre}'");
+    }
+
+    /**
+     * @param string $dir
+     * @return bool
+     */
+    private function isKnownDir($dir)
+    {
+        return in_array($dir, $this->knownDirs);
     }
 }

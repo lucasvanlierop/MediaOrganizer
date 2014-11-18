@@ -57,19 +57,21 @@ class File
     /**
      * @param $filePath
      */
-    public function rename($filePath)
+    public function rename($filePath, $force = false)
     {
-        if (!file_exists($filePath)) {
+        if ($force || !file_exists($filePath)) {
             $dirPath = dirname($filePath);
+
             if (!file_exists($dirPath)) {
-                //mkdir($dirPath, 0777, true);
+                mkdir($dirPath, 0777, true);
             }
-            //rename($this->_filePath, $filePath);
-            echo "copy: " . PHP_EOL .$dirPath . PHP_EOL .
+
+            rename($this->_filePath, $filePath);
+            echo "move: " . PHP_EOL .
                 "from : " . $this->_filePath . PHP_EOL .
                 'to   : ' . $filePath . PHP_EOL;
         }    else {
-            //echo "skipping: " . $this->_filePath;
+            echo "File exists, skipping: " . $this->_filePath . PHP_EOL;
         }
     }
 }

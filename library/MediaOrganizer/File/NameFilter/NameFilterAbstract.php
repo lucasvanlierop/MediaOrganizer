@@ -14,9 +14,9 @@ abstract class NameFilterAbstract
     {
         // Replace unwanted characters
         $replacements = array(
-            '/[.]/'        => '',       // Unknown characters
+            '/[.\']/'        => '',       // Unknown characters
             '/&/'          => 'and',    // And sign
-            '/[^\w().]+/'  => ' '       // Non word characters
+            '/[^\w()]+/'  => ' '       // Non word characters
         );
         $out = preg_replace(array_keys($replacements), $replacements, $name);
 

@@ -58,7 +58,7 @@ class FileVisitor
             $this->currentGenreDir = $relativePath;
         }
 
-        echo "scannining dir: " . $dir->getPath() . "\n";
+//        echo "scannining dir: " . $dir->getPath() . "\n";
     }
 
     /**

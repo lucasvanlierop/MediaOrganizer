@@ -23,7 +23,7 @@ class MusicOrganizer
     public function __construct()
     {
         // @todo move to config
-        $musicDir = '/home/lucasvanlierop/Music/';
+        $musicDir = '/home/lucasvanlierop/Music/Rock';
         define('ROOT_DIR', $musicDir);
         $this->_destinationDirectory = $musicDir;
         $this->_sourceDirectory = $musicDir;
