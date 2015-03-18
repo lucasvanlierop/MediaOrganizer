@@ -18,7 +18,7 @@ class AddMetaDataTask
      * @param $name
      * @return string
      */
-    protected function _createComparableName($name)
+    protected function createComparableName($name)
     {
         return trim(preg_replace('/[^a-z]+/', '', strtolower($name)));
     }

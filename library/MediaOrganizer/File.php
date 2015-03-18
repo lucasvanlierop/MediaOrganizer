@@ -9,7 +9,7 @@ class File
 {
     const EXTENSION = 'abstract';
 
-    private $_filePath;
+    private $filePath;
 
     /**
      * @var \MediaOrganizer\MetaData
@@ -32,12 +32,12 @@ class File
     }
 
     protected function __construct($filePath) {
-        $this->_filePath = $filePath;
+        $this->filePath = $filePath;
     }
 
     public function getPath()
     {
-        return $this->_filePath;
+        return $this->filePath;
     }
 
     /**
@@ -45,7 +45,7 @@ class File
      */
     public function getMetaData() {
         if(empty($this->metaData)) {
-            $this->metaData = new \MediaOrganizer\File\MetaData($this->_filePath);
+            $this->metaData = new \MediaOrganizer\File\MetaData($this->filePath);
         }
         return $this->metaData;
     }
@@ -66,12 +66,12 @@ class File
                 mkdir($dirPath, 0777, true);
             }
 
-            rename($this->_filePath, $filePath);
+            rename($this->filePath, $filePath);
             echo "move: " . PHP_EOL .
-                "from : " . $this->_filePath . PHP_EOL .
+                "from : " . $this->filePath . PHP_EOL .
                 'to   : ' . $filePath . PHP_EOL;
         }    else {
-            echo "File exists, skipping: " . $this->_filePath . PHP_EOL;
+            echo "File exists, skipping: " . $this->filePath . PHP_EOL;
         }
     }
 }

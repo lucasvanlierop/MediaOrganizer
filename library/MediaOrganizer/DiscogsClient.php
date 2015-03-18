@@ -19,7 +19,7 @@ class DiscogsClient
         $urlSuffix = 'f=xml&api_key=' . $key;
         $apiUrl = 'http://www.discogs.com/search?type=all&q=' . urlencode($cleanFilename) . '&' . $urlSuffix;
 
-        $resultObject = _loadUrl($apiUrl);
+        $resultObject = loadUrl($apiUrl);
         $item = $resultObject->searchresults->result[0];
 
         if (empty($item)) {
@@ -27,7 +27,7 @@ class DiscogsClient
         }
         $detailUrl = strval($item->uri) . '?' . $urlSuffix;
         //printr($detailUrl);
-        $details = _loadUrl($detailUrl);
+        $details = loadUrl($detailUrl);
 
 
         $comparableFileName = _createComparableName($cleanFilename);
@@ -58,7 +58,7 @@ class DiscogsClient
 
 
     // @todo use guzzle
-    protected function _loadUrl($url)
+    protected function loadUrl($url)
     {
         $curlResource = curl_init($url);
         curl_setopt($curlResource, CURLOPT_HEADER, 0);

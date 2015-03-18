@@ -3,22 +3,22 @@ namespace MediaOrganizer\File;
 
 class MetaData
 {
-    private $_info;
+    private $info;
 
     public function __construct($fileName) {
-        $id3 = $this->_getId3Instance();
+        $id3 = $this->getId3Instance();
 
       //  echo PHP_EOL . 'FN: ' . $fileName;
-        $this->_info = $id3->analyze($fileName);
-        \getid3_lib::CopyTagsToComments($this->_info);
+        $this->info = $id3->analyze($fileName);
+        \getid3_lib::CopyTagsToComments($this->info);
 
-//        if (isset($this->_info['comments']['part_of_a_compilation'])) {
-//            print_r($this->_info['comments']);die;
+//        if (isset($this->info['comments']['part_of_a_compilation'])) {
+//            print_r($this->info['comments']);die;
 //        }
 
     }
 
-    protected function _getId3Instance()
+    protected function getId3Instance()
     {
         static $id3Instance;
 
@@ -45,7 +45,7 @@ class MetaData
     }
 
     public function getHash() {
-        $id3 = $this->_getId3Instance();
+        $id3 = $this->getId3Instance();
         $id3->getHashData('md5');
         $hash = $id3->info['md5_data'];
         return $hash;
@@ -61,10 +61,10 @@ class MetaData
     /**
      * @return bool
      */
-    public function getIsCompilation()
+    public function isCompilation()
     {
-        if (!empty($this->_info['comments']['part_of_a_compilation']) ) {
-            return (bool) $this->_info['comments']['part_of_a_compilation'];
+        if (!empty($this->info['comments']['part_of_a_compilation']) ) {
+            return (bool) $this->info['comments']['part_of_a_compilation'];
         }
 
         return false;
@@ -72,70 +72,70 @@ class MetaData
 
     public function getArtist()
     {
-        if (empty($this->_info['comments']['artist'])) {
+        if (empty($this->info['comments']['artist'])) {
             return;
         }
 
-        $s_artist = $this->_info['comments']['artist'][0];
-        return $s_artist;
+        $artist = $this->info['comments']['artist'][0];
+        return $artist;
     }
 
     public function getAlbumArtist()
     {
-        if (empty($this->_info['comments']['album_artist'])) {
+        if (empty($this->info['comments']['album_artist'])) {
             return;
         }
 
-        return $this->_info['comments']['album_artist'];
+        return $this->info['comments']['album_artist'];
     }
 
     public function getTitle() {
-        if (empty($this->_info['comments']['title'])) {
+        if (empty($this->info['comments']['title'])) {
             return;
         }
 
-        $s_title = $this->_info['comments']['title'][0];
-        return $s_title;
+        $title = $this->info['comments']['title'][0];
+        return $title;
     }
 
     public function getGenre() {
-        if (empty($this->_info['comments']['genre'])) {
+        if (empty($this->info['comments']['genre'])) {
             return;
         }
 
         // Todo check clean name for genre
-        $s_genre = $this->_info['comments']['genre'][0];
-        return $s_genre;
+        $genre = $this->info['comments']['genre'][0];
+        return $genre;
     }
 
     public function getAlbum()
     {
-        if (empty($this->_info['comments']['album'])) {
+        if (empty($this->info['comments']['album'])) {
             return;
         }
 
-        $s_album = '';
-        if (!empty($this->_info['comments']['album'][0])) {
-            $s_album = $this->_info['comments']['album'][0];
+        $album = '';
+        if (!empty($this->info['comments']['album'][0])) {
+            $album = $this->info['comments']['album'][0];
             // @todo move this to rename filter
-            if (!empty($this->_info['comments']['year'][0]) && preg_match('/\d{4}/', $this->_info['comments']['year'][0])) {
-                $s_album = $this->_info['comments']['year'][0] . '-' . $s_album;
+            if (!empty($this->info['comments']['year'][0]) && preg_match('/\d{4}/', $this->info['comments']['year'][0])) {
+                $album = $this->info['comments']['year'][0] . '-' . $album;
             }
         }
 
-        return $s_album;
+        return $album;
     }
 
     public function getTrackNr()
     {
-        if (empty($this->_info['comments']['track_number'])) {
+        if (empty($this->info['comments']['track_number'])) {
             return;
         }
 
-        $i_track = !isset($this->_info['comments']['track_number']) ? ''
-            : intval(trim(reset($this->_info['comments']['track_number'])));
-        $s_track = str_pad($i_track, 3, '0', STR_PAD_LEFT);
-        return $s_track;
+        $trackNr = !isset($this->info['comments']['track_number']) ? ''
+            : intval(trim(reset($this->info['comments']['track_number'])));
+        $track = str_pad($trackNr, 3, '0', STR_PAD_LEFT);
+        return $track;
     }
 
 
@@ -145,7 +145,7 @@ class MetaData
     public function getComments() {
 
 
-        return $this->_info['comments'];
+        return $this->info['comments'];
     }
 
 }

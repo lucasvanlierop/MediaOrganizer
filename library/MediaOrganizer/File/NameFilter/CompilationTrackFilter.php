@@ -35,7 +35,7 @@ class CompilationTrackFilter extends NameFilterAbstract
         $metadata = $file->getMetaData();
 
         $albumArtist = $metadata->getAlbumArtist();
-        $isCompilation = $metadata->getIsCompilation();
+        $isCompilation = $metadata->isCompilation();
         if (empty($albumArtist)) {
             if ($isCompilation) {
                 $albumArtist = 'various';
@@ -80,10 +80,10 @@ class CompilationTrackFilter extends NameFilterAbstract
     }
 
     /**
-     * protected function _buildCompilationFileName()
+     * protected function buildCompilationFileName()
     {
     $albumArtist = cleanName($comments['album_artist'][0]);
-    $dir = $this->_destinationDirectory
+    $dir = $this->destinationDirectory
     . $subGenreDir . DIRECTORY_SEPARATOR
     . $albumArtist . DIRECTORY_SEPARATOR
     . $album . DIRECTORY_SEPARATOR;

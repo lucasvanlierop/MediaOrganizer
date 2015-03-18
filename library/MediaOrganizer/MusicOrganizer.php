@@ -12,8 +12,8 @@ use \MediaOrganizer\FileVisitor;
  */
 class MusicOrganizer
 {
-    private $_sourceDirectory;
-    private $_destinationDirectory;
+    private $sourceDirectory;
+    private $destinationDirectory;
 
     /**
      * @var array
@@ -25,15 +25,15 @@ class MusicOrganizer
         // @todo move to config
         $musicDir = '/home/lucasvanlierop/Music/Rock';
         define('ROOT_DIR', $musicDir);
-        $this->_destinationDirectory = $musicDir;
-        $this->_sourceDirectory = $musicDir;
+        $this->destinationDirectory = $musicDir;
+        $this->sourceDirectory = $musicDir;
 
         $this->config = require_once 'config/config.php';
     }
 
     public function run()
     {
-        $sourceDirectory = new \MediaOrganizer\Directory($this->_sourceDirectory);
+        $sourceDirectory = new \MediaOrganizer\Directory($this->sourceDirectory);
         $fileVisitor = new FileVisitor(ROOT_DIR, $this->config);
         $sourceDirectory->accept($fileVisitor);
         //$sourceDirectory->RemoveEmptyDirs();

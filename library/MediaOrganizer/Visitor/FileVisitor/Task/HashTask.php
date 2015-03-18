@@ -8,10 +8,10 @@ class HashTask
     implements TaskInterface
 {
     private  function getHashDir() {
-        return $hashDir = ROOT_DIR . '_hashes' . '/';
+        return ROOT_DIR . '_hashes' . '/';
     }
 
-    protected function _createAudioHashSoftLink(\MediaOrganizer\File $file)
+    protected function createAudioHashSoftLink(\MediaOrganizer\File $file)
     {
         $hash = $file->getHash();
         $command = 'ln -s "' . $file->getPath() . '" ' . $this->getHashDir() . $hash;

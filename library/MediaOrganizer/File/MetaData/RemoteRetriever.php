@@ -7,7 +7,7 @@ namespace File\MetaData;
  */
 class RemoteRetriever
 {
-    protected function _getMetadataFromApi($file)
+    protected function getMetadataFromApi($file)
     {
         if ($this instanceof \MediaOrganizer\File\Type\Mp3) {
             $comments = findInfoByFilename($file);
@@ -15,19 +15,19 @@ class RemoteRetriever
 
         if (empty($comments)) {
 
-            echo "no info: " . $FullFileName . "\n";
+            echo "no info: " . $fullFileName . "\n";
 
 
             // @todo [check] if file got moved to music clean
             return false;
-            $dir = $this->_destinationDirectory . '_no-info/';
-            $file_path = $dir . $file;
+            $dir = $this->destinationDirectory . '_no-info/';
+            $filePath = $dir . $file;
 
 
-            if (!file_exists($file_path)) {
+            if (!file_exists($filePath)) {
                 if (!file_exists($dir)) mkdir($dir, 0777, true);
-                if (rename($FullFileName, $file_path)) {
-                    echo "copied to unknown: " . $file_path . "\n";
+                if (rename($fullFileName, $filePath)) {
+                    echo "copied to unknown: " . $filePath . "\n";
                 }
             }
             return false;
