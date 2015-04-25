@@ -69,6 +69,36 @@ class MusicOrganizerTest extends PHPUnit_Framework_TestCase
     }
 
     /**
+     * @test
+     */
+    public function shouldVisitRootDirectoryAndRenameCompilationTrack()
+    {
+        $config = [
+            'genre' => [
+                'knownDirs' => [
+                    'Dance/Electro'
+                ],
+                'dirMapping' => [
+                    'electro' => 'Dance/Electro'
+                ]
+            ]
+        ];
+
+        // @todo: get rid of filesystem tests when code is refactored
+        $resourcesDir = __DIR__ . '/Resources';
+        $sourceFile = $resourcesDir . '/source-media/compilation-track.mp3';
+        $targetDir = $resourcesDir . '/target-media';
+        $targetFile = $targetDir . '/compilation-track.mp3';
+        $this->createTargetDir($targetDir);
+        copy($sourceFile, $targetFile);
+
+        $organizer = new MusicOrganizer($config);
+        $organizer->run(__DIR__ . '/Resources/target-media');
+        $this->assertFileNotExists($targetDir . '/compilation-track.mp3');
+        $this->assertFileExists($targetDir . '/Dance/Electro/Miss-Kittin/2002-Radio-Caroline-Volume-1/018_Maus-And-Stolle-Adore.mp3');
+    }
+
+    /**
      * @param $targetDir
      */
     private function createTargetDir($targetDir)

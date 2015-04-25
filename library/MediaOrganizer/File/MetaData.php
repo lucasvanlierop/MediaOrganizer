@@ -84,6 +84,11 @@ class MetaData
      */
     public function isCompilation()
     {
+        // @todo improve this check
+        if (!empty($this->info['comments']['album_artist'])) {
+            return true;
+        }
+
         if (!empty($this->info['comments']['part_of_a_compilation'])) {
             return (bool)$this->info['comments']['part_of_a_compilation'];
         }
@@ -105,15 +110,17 @@ class MetaData
     }
 
     /**
-     * @return void
+     * @return string
      */
     public function getAlbumArtist()
     {
-        if (empty($this->info['comments']['album_artist'])) {
-            return;
+        if (!empty($this->info['comments']['album_artist'])) {
+            return $this->info['comments']['album_artist'][0];
         }
 
-        return $this->info['comments']['album_artist'];
+        if (!empty($this->info['comments']['band'])) {
+            return $this->info['comments']['band'][0];
+        }
     }
 
     /**
