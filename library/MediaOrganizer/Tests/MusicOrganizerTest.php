@@ -7,6 +7,21 @@ use PHPUnit_Framework_TestCase;
 
 class MusicOrganizerTest extends PHPUnit_Framework_TestCase
 {
+    /**
+     * @var string
+     */
+    private $resourcesDir;
+
+    /**
+     * @var string;
+     */
+    private $targetDir;
+
+    public function setUp()
+    {
+        $this->resourcesDir = __DIR__ . '/Resources';
+        $this->targetDir = $this->resourcesDir . '/target-media';
+    }
 
     /**
      * @test
@@ -25,17 +40,15 @@ class MusicOrganizerTest extends PHPUnit_Framework_TestCase
         ];
 
         // @todo: get rid of filesystem tests when code is refactored
-        $resourcesDir = __DIR__ . '/Resources';
-        $sourceFile = $resourcesDir . '/source-media/single-track.mp3';
-        $targetDir = $resourcesDir . '/target-media';
-        $targetFile = $targetDir . '/single-track.mp3';
-        $this->createTargetDir($targetDir);
+        $sourceFile = $this->resourcesDir . '/source-media/single-track.mp3';
+        $targetFile = $this->targetDir . '/single-track.mp3';
+        $this->createTargetDir($this->targetDir);
         copy($sourceFile, $targetFile);
 
         $organizer = new MusicOrganizer($config);
         $organizer->run(__DIR__ . '/Resources/target-media');
-        $this->assertFileNotExists($targetDir . '/single-track.mp3');
-        $this->assertFileExists($targetDir . '/Rock/Foo-Fighters/Everlong.mp3');
+        $this->assertFileNotExists($this->targetDir . '/single-track.mp3');
+        $this->assertFileExists($this->targetDir . '/Rock/Foo-Fighters/Everlong.mp3');
     }
 
     /**
@@ -55,17 +68,15 @@ class MusicOrganizerTest extends PHPUnit_Framework_TestCase
         ];
 
         // @todo: get rid of filesystem tests when code is refactored
-        $resourcesDir = __DIR__ . '/Resources';
-        $sourceFile = $resourcesDir . '/source-media/album-track.mp3';
-        $targetDir = $resourcesDir . '/target-media';
-        $targetFile = $targetDir . '/album-track.mp3';
-        $this->createTargetDir($targetDir);
+        $sourceFile = $this->resourcesDir . '/source-media/album-track.mp3';
+        $targetFile = $this->targetDir . '/album-track.mp3';
+        $this->createTargetDir($this->targetDir);
         copy($sourceFile, $targetFile);
 
         $organizer = new MusicOrganizer($config);
         $organizer->run(__DIR__ . '/Resources/target-media');
-        $this->assertFileNotExists($targetDir . '/album-track.mp3');
-        $this->assertFileExists($targetDir . '/Dance/Div/Enigma/1990-Mcmxc-Ad-(the-Limited-Edition)/001_Sadeness.mp3');
+        $this->assertFileNotExists($this->targetDir . '/album-track.mp3');
+        $this->assertFileExists($this->targetDir . '/Dance/Div/Enigma/1990-Mcmxc-Ad-(the-Limited-Edition)/001_Sadeness.mp3');
     }
 
     /**
@@ -85,17 +96,15 @@ class MusicOrganizerTest extends PHPUnit_Framework_TestCase
         ];
 
         // @todo: get rid of filesystem tests when code is refactored
-        $resourcesDir = __DIR__ . '/Resources';
-        $sourceFile = $resourcesDir . '/source-media/compilation-track.mp3';
-        $targetDir = $resourcesDir . '/target-media';
-        $targetFile = $targetDir . '/compilation-track.mp3';
-        $this->createTargetDir($targetDir);
+        $sourceFile = $this->resourcesDir . '/source-media/compilation-track.mp3';
+        $targetFile = $this->targetDir . '/compilation-track.mp3';
+        $this->createTargetDir($this->targetDir);
         copy($sourceFile, $targetFile);
 
         $organizer = new MusicOrganizer($config);
         $organizer->run(__DIR__ . '/Resources/target-media');
-        $this->assertFileNotExists($targetDir . '/compilation-track.mp3');
-        $this->assertFileExists($targetDir . '/Dance/Electro/Miss-Kittin/2002-Radio-Caroline-Volume-1/018_Maus-And-Stolle-Adore.mp3');
+        $this->assertFileNotExists($this->targetDir . '/compilation-track.mp3');
+        $this->assertFileExists($this->targetDir . '/Dance/Electro/Miss-Kittin/2002-Radio-Caroline-Volume-1/018_Maus-And-Stolle-Adore.mp3');
     }
 
     /**
