@@ -5,7 +5,7 @@
     <target name="build"
             depends="prepare-environment,php-lint,phpmd,phpcs,phpunit"/>
 
-    <target name="prepare-environment" depends="set-test-tree-location,get-changeset,composer-run-install">
+    <target name="prepare-environment" depends="set-test-tree-location,get-changeset">
         <echo message="OK"/>
     </target>
 
@@ -94,22 +94,6 @@
         <condition value="${working-dir}" else="${basedir}" property="test-tree-location">
             <isset property="working-dir"/>
         </condition>
-    </target>
-
-    <target name="check-composer">
-        <available file="${test-tree-location}/composer.phar" property="composer.installed"/>
-    </target>
-
-    <target name="composer-download"
-            depends="check-composer"
-            unless="composer.installed">
-        <get src="http://getcomposer.org/composer.phar" dest="${test-tree-location}/composer.phar"/>
-    </target>
-
-    <target name="composer-run-install" depends="composer-download">
-        <exec executable="php" failonerror="true">
-            <arg line="${test-tree-location}/composer.phar install --prefer-dist --quiet --no-interaction --working-dir ${test-tree-location}"/>
-        </exec>
     </target>
 
     <target name="php-lint" depends="get-changeset.php-absolute.newlinesep" if="changeset.php.notempty">

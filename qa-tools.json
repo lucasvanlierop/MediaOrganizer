@@ -25,7 +25,7 @@
 		}
 	},
 	"enablePhpTools": true,
-	"enableComposer": true,
+	"enableComposer": false,
 	"enablePhpLint": true,
 	"enablePhpMessDetector": true,
 	"phpMdExcludePatterns": [

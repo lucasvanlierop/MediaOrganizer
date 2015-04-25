@@ -5,9 +5,7 @@
         "This file is @generated automatically"
     ],
     "hash": "9e0d5187818c6300b0f73c4186a0ef70",
-    "packages": [
-
-    ],
+    "packages": [],
     "packages-dev": [
         {
             "name": "behat/behat",
@@ -2374,18 +2372,11 @@
             "time": "2014-10-17 12:53:44"
         }
     ],
-    "aliases": [
-
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [
-
-    ],
+    "stability-flags": [],
     "prefer-stable": false,
-    "platform": [
-
-    ],
-    "platform-dev": [
-
-    ]
+    "prefer-lowest": false,
+    "platform": [],
+    "platform-dev": []
 }
