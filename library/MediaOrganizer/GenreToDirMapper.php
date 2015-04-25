@@ -31,13 +31,11 @@ class GenreToDirMapper
 
     /**
      * @param string $genre
-     * @return void
+     * @return string
      * @throws \Exception
      */
     public function toDir($genre)
     {
-        return;
-
         if (empty($genre)) {
             throw new \Exception("Could not map empty genre");
         }

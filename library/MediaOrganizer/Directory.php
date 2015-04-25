@@ -9,7 +9,7 @@ use MediaOrganizer\FileVisitor;
  * Class Directory
  * @package MediaOrganizer
  */
-class Directory extends \DirectoryIterator
+class Directory extends \DirectoryIterator implements Visitable
 {
     /**
      * @var string
@@ -41,7 +41,7 @@ class Directory extends \DirectoryIterator
     public function accept(FileVisitor $visitor)
     {
         // @todo check if it's ok to do this first
-        $visitor->visit($this);
+//        $visitor->visit($this);
 
         foreach ($this as $file) {
             if ($file->isDot()) {

@@ -1,7 +1,9 @@
 <?php
 namespace MediaOrganizer;
 
-use \MediaOrganizer\FileVisitor;
+use MediaOrganizer\File\NameFilter\CompilationTrackFilter;
+use MediaOrganizer\File\NameFilter\AlbumTrackFilter;
+use MediaOrganizer\File\NameFilter\SingleTrackFilter;
 
 /**
  * Organizes music collection with given tasks.
@@ -15,41 +17,39 @@ use \MediaOrganizer\FileVisitor;
 class MusicOrganizer
 {
     /**
-     * @var string
-     */
-    private $sourceDirectory;
-
-    /**
-     * @var string
-     */
-    private $destinationDirectory;
-
-    /**
      * @var array
      */
     private $config;
 
     /**
-     * Constructor
+     * @var GenreToDirMapper;
      */
-    public function __construct()
-    {
-        // @todo move to config
-        $musicDir = '/home/lucasvanlierop/Music/Rock';
-        define('ROOT_DIR', $musicDir);
-        $this->destinationDirectory = $musicDir;
-        $this->sourceDirectory = $musicDir;
+    private $genreToDirMapper;
 
-        $this->config = require_once 'config/config.php';
+    /**
+     * @param array $config
+     */
+    public function __construct(array $config)
+    {
+        $this->config = $config;
+        $this->genreToDirMapper = new GenreToDirMapper($config['genre']);
     }
 
     /**
+     * @param string $sourceDirectoryPath
      * @return void
      */
-    public function run()
+    public function run($sourceDirectoryPath)
     {
-        $sourceDirectory = new \MediaOrganizer\Directory($this->sourceDirectory);
-        $fileVisitor = new FileVisitor(ROOT_DIR, $this->config);
+        // Filters in order of importance (most complex one first)
+        $filters = array(
+            new CompilationTrackFilter($sourceDirectoryPath, $this->genreToDirMapper),
+            new AlbumTrackFilter($sourceDirectoryPath, $this->genreToDirMapper),
+            new SingleTrackFilter($sourceDirectoryPath, $this->genreToDirMapper)
+        );
+
+        $sourceDirectory = new Directory($sourceDirectoryPath);
+        $fileVisitor = new FileVisitor($sourceDirectory, $this->config, $filters);
         $sourceDirectory->accept($fileVisitor);
         //$sourceDirectory->RemoveEmptyDirs();
     }

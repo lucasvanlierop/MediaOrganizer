@@ -56,7 +56,7 @@ class SingleTrackFilter extends NameFilterAbstract
 
         $genreDir = $this->genreToDirMapper->toDir($genre);
 
-        return $this->rootDir . $genreDir .
+        return $this->rootDir . DIRECTORY_SEPARATOR . $genreDir .
         DIRECTORY_SEPARATOR . $this->cleanName($artist) .
         DIRECTORY_SEPARATOR . $this->cleanName($title) .
         '.' . $file->getExtension();

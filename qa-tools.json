@@ -51,7 +51,7 @@
 	"enablePhpUnit": true,
 	"customPhpUnitXml": false,
 	"phpTestsPath": [
-		"tests"
+		"library\/MediaOrganizer\/Tests"
 	],
 	"enablePhpUnitAutoload": true,
 	"phpUnitAutoloadPath": "vendor\/autoload.php",
