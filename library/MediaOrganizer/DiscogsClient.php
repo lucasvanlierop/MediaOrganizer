@@ -2,14 +2,17 @@
 namespace MediaOrganizer;
 
 /**
- * Created by JetBrains PhpStorm.
- * User: lucasvanlierop
- * Date: 2-12-11
- * Time: 18:39
- * To change this template use File | Settings | File Templates.
+ * Connects to discogs
+ *
+ * Class DiscogsClient
+ * @package MediaOrganizer
  */
 class DiscogsClient
 {
+    /**
+     * @param string $filename
+     * @return void
+     */
     protected function findInfoByFilename($filename)
     {
         $cleanFilename = trim(preg_replace('/[^a-z0-9]+/', ' ', strtolower(substr($filename, 0, -4))));
@@ -19,7 +22,7 @@ class DiscogsClient
         $urlSuffix = 'f=xml&api_key=' . $key;
         $apiUrl = 'http://www.discogs.com/search?type=all&q=' . urlencode($cleanFilename) . '&' . $urlSuffix;
 
-        $resultObject = _loadUrl($apiUrl);
+        $resultObject = loadUrl($apiUrl);
         $item = $resultObject->searchresults->result[0];
 
         if (empty($item)) {
@@ -27,8 +30,7 @@ class DiscogsClient
         }
         $detailUrl = strval($item->uri) . '?' . $urlSuffix;
         //printr($detailUrl);
-        $details = _loadUrl($detailUrl);
-
+        $details = loadUrl($detailUrl);
 
         $comparableFileName = _createComparableName($cleanFilename);
 
@@ -56,9 +58,12 @@ class DiscogsClient
         }
     }
 
-
-    // @todo use guzzle
-    protected function _loadUrl($url)
+    /**
+     * @param string $url
+     * @return \SimpleXMLElement
+     * @todo use guzzle
+     */
+    protected function loadUrl($url)
     {
         $curlResource = curl_init($url);
         curl_setopt($curlResource, CURLOPT_HEADER, 0);
@@ -68,5 +73,4 @@ class DiscogsClient
         curl_close($curlResource);
         return simplexml_load_string($resultXml);
     }
-
 }
