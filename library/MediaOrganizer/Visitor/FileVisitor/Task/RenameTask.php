@@ -33,6 +33,7 @@ class RenameTask implements TaskInterface
         foreach ($this->filters as $fileNameFilter) {
             $filePath = $fileNameFilter->filter($file);
             if (!$filePath) {
+                echo "NO name provided by " . get_class($fileNameFilter) . PHP_EOL;
                 continue;
             }
 
@@ -42,6 +43,7 @@ class RenameTask implements TaskInterface
             }
 
             echo "name provided by " . get_class($fileNameFilter) . PHP_EOL;
+
 
             $newName = $filePath;
 
