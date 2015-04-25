@@ -29,6 +29,8 @@ before_script:
   - phpenv config-add .travis.php.ini
   - composer self-update
   - composer install --prefer-dist
+  - mkdir library/MediaOrganizer/Tests/Resources/target-media
+  - chown -R 777 library/MediaOrganizer/Tests/Resources/target-media
 
 script:
   - ant
