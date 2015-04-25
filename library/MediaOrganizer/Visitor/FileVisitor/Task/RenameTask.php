@@ -59,6 +59,8 @@ class RenameTask implements TaskInterface
             } catch (\Exception $ex) {
                 echo 'Error: ' . $ex->getMessage() . PHP_EOL;
             }
+
+            return;
         }
     }
 }

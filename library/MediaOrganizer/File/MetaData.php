@@ -173,6 +173,10 @@ class MetaData
             return;
         }
 
+        if ($this->info['comments']['track_number'][0] <= 0) {
+            return;
+        }
+
         $trackNr = !isset($this->info['comments']['track_number']) ? ''
             : intval(trim(reset($this->info['comments']['track_number'])));
         $track = str_pad($trackNr, 3, '0', STR_PAD_LEFT);

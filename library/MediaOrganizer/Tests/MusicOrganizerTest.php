@@ -11,7 +11,7 @@ class MusicOrganizerTest extends PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function shouldVisitRootDirectoryAndRenameFiles()
+    public function shouldVisitRootDirectoryAndRenameSingleTrack()
     {
         $config = [
             'genre' => [
@@ -36,6 +36,36 @@ class MusicOrganizerTest extends PHPUnit_Framework_TestCase
         $organizer->run(__DIR__ . '/Resources/target-media');
         $this->assertFileNotExists($targetDir . '/single-track.mp3');
         $this->assertFileExists($targetDir . '/Rock/Foo-Fighters/Everlong.mp3');
+    }
+
+    /**
+     * @test
+     */
+    public function shouldVisitRootDirectoryAndRenameAlbumTrack()
+    {
+        $config = [
+            'genre' => [
+                'knownDirs' => [
+                    'Dance/Div'
+                ],
+                'dirMapping' => [
+                    'ambient' => 'Dance/Div'
+                ]
+            ]
+        ];
+
+        // @todo: get rid of filesystem tests when code is refactored
+        $resourcesDir = __DIR__ . '/Resources';
+        $sourceFile = $resourcesDir . '/source-media/album-track.mp3';
+        $targetDir = $resourcesDir . '/target-media';
+        $targetFile = $targetDir . '/album-track.mp3';
+        $this->createTargetDir($targetDir);
+        copy($sourceFile, $targetFile);
+
+        $organizer = new MusicOrganizer($config);
+        $organizer->run(__DIR__ . '/Resources/target-media');
+        $this->assertFileNotExists($targetDir . '/album-track.mp3');
+        $this->assertFileExists($targetDir . '/Dance/Div/Enigma/1990-Mcmxc-Ad-(the-Limited-Edition)/001_Sadeness.mp3');
     }
 
     /**
