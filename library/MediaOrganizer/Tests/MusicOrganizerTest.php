@@ -47,8 +47,8 @@ class MusicOrganizerTest extends PHPUnit_Framework_TestCase
 
         $organizer = new MusicOrganizer($config);
         $organizer->run(__DIR__ . '/Resources/target-media');
-        $this->assertFileNotExists($this->targetDir . '/single-track.mp3');
         $this->assertFileExists($this->targetDir . '/Rock/Foo-Fighters/Everlong.mp3');
+        $this->assertFileNotExists($this->targetDir . '/single-track.mp3');
     }
 
     /**
@@ -75,8 +75,8 @@ class MusicOrganizerTest extends PHPUnit_Framework_TestCase
 
         $organizer = new MusicOrganizer($config);
         $organizer->run(__DIR__ . '/Resources/target-media');
-        $this->assertFileNotExists($this->targetDir . '/album-track.mp3');
         $this->assertFileExists($this->targetDir . '/Dance/Div/Enigma/1990-Mcmxc-Ad-(the-Limited-Edition)/001_Sadeness.mp3');
+        $this->assertFileNotExists($this->targetDir . '/album-track.mp3');
     }
 
     /**
@@ -103,8 +103,8 @@ class MusicOrganizerTest extends PHPUnit_Framework_TestCase
 
         $organizer = new MusicOrganizer($config);
         $organizer->run(__DIR__ . '/Resources/target-media');
-        $this->assertFileNotExists($this->targetDir . '/compilation-track.mp3');
         $this->assertFileExists($this->targetDir . '/Dance/Electro/Miss-Kittin/2002-Radio-Caroline-Volume-1/018_Maus-And-Stolle-Adore.mp3');
+        $this->assertFileNotExists($this->targetDir . '/compilation-track.mp3');
     }
 
     /**
