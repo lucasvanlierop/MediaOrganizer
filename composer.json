@@ -12,5 +12,8 @@
     },
     "require-dev": {
         "ibuildings/qa-tools": "1.*"
+    },
+    "autoload": {
+        "MediaOrganizer\\" : "library"
     }
 }
