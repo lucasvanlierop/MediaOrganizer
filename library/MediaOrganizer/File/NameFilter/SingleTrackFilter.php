@@ -3,7 +3,6 @@ namespace MediaOrganizer\File\NameFilter;
 
 use MediaOrganizer\File;
 use MediaOrganizer\GenreToDirMapper;
-use MediaOrganizer\File\NameFilter\NameFilterAbstract;
 
 /**
  * Filters album tracks by metadata
