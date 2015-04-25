@@ -20,6 +20,7 @@ class RenameTask implements TaskInterface
     public function __construct(array $filters)
     {
         $this->filters = $filters;
+
     }
 
     /**
@@ -31,6 +32,7 @@ class RenameTask implements TaskInterface
     public function execute(File $file)
     {
         echo "Iterating over filters" . PHP_EOL;
+        var_dump($this->filters);
         foreach ($this->filters as $fileNameFilter) {
             echo "Starting filter " . get_class($fileNameFilter) . PHP_EOL;
             $filePath = $fileNameFilter->filter($file);
