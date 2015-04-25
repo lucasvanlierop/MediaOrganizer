@@ -2,11 +2,16 @@
 namespace File\MetaData;
 
 /**
- * @todo make this work
+ * Retrieves metadata from remote system
  *
+ * @todo make this work
  */
 class RemoteRetriever
 {
+    /**
+     * @param string $file
+     * @return void
+     */
     protected function getMetadataFromApi($file)
     {
         if ($this instanceof \MediaOrganizer\File\Type\Mp3) {
@@ -18,7 +23,7 @@ class RemoteRetriever
             echo "no info: " . $fullFileName . "\n";
 
             // @todo [check] if file got moved to music clean
-            return false;
+            return;
             $dir = $this->destinationDirectory . '_no-info/';
             $filePath = $dir . $file;
 
@@ -30,7 +35,7 @@ class RemoteRetriever
                     echo "copied to unknown: " . $filePath . "\n";
                 }
             }
-            return false;
+            return;
         }
     }
 }

@@ -2,14 +2,17 @@
 namespace MediaOrganizer;
 
 /**
- * Created by JetBrains PhpStorm.
- * User: lucasvanlierop
- * Date: 2-12-11
- * Time: 18:39
- * To change this template use File | Settings | File Templates.
+ * Connects to discogs
+ *
+ * Class DiscogsClient
+ * @package MediaOrganizer
  */
 class DiscogsClient
 {
+    /**
+     * @param string $filename
+     * @return void
+     */
     protected function findInfoByFilename($filename)
     {
         $cleanFilename = trim(preg_replace('/[^a-z0-9]+/', ' ', strtolower(substr($filename, 0, -4))));
@@ -55,7 +58,11 @@ class DiscogsClient
         }
     }
 
-    // @todo use guzzle
+    /**
+     * @param string $url
+     * @return \SimpleXMLElement
+     * @todo use guzzle
+     */
     protected function loadUrl($url)
     {
         $curlResource = curl_init($url);

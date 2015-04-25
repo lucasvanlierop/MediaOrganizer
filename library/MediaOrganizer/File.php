@@ -1,7 +1,12 @@
 <?php
 namespace MediaOrganizer;
 
+use MediaOrganizer\File\Type\Mp3;
+use MediaOrganizer\File\MetaData;
+
 /**
+ * Represents a file on a filesystem
+ *
  * @todo support m4a
  * @todo support wma
  */
@@ -9,6 +14,9 @@ class File
 {
     const EXTENSION = 'abstract';
 
+    /**
+     * @var string
+     */
     private $filePath;
 
     /**
@@ -16,27 +24,42 @@ class File
      */
     private $metaData;
 
-    public function accept(\MediaOrganizer\FileVisitor $fileVisitor)
+    /**
+     * @param FileVisitor $fileVisitor
+     * @return void
+     */
+    public function accept(FileVisitor $fileVisitor)
     {
         $fileVisitor->visit($this);
     }
 
+    /**
+     * @param string $filePath
+     * @return File\Type\Mp3
+     * @throws \Exception
+     */
     public static function factory($filePath)
     {
         $pathInfo = pathinfo($filePath);
         switch ($pathInfo['extension']) {
             case 'mp3':
-                return new \MediaOrganizer\File\Type\Mp3($filePath);
+                return new Mp3($filePath);
         }
 
         throw new \Exception('Unknown file format');
     }
 
+    /**
+     * @param string $filePath
+     */
     protected function __construct($filePath)
     {
         $this->filePath = $filePath;
     }
 
+    /**
+     * @return string
+     */
     public function getPath()
     {
         return $this->filePath;
@@ -48,18 +71,23 @@ class File
     public function getMetaData()
     {
         if (empty($this->metaData)) {
-            $this->metaData = new \MediaOrganizer\File\MetaData($this->filePath);
+            $this->metaData = new MetaData($this->filePath);
         }
         return $this->metaData;
     }
 
+    /**
+     * @return string
+     */
     public function getExtension()
     {
         return static::EXTENSION;
     }
 
     /**
-     * @param $filePath
+     * @param string $filePath
+     * @param boolean $force
+     * @return void
      */
     public function rename($filePath, $force = false)
     {

@@ -6,6 +6,8 @@ use MediaOrganizer\GenreToDirMapper;
 use MediaOrganizer\File\NameFilter\NameFilterAbstract;
 
 /**
+ * Filters compilation tracks by metadata
+ *
  * @todo add support for disc nrs
  * @todo Improve support for detecting compilations
  */
@@ -23,6 +25,7 @@ class CompilationTrackFilter extends NameFilterAbstract
 
     /**
      * @param string $rootDir
+     * @param GenreToDirMapper $genreToDirMapper
      */
     public function __construct($rootDir, GenreToDirMapper $genreToDirMapper)
     {
@@ -30,6 +33,11 @@ class CompilationTrackFilter extends NameFilterAbstract
         $this->genreToDirMapper = $genreToDirMapper;
     }
 
+    /**
+     * @param File $file
+     * @return void
+     * @throws \Exception
+     */
     public function filter(File $file)
     {
         $metadata = $file->getMetaData();

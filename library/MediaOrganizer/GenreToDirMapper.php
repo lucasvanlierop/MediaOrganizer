@@ -1,6 +1,12 @@
 <?php
 namespace MediaOrganizer;
 
+/**
+ * Maps a given genre to a directory
+ *
+ * Class GenreToDirMapper
+ * @package MediaOrganizer
+ */
 class GenreToDirMapper
 {
     /**
@@ -10,6 +16,7 @@ class GenreToDirMapper
 
     /**
      * @var array
+     * @return void
      */
     private $genreToDirMapping;
 
@@ -23,8 +30,8 @@ class GenreToDirMapper
     }
 
     /**
-     * @param $genre
-     * @return string
+     * @param string $genre
+     * @return void
      * @throws \Exception
      */
     public function toDir($genre)
@@ -51,7 +58,7 @@ class GenreToDirMapper
 
     /**
      * @param string $dir
-     * @return bool
+     * @return boolean
      */
     private function isKnownDir($dir)
     {

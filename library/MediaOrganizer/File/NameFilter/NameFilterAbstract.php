@@ -2,6 +2,8 @@
 namespace MediaOrganizer\File\NameFilter;
 
 /**
+ * Base class for name filters
+ *
  * @todo add support for unicode
  */
 abstract class NameFilterAbstract

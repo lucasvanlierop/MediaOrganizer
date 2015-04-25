@@ -3,13 +3,22 @@ namespace MediaOrganizer;
 
 use MediaOrganizer\FileVisitor;
 
+/**
+ * Represents a directory on a filesystem
+ *
+ * Class Directory
+ * @package MediaOrganizer
+ */
 class Directory extends \DirectoryIterator
 {
     /**
-     * @var
+     * @var string
      */
     private $path;
 
+    /**
+     * @param string $path
+     */
     public function __construct($path)
     {
         parent::__construct($path);
@@ -17,11 +26,18 @@ class Directory extends \DirectoryIterator
         $this->path = $path;
     }
 
+    /**
+     * @return string
+     */
     public function getPath()
     {
         return $this->path;
     }
 
+    /**
+     * @param FileVisitor $visitor
+     * @return void
+     */
     public function accept(FileVisitor $visitor)
     {
         // @todo check if it's ok to do this first

@@ -4,10 +4,17 @@ namespace MediaOrganizer\Visitor\FileVisitor\Task;
 use MediaOrganizer\File;
 
 /**
- * @todo make this work with at least discogs
+ * Adds metadata
+ *
+ * Class AddMetaDataTask
+ * @package MediaOrganizer\Visitor\FileVisitor\Task
  */
 class AddMetaDataTask
 {
+    /**
+     * @param File $file
+     * @return void
+     */
     public function execute(File $file)
     {
     }
@@ -15,7 +22,7 @@ class AddMetaDataTask
     /**
      * Creates comparable name for search reasons
      *
-     * @param $name
+     * @param string $name
      * @return string
      */
     protected function createComparableName($name)

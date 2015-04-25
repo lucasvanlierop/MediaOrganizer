@@ -6,6 +6,8 @@ use MediaOrganizer\GenreToDirMapper;
 use MediaOrganizer\File\NameFilter\NameFilterAbstract;
 
 /**
+ * Filters album tracks by metadata
+ *
  * @todo add support for disc nrs
  */
 class AlbumTrackFilter extends NameFilterAbstract
@@ -22,6 +24,7 @@ class AlbumTrackFilter extends NameFilterAbstract
 
     /**
      * @param string $rootDir
+     * @param GenreToDirMapper $genreToDirMapper
      */
     public function __construct($rootDir, GenreToDirMapper $genreToDirMapper)
     {
@@ -29,6 +32,11 @@ class AlbumTrackFilter extends NameFilterAbstract
         $this->genreToDirMapper = $genreToDirMapper;
     }
 
+    /**
+     * @param File $file
+     * @return void
+     * @throws \Exception
+     */
     public function filter(File $file)
     {
         $metadata = $file->getMetaData();

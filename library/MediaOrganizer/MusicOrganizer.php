@@ -4,6 +4,8 @@ namespace MediaOrganizer;
 use \MediaOrganizer\FileVisitor;
 
 /**
+ * Organizes music collection with given tasks.
+ *
  * @todo support remote metadata fetching
  * @todo support duplicate detection
  * @too add logging
@@ -12,7 +14,14 @@ use \MediaOrganizer\FileVisitor;
  */
 class MusicOrganizer
 {
+    /**
+     * @var string
+     */
     private $sourceDirectory;
+
+    /**
+     * @var string
+     */
     private $destinationDirectory;
 
     /**
@@ -20,6 +29,9 @@ class MusicOrganizer
      */
     private $config;
 
+    /**
+     * Constructor
+     */
     public function __construct()
     {
         // @todo move to config
@@ -31,6 +43,9 @@ class MusicOrganizer
         $this->config = require_once 'config/config.php';
     }
 
+    /**
+     * @return void
+     */
     public function run()
     {
         $sourceDirectory = new \MediaOrganizer\Directory($this->sourceDirectory);

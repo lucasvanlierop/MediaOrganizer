@@ -6,6 +6,10 @@ use MediaOrganizer\File\NameFilter\CompilationTrackFilter;
 use MediaOrganizer\File\NameFilter\AlbumTrackFilter;
 use MediaOrganizer\File\NameFilter\SingleTrackFilter;
 
+/**
+ * Class RenameTask
+ * @package MediaOrganizer\Visitor\FileVisitor\Task
+ */
 class RenameTask implements TaskInterface
 {
     /**
@@ -39,7 +43,8 @@ class RenameTask implements TaskInterface
     /**
      * Tries to rename file
      *
-     * @param \MediaOrganizer\File $file
+     * @param File $file
+     * @return void
      */
     public function execute(File $file)
     {

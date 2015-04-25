@@ -1,10 +1,22 @@
 <?php
 namespace MediaOrganizer\File;
 
+/**
+ * Value object for metadata
+ *
+ * Class MetaData
+ * @package MediaOrganizer\File
+ */
 class MetaData
 {
+    /**
+     * @var array
+     */
     private $info;
 
+    /**
+     * @param string $fileName
+     */
     public function __construct($fileName)
     {
         $id3 = $this->getId3Instance();
@@ -19,6 +31,9 @@ class MetaData
 
     }
 
+    /**
+     * @return \getID3
+     */
     protected function getId3Instance()
     {
         static $id3Instance;
@@ -45,6 +60,9 @@ class MetaData
         return $id3Instance;
     }
 
+    /**
+     * @return mixed
+     */
     public function getHash()
     {
         $id3 = $this->getId3Instance();
@@ -53,12 +71,16 @@ class MetaData
         return $hash;
     }
 
+    /**
+     * @param string $albumTitle
+     * @return void
+     */
     public function guessIsCompilation($albumTitle)
     {
     }
 
     /**
-     * @return bool
+     * @return boolean
      */
     public function isCompilation()
     {
@@ -69,6 +91,9 @@ class MetaData
         return false;
     }
 
+    /**
+     * @return void
+     */
     public function getArtist()
     {
         if (empty($this->info['comments']['artist'])) {
@@ -79,6 +104,9 @@ class MetaData
         return $artist;
     }
 
+    /**
+     * @return void
+     */
     public function getAlbumArtist()
     {
         if (empty($this->info['comments']['album_artist'])) {
@@ -88,6 +116,9 @@ class MetaData
         return $this->info['comments']['album_artist'];
     }
 
+    /**
+     * @return void
+     */
     public function getTitle()
     {
         if (empty($this->info['comments']['title'])) {
@@ -98,6 +129,9 @@ class MetaData
         return $title;
     }
 
+    /**
+     * @return void
+     */
     public function getGenre()
     {
         if (empty($this->info['comments']['genre'])) {
@@ -109,6 +143,9 @@ class MetaData
         return $genre;
     }
 
+    /**
+     * @return void
+     */
     public function getAlbum()
     {
         if (empty($this->info['comments']['album'])) {
@@ -127,6 +164,9 @@ class MetaData
         return $album;
     }
 
+    /**
+     * @return void
+     */
     public function getTrackNr()
     {
         if (empty($this->info['comments']['track_number'])) {
@@ -141,6 +181,7 @@ class MetaData
 
     /**
      * @todo improve this
+     * @return string
      */
     public function getComments()
     {

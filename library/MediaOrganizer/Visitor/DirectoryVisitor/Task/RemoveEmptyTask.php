@@ -4,10 +4,16 @@ namespace Visitor\DirectoryVisitor\Task;
 use MediaOrganizer\Directory;
 
 /**
+ * Removes empty directories where empty means that they do not contain music content
+ *
  * @todo make this work
  */
 class RemoveEmptyTask
 {
+    /**
+     * @param Directory $directory
+     * @return void
+     */
     public function execute(Directory $directory)
     {
         foreach ($directory as $file) {
@@ -15,6 +21,10 @@ class RemoveEmptyTask
         }
     }
 
+    /**
+     * @param string $file
+     * @return void
+     */
     private function handleFile($file)
     {
         // @todo fix, get from file
@@ -51,10 +61,11 @@ class RemoveEmptyTask
     }
 
     /**
-     * @param $file
-     * @param $extension
-     * @param $srcDir
-     * @param $curPath
+     * @param string $file
+     * @param string $extension
+     * @param string $srcDir
+     * @param string $curPath
+     * @return void
      * @SuppressWarnings(PHPMD.CyclomaticComplexity)
      */
     private function removeFile($file, $extension, $srcDir, $curPath)

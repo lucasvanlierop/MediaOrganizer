@@ -1,6 +1,12 @@
 <?php
 namespace MediaOrganizer;
 
+/**
+ * Visits files in a collection
+ *
+ * Class FileVisitor
+ * @package MediaOrganizer
+ */
 class FileVisitor
 {
     /**
@@ -18,6 +24,10 @@ class FileVisitor
      */
     private $currentGenreDir;
 
+    /**
+     * @param string $rootDir
+     * @param array $config
+     */
     public function __construct($rootDir, array $config)
     {
         $this->rootDir = $rootDir;
@@ -33,7 +43,11 @@ class FileVisitor
         return $this->rootDir;
     }
 
-    public function visit($file)
+    /**
+     * @param stdClass $file
+     * @return void
+     */
+    public function visit(stdClass $file)
     {
         if ($file instanceof \MediaOrganizer\Directory) {
             $this->visitDir($file);
@@ -44,7 +58,7 @@ class FileVisitor
 
     /**
      * @param \MediaOrganizer\Directory $dir
-     * @return bool
+     * @return boolean
      */
     protected function visitDir(\MediaOrganizer\Directory $dir)
     {
@@ -64,7 +78,7 @@ class FileVisitor
 
     /**
      * @param \MediaOrganizer\File $file
-     * @return bool
+     * @return void
      */
     protected function visitFile(\MediaOrganizer\File $file)
     {
