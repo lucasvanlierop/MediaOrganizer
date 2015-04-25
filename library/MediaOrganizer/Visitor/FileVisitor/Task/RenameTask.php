@@ -33,6 +33,7 @@ class RenameTask implements TaskInterface
         echo "Iterating over filters" . PHP_EOL;
         foreach ($this->filters as $fileNameFilter) {
             echo "Starting filter " . get_class($fileNameFilter) . PHP_EOL;
+            var_dump($file->getMetaData());
             $filePath = $fileNameFilter->filter($file);
             echo "Filepath: ";
             var_dump($filePath);
