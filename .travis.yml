@@ -39,3 +39,7 @@ script:
 branches:
   only:
     - master
+
+notifications:
+  email:
+    - lucas@vanlierop.org
