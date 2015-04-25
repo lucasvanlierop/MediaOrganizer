@@ -55,6 +55,7 @@ class Directory extends \DirectoryIterator implements Visitable
                     $mediaFile->accept($visitor);
                 } catch (\Exception $ex) {
                     // @todo add logging
+                    echo 'Error: ' . $ex->getMessage() . PHP_EOL;
                     continue;
                 }
             }
