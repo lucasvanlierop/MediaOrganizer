@@ -30,7 +30,9 @@ class RenameTask implements TaskInterface
      */
     public function execute(File $file)
     {
+        echo "Iterating over filters" . PHP_EOL;
         foreach ($this->filters as $fileNameFilter) {
+            echo "Starting filter " . get_class($fileNameFilter) . PHP_EOL;
             $filePath = $fileNameFilter->filter($file);
             if (!$filePath) {
                 echo "NO name provided by " . get_class($fileNameFilter) . PHP_EOL;
