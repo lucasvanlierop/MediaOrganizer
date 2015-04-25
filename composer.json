@@ -14,6 +14,8 @@
         "ibuildings/qa-tools": "1.*"
     },
     "autoload": {
-        "MediaOrganizer\\" : "library"
+        "psr-4": {
+            "MediaOrganizer\\": "library/MediaOrganizer"
+        }
     }
 }
