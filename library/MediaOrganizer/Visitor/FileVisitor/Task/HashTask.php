@@ -4,10 +4,10 @@ namespace MediaOrganizer\Visitor\FileVisitor\Task;
 use MediaOrganizer\File;
 
 // @todo make this work
-class HashTask
-    implements TaskInterface
+class HashTask implements TaskInterface
 {
-    private  function getHashDir() {
+    private function getHashDir()
+    {
         return ROOT_DIR . '_hashes' . '/';
     }
 
@@ -19,7 +19,6 @@ class HashTask
 
         echo "\n" . $command;
     }
-
 
     public function execute(File $file)
     {

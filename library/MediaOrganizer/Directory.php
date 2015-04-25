@@ -28,7 +28,7 @@ class Directory extends \DirectoryIterator
         $visitor->visit($this);
 
         foreach ($this as $file) {
-            if($file->isDot()) {
+            if ($file->isDot()) {
                 continue;
             } elseif ($file->isDir()) {
                 $directory = new self($file->getPathName());

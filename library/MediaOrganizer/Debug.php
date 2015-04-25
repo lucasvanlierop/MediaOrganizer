@@ -8,9 +8,7 @@ class Debug
         if (!empty($s)) {
             $top = "<div style='background-color:whitesmoke;font-weight:bold;'>" . $s;
             $bottom = '</div>';
-        }
-        else
-        {
+        } else {
             $top = '';
             $bottom = '';
         }

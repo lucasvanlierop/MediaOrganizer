@@ -29,7 +29,6 @@ class DiscogsClient
         //printr($detailUrl);
         $details = loadUrl($detailUrl);
 
-
         $comparableFileName = _createComparableName($cleanFilename);
 
         // Find track
@@ -56,7 +55,6 @@ class DiscogsClient
         }
     }
 
-
     // @todo use guzzle
     protected function loadUrl($url)
     {
@@ -68,5 +66,4 @@ class DiscogsClient
         curl_close($curlResource);
         return simplexml_load_string($resultXml);
     }
-
 }

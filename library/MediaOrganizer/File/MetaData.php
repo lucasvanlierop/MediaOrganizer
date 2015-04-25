@@ -5,10 +5,11 @@ class MetaData
 {
     private $info;
 
-    public function __construct($fileName) {
+    public function __construct($fileName)
+    {
         $id3 = $this->getId3Instance();
 
-      //  echo PHP_EOL . 'FN: ' . $fileName;
+        //  echo PHP_EOL . 'FN: ' . $fileName;
         $this->info = $id3->analyze($fileName);
         \getid3_lib::CopyTagsToComments($this->info);
 
@@ -37,25 +38,23 @@ class MetaData
 
             $id3Instance = new \getID3;
             $id3Instance->setOption('md5_data', true);
-     //       $id3Instance->setOption('md5_data_source', true); // where is this for?
-    		$id3Instance->setOption('encoding', 'UTF-8');
+            //       $id3Instance->setOption('md5_data_source', true); // where is this for?
+            $id3Instance->setOption('encoding', 'UTF-8');
         }
 
         return $id3Instance;
     }
 
-    public function getHash() {
+    public function getHash()
+    {
         $id3 = $this->getId3Instance();
         $id3->getHashData('md5');
         $hash = $id3->info['md5_data'];
         return $hash;
     }
 
-
-
     public function guessIsCompilation($albumTitle)
     {
-
     }
 
     /**
@@ -63,8 +62,8 @@ class MetaData
      */
     public function isCompilation()
     {
-        if (!empty($this->info['comments']['part_of_a_compilation']) ) {
-            return (bool) $this->info['comments']['part_of_a_compilation'];
+        if (!empty($this->info['comments']['part_of_a_compilation'])) {
+            return (bool)$this->info['comments']['part_of_a_compilation'];
         }
 
         return false;
@@ -89,7 +88,8 @@ class MetaData
         return $this->info['comments']['album_artist'];
     }
 
-    public function getTitle() {
+    public function getTitle()
+    {
         if (empty($this->info['comments']['title'])) {
             return;
         }
@@ -98,7 +98,8 @@ class MetaData
         return $title;
     }
 
-    public function getGenre() {
+    public function getGenre()
+    {
         if (empty($this->info['comments']['genre'])) {
             return;
         }
@@ -138,14 +139,12 @@ class MetaData
         return $track;
     }
 
-
     /**
      * @todo improve this
      */
-    public function getComments() {
-
+    public function getComments()
+    {
 
         return $this->info['comments'];
     }
-
 }

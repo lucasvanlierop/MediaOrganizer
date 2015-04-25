@@ -33,7 +33,8 @@ class FileVisitor
         return $this->rootDir;
     }
 
-    public function visit($file) {
+    public function visit($file)
+    {
         if ($file instanceof \MediaOrganizer\Directory) {
             $this->visitDir($file);
         } else if ($file instanceof \MediaOrganizer\File) {
@@ -45,7 +46,8 @@ class FileVisitor
      * @param \MediaOrganizer\Directory $dir
      * @return bool
      */
-    protected function visitDir(\MediaOrganizer\Directory $dir) {
+    protected function visitDir(\MediaOrganizer\Directory $dir)
+    {
         $relativePath = str_replace($this->rootDir, '', $dir->getPath());
 
         // @todo convert this to filter
@@ -57,7 +59,6 @@ class FileVisitor
         if (in_array($relativePath, $this->config['genre']['knownDirs'])) {
             $this->currentGenreDir = $relativePath;
         }
-
 //        echo "scannining dir: " . $dir->getPath() . "\n";
     }
 
@@ -65,7 +66,8 @@ class FileVisitor
      * @param \MediaOrganizer\File $file
      * @return bool
      */
-    protected function visitFile(\MediaOrganizer\File $file) {
+    protected function visitFile(\MediaOrganizer\File $file)
+    {
         //echo "scannining file: " . $file->getPath() . "\n";
 
         $tasks = array(
@@ -74,7 +76,7 @@ class FileVisitor
         );
 
         /** @var $task \MediaOrganizer\Visitor\FileVisitor\Task\TaskInterface */
-        foreach($tasks as $task) {
+        foreach ($tasks as $task) {
             $task->execute($file);
         }
     }

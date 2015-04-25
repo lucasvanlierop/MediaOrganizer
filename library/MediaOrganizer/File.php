@@ -16,7 +16,8 @@ class File
      */
     private $metaData;
 
-    public function accept(\MediaOrganizer\FileVisitor $fileVisitor) {
+    public function accept(\MediaOrganizer\FileVisitor $fileVisitor)
+    {
         $fileVisitor->visit($this);
     }
 
@@ -24,14 +25,15 @@ class File
     {
         $pathInfo = pathinfo($filePath);
         switch ($pathInfo['extension']) {
-            case 'mp3' :
+            case 'mp3':
                 return new \MediaOrganizer\File\Type\Mp3($filePath);
         }
 
         throw new \Exception('Unknown file format');
     }
 
-    protected function __construct($filePath) {
+    protected function __construct($filePath)
+    {
         $this->filePath = $filePath;
     }
 
@@ -43,14 +45,16 @@ class File
     /**
      * @return \MediaOrganizer\File\MetaData
      */
-    public function getMetaData() {
-        if(empty($this->metaData)) {
+    public function getMetaData()
+    {
+        if (empty($this->metaData)) {
             $this->metaData = new \MediaOrganizer\File\MetaData($this->filePath);
         }
         return $this->metaData;
     }
 
-    public function getExtension() {
+    public function getExtension()
+    {
         return static::EXTENSION;
     }
 
@@ -70,7 +74,7 @@ class File
             echo "move: " . PHP_EOL .
                 "from : " . $this->filePath . PHP_EOL .
                 'to   : ' . $filePath . PHP_EOL;
-        }    else {
+        } else {
             echo "File exists, skipping: " . $this->filePath . PHP_EOL;
         }
     }

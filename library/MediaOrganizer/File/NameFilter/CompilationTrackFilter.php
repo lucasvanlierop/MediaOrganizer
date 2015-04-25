@@ -50,15 +50,15 @@ class CompilationTrackFilter extends NameFilterAbstract
         }
 
         $album = $metadata->getAlbum();
-        if(empty($album)) {
+        if (empty($album)) {
             return;
         }
 
         $title = $metadata->getTitle();
-        if(empty($title)) {
+        if (empty($title)) {
             return;
         }
-        
+
         // Genre
         $genre = $metadata->getGenre();
 
@@ -68,33 +68,31 @@ class CompilationTrackFilter extends NameFilterAbstract
         $numberedTitle = $this->cleanName($artist) . '-' . $this->cleanName($title);
         // @todo format track
         $trackNr = $metadata->getTrackNr();
-        if(!empty($trackNr)) {
+        if (!empty($trackNr)) {
             $numberedTitle = $trackNr . '_' . $numberedTitle;
         }
 
         return $this->rootDir . $genreDir .
-            DIRECTORY_SEPARATOR . $this->cleanName($albumArtist) .
-            DIRECTORY_SEPARATOR . $this->cleanName($album) .
-            DIRECTORY_SEPARATOR . $numberedTitle .
-            '.' . $file->getExtension();
+        DIRECTORY_SEPARATOR . $this->cleanName($albumArtist) .
+        DIRECTORY_SEPARATOR . $this->cleanName($album) .
+        DIRECTORY_SEPARATOR . $numberedTitle .
+        '.' . $file->getExtension();
     }
-
     /**
      * protected function buildCompilationFileName()
-    {
-    $albumArtist = cleanName($comments['album_artist'][0]);
-    $dir = $this->destinationDirectory
-    . $subGenreDir . DIRECTORY_SEPARATOR
-    . $albumArtist . DIRECTORY_SEPARATOR
-    . $album . DIRECTORY_SEPARATOR;
-    $file = '';
-    $file .= $track . '_';
-    //"todo get extension from file
-    $file .= $artist . '-' . $title . '.mp3';
-
-    return $dir . DIRECTORY_SEPARATOR . $file;
-    }
+     * {
+     * $albumArtist = cleanName($comments['album_artist'][0]);
+     * $dir = $this->destinationDirectory
+     * . $subGenreDir . DIRECTORY_SEPARATOR
+     * . $albumArtist . DIRECTORY_SEPARATOR
+     * . $album . DIRECTORY_SEPARATOR;
+     * $file = '';
+     * $file .= $track . '_';
+     * //"todo get extension from file
+     * $file .= $artist . '-' . $title . '.mp3';
+     *
+     * return $dir . DIRECTORY_SEPARATOR . $file;
+     * }
 
      */
-
 }

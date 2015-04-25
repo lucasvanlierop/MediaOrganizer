@@ -35,7 +35,7 @@ class SingleTrackFilter extends NameFilterAbstract
         }
 
         $title = $metadata->getTitle();
-        if(empty($title)) {
+        if (empty($title)) {
             return;
         }
 
@@ -45,8 +45,8 @@ class SingleTrackFilter extends NameFilterAbstract
         $genreDir = $this->genreToDirMapper->toDir($genre);
 
         return $this->rootDir . $genreDir .
-            DIRECTORY_SEPARATOR . $this->cleanName($artist) .
-            DIRECTORY_SEPARATOR . $this->cleanName($title) .
-            '.' . $file->getExtension();
+        DIRECTORY_SEPARATOR . $this->cleanName($artist) .
+        DIRECTORY_SEPARATOR . $this->cleanName($title) .
+        '.' . $file->getExtension();
     }
 }

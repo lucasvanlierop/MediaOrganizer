@@ -38,15 +38,15 @@ class AlbumTrackFilter extends NameFilterAbstract
         }
 
         $album = $metadata->getAlbum();
-        if(empty($album)) {
+        if (empty($album)) {
             return;
         }
 
         $title = $metadata->getTitle();
-        if(empty($title)) {
+        if (empty($title)) {
             return;
         }
-        
+
         // Genre
         $genre = $metadata->getGenre();
 
@@ -56,14 +56,14 @@ class AlbumTrackFilter extends NameFilterAbstract
         $numberedTitle = $this->cleanName($title);
         // @todo format track
         $trackNr = $metadata->getTrackNr();
-        if(!empty($trackNr)) {
+        if (!empty($trackNr)) {
             $numberedTitle = $trackNr . '_' . $numberedTitle;
         }
 
         return $this->rootDir . $genreDir .
-            DIRECTORY_SEPARATOR . $this->cleanName($artist) .
-            DIRECTORY_SEPARATOR . $this->cleanName($album) .
-            DIRECTORY_SEPARATOR . $numberedTitle .
-            '.' . $file->getExtension();
+        DIRECTORY_SEPARATOR . $this->cleanName($artist) .
+        DIRECTORY_SEPARATOR . $this->cleanName($album) .
+        DIRECTORY_SEPARATOR . $numberedTitle .
+        '.' . $file->getExtension();
     }
 }

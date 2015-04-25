@@ -8,8 +8,8 @@ use MediaOrganizer\File;
  */
 class AddMetaDataTask
 {
-    public function execute(File $file) {
-
+    public function execute(File $file)
+    {
     }
 
     /**
