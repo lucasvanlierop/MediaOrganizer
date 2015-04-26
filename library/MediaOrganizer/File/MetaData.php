@@ -16,6 +16,7 @@ class MetaData
 
     /**
      * @param string $fileName
+     * @throws \RuntimeException
      */
     public function __construct($fileName)
     {
@@ -24,6 +25,9 @@ class MetaData
         //  echo PHP_EOL . 'FN: ' . $fileName;
         $this->info = $id3->analyze($fileName);
         \getid3_lib::CopyTagsToComments($this->info);
+        if (isset($this->info['error'][0])) {
+            throw new \RuntimeException('getID3 failed: ' . $this->info['error'][0]);
+        }
 
 //        if (isset($this->info['comments']['part_of_a_compilation'])) {
 //            print_r($this->info['comments']);die;
