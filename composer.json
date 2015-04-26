@@ -8,7 +8,7 @@
         }
     ],
     "require": {
-
+        "james-heinrich/getid3": "~1.9"
     },
     "require-dev": {
         "ibuildings/qa-tools": "1.*"
