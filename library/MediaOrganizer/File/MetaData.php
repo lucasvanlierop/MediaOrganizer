@@ -16,6 +16,7 @@ class MetaData
 
     /**
      * @param string $fileName
+     * @throws \RuntimeException
      */
     public function __construct($fileName)
     {
@@ -24,6 +25,9 @@ class MetaData
         //  echo PHP_EOL . 'FN: ' . $fileName;
         $this->info = $id3->analyze($fileName);
         \getid3_lib::CopyTagsToComments($this->info);
+        if (isset($this->info['error'][0])) {
+            throw new \RuntimeException('getID3 failed: ' . $this->info['error'][0]);
+        }
 
 //        if (isset($this->info['comments']['part_of_a_compilation'])) {
 //            print_r($this->info['comments']);die;
@@ -39,7 +43,6 @@ class MetaData
         static $id3Instance;
 
         if (!is_object($id3Instance)) {
-            require_once('vendor/getid3/getid3.php');
             /*
             $getID3->setOption(array('encoding'=>$TaggingFormat));
             getid3_lib::IncludeDependency(GETID3_INCLUDEPATH.'write.php', __FILE__, true);
@@ -84,6 +87,11 @@ class MetaData
      */
     public function isCompilation()
     {
+        // @todo improve this check
+        if (!empty($this->info['comments']['album_artist'])) {
+            return true;
+        }
+
         if (!empty($this->info['comments']['part_of_a_compilation'])) {
             return (bool)$this->info['comments']['part_of_a_compilation'];
         }
@@ -105,15 +113,17 @@ class MetaData
     }
 
     /**
-     * @return void
+     * @return string
      */
     public function getAlbumArtist()
     {
-        if (empty($this->info['comments']['album_artist'])) {
-            return;
+        if (!empty($this->info['comments']['album_artist'])) {
+            return $this->info['comments']['album_artist'][0];
         }
 
-        return $this->info['comments']['album_artist'];
+        if (!empty($this->info['comments']['band'])) {
+            return $this->info['comments']['band'][0];
+        }
     }
 
     /**
@@ -170,6 +180,10 @@ class MetaData
     public function getTrackNr()
     {
         if (empty($this->info['comments']['track_number'])) {
+            return;
+        }
+
+        if ($this->info['comments']['track_number'][0] <= 0) {
             return;
         }
 

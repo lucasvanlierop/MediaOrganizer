@@ -1,6 +1,9 @@
 <?php
 namespace MediaOrganizer;
 
+use MediaOrganizer\Visitor\FileVisitor\Task\AddMetaDataTask;
+use MediaOrganizer\Visitor\FileVisitor\Task\RenameTask;
+
 /**
  * Visits files in a collection
  *
@@ -25,14 +28,20 @@ class FileVisitor
     private $currentGenreDir;
 
     /**
+     * @var array
+     */
+    private $filters;
+
+    /**
      * @param string $rootDir
      * @param array $config
+     * @param array $filters
      */
-    public function __construct($rootDir, array $config)
+    public function __construct($rootDir, array $config, array $filters)
     {
         $this->rootDir = $rootDir;
-
         $this->config = $config;
+        $this->filters = $filters;
     }
 
     /**
@@ -44,23 +53,23 @@ class FileVisitor
     }
 
     /**
-     * @param stdClass $file
+     * @param Visitable $file
      * @return void
      */
-    public function visit(stdClass $file)
+    public function visit(Visitable $file)
     {
-        if ($file instanceof \MediaOrganizer\Directory) {
+        if ($file instanceof Directory) {
             $this->visitDir($file);
-        } else if ($file instanceof \MediaOrganizer\File) {
+        } else if ($file instanceof File) {
             $this->visitFile($file);
         }
     }
 
     /**
-     * @param \MediaOrganizer\Directory $dir
+     * @param Directory $dir
      * @return boolean
      */
-    protected function visitDir(\MediaOrganizer\Directory $dir)
+    protected function visitDir(Directory $dir)
     {
         $relativePath = str_replace($this->rootDir, '', $dir->getPath());
 
@@ -73,20 +82,20 @@ class FileVisitor
         if (in_array($relativePath, $this->config['genre']['knownDirs'])) {
             $this->currentGenreDir = $relativePath;
         }
-//        echo "scannining dir: " . $dir->getPath() . "\n";
+        echo "scanning dir: " . $dir->getPath() . "\n";
     }
 
     /**
-     * @param \MediaOrganizer\File $file
+     * @param File $file
      * @return void
      */
-    protected function visitFile(\MediaOrganizer\File $file)
+    protected function visitFile(File $file)
     {
-        //echo "scannining file: " . $file->getPath() . "\n";
+        echo "scanning file: " . $file->getPath() . "\n";
 
         $tasks = array(
-            new \MediaOrganizer\Visitor\FileVisitor\Task\AddMetaDataTask(),
-            new \MediaOrganizer\Visitor\FileVisitor\Task\RenameTask($this->getRootDir(), $this->config)
+            new AddMetaDataTask(),
+            new RenameTask($this->filters)
         );
 
         /** @var $task \MediaOrganizer\Visitor\FileVisitor\Task\TaskInterface */

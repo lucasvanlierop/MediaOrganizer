@@ -33,7 +33,10 @@ before_script:
 script:
   - ant
 
-
 branches:
   only:
     - master
+
+notifications:
+  email:
+    - lucas@vanlierop.org

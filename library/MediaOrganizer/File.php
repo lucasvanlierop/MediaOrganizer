@@ -10,7 +10,7 @@ use MediaOrganizer\File\MetaData;
  * @todo support m4a
  * @todo support wma
  */
-class File
+class File implements Visitable
 {
     const EXTENSION = 'abstract';
 

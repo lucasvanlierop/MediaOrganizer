@@ -12,7 +12,7 @@
          bootstrap="vendor/autoload.php">
     <testsuites>
         <testsuite name="Test Suite">
-            <directory>tests</directory>
+            <directory>library/MediaOrganizer/Tests</directory>
         </testsuite>
     </testsuites>
     <filter>

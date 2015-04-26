@@ -3,7 +3,6 @@ namespace MediaOrganizer\File\NameFilter;
 
 use MediaOrganizer\File;
 use MediaOrganizer\GenreToDirMapper;
-use MediaOrganizer\File\NameFilter\NameFilterAbstract;
 
 /**
  * Filters album tracks by metadata
@@ -68,7 +67,7 @@ class AlbumTrackFilter extends NameFilterAbstract
             $numberedTitle = $trackNr . '_' . $numberedTitle;
         }
 
-        return $this->rootDir . $genreDir .
+        return $this->rootDir . DIRECTORY_SEPARATOR . $genreDir .
         DIRECTORY_SEPARATOR . $this->cleanName($artist) .
         DIRECTORY_SEPARATOR . $this->cleanName($album) .
         DIRECTORY_SEPARATOR . $numberedTitle .

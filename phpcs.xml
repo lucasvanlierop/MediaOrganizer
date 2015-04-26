@@ -18,10 +18,10 @@
     </rule>
 
     <rule ref="Squiz.Commenting.FunctionComment">
-        <exclude-pattern>src/*/Tests</exclude-pattern>
-        <exclude-pattern>src/*/*/Test</exclude-pattern>
-        <exclude-pattern>src/*/*/Tests</exclude-pattern>
-        <exclude-pattern>src/*/*/*/Tests</exclude-pattern>
+        <exclude-pattern>library/*/Tests</exclude-pattern>
+        <exclude-pattern>library/*/*/Test</exclude-pattern>
+        <exclude-pattern>library/*/*/Tests</exclude-pattern>
+        <exclude-pattern>library/*/*/*/Tests</exclude-pattern>
 
         <exclude name="Squiz.Commenting.FunctionComment.MissingShort"/>
         <exclude name="Squiz.Commenting.FunctionComment.MissingParamComment"/>
@@ -41,26 +41,26 @@
         <exclude name="Squiz.Commenting.FunctionComment.SpacingBeforeParamType"/>
     </rule>
     <rule ref="Squiz.Commenting.FunctionCommentThrowTag">
-        <exclude-pattern>src/*/Tests</exclude-pattern>
-        <exclude-pattern>src/*/*/Test</exclude-pattern>
-        <exclude-pattern>src/*/*/Tests</exclude-pattern>
-        <exclude-pattern>src/*/*/*/Tests</exclude-pattern>
+        <exclude-pattern>library/*/Tests</exclude-pattern>
+        <exclude-pattern>library/*/*/Test</exclude-pattern>
+        <exclude-pattern>library/*/*/Tests</exclude-pattern>
+        <exclude-pattern>library/*/*/*/Tests</exclude-pattern>
     </rule>
     <rule ref="Squiz.Commenting.ClassComment">
-        <exclude-pattern>src/*/Tests</exclude-pattern>
-        <exclude-pattern>src/*/*/Test</exclude-pattern>
-        <exclude-pattern>src/*/*/Tests</exclude-pattern>
-        <exclude-pattern>src/*/*/*/Tests</exclude-pattern>
+        <exclude-pattern>library/*/Tests</exclude-pattern>
+        <exclude-pattern>library/*/*/Test</exclude-pattern>
+        <exclude-pattern>library/*/*/Tests</exclude-pattern>
+        <exclude-pattern>library/*/*/*/Tests</exclude-pattern>
         <exclude name="Squiz.Commenting.ClassComment.ShortFullStop"/>
         <exclude name="Squiz.Commenting.ClassComment.ShortSingleLine"/>
         <exclude name="Squiz.Commenting.ClassComment.SpacingBeforeTags"/>
         <exclude name="Squiz.Commenting.ClassComment.ShortNotCapital"/>
     </rule>
     <rule ref="Squiz.Commenting.VariableComment">
-        <exclude-pattern>src/*/Tests</exclude-pattern>
-        <exclude-pattern>src/*/*/Test</exclude-pattern>
-        <exclude-pattern>src/*/*/Tests</exclude-pattern>
-        <exclude-pattern>src/*/*/*/Tests</exclude-pattern>
+        <exclude-pattern>library/*/Tests</exclude-pattern>
+        <exclude-pattern>library/*/*/Test</exclude-pattern>
+        <exclude-pattern>library/*/*/Tests</exclude-pattern>
+        <exclude-pattern>library/*/*/*/Tests</exclude-pattern>
         <exclude name="Squiz.Commenting.VariableComment.MissingShort"/>
         <exclude name="Squiz.Commenting.VariableComment.SpacingBeforeTags"/>
         <exclude name="Squiz.Commenting.VariableComment.ShortFullStop"/>

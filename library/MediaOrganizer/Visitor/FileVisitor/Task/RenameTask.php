@@ -2,9 +2,6 @@
 namespace MediaOrganizer\Visitor\FileVisitor\Task;
 
 use MediaOrganizer\File;
-use MediaOrganizer\File\NameFilter\CompilationTrackFilter;
-use MediaOrganizer\File\NameFilter\AlbumTrackFilter;
-use MediaOrganizer\File\NameFilter\SingleTrackFilter;
 
 /**
  * Class RenameTask
@@ -13,31 +10,16 @@ use MediaOrganizer\File\NameFilter\SingleTrackFilter;
 class RenameTask implements TaskInterface
 {
     /**
-     * @var string
-     */
-    private $rootDir;
-
-    /**
      * @var array
      */
     private $filters;
 
     /**
-     * @param string $rootDir
-     * @param array $config
+     * @param array $filters
      */
-    public function __construct($rootDir, array $config)
+    public function __construct(array $filters)
     {
-        $this->rootDir = $rootDir;
-
-        $genreToDirMapper = new \MediaOrganizer\GenreToDirMapper($config['genre']);
-
-        // Filters in order of importance (most complex one first)
-        $this->filters = array(
-//            new CompilationTrackFilter($this->rootDir, $genreToDirMapper),
-            new AlbumTrackFilter($this->rootDir, $genreToDirMapper),
-//            new SingleTrackFilter($this->rootDir, $genreToDirMapper)
-        );
+        $this->filters = $filters;
     }
 
     /**
@@ -48,34 +30,50 @@ class RenameTask implements TaskInterface
      */
     public function execute(File $file)
     {
+        $filePath = $this->findPath($file);
+
+        if ($filePath === $file->getPath()) {
+            echo "No renaming necessary: " . $filePath . " and " . $file->getPath() . "match" . PHP_EOL;
+            // File does not have to be renamed
+            return;
+        }
+
+        $newName = $filePath;
+
+        $force = false;
+        if (file_exists($newName)) {
+            // @todo improve hack
+            $ext = $file->getExtension();
+            $hash = sha1(file_get_contents($newName));
+            $newName = str_replace($ext, $hash . '.' . $ext, $newName);
+            $force = true;
+        }
+
+        try {
+            $file->rename($newName, $force);
+        } catch (\Exception $ex) {
+            echo 'Error: ' . $ex->getMessage() . PHP_EOL;
+        }
+
+        return;
+    }
+
+    /**
+     * @param File $file
+     * @return mixed
+     * @throws \RuntimeException
+     */
+    private function findPath(File $file)
+    {
         foreach ($this->filters as $fileNameFilter) {
+            echo "Starting filter " . get_class($fileNameFilter) . PHP_EOL;
             $filePath = $fileNameFilter->filter($file);
+
             if ($filePath) {
-                if ($filePath == $file->getPath()) {
-                    // File does not have to be renamed
-                    continue;
-                }
-
-                echo "name provided by " . get_class($fileNameFilter) . PHP_EOL;
-
-                $newName = $filePath;
-
-                $force = false;
-                if (file_exists($newName)) {
-                    // @todo improve hack
-                    $ext = $file->getExtension();
-                    $hash = sha1(file_get_contents($newName));
-                    $newName = str_replace($ext, $hash . '.' . $ext, $newName);
-                    $force = true;
-                }
-
-                try {
-                    $file->rename($newName, $force);
-                } catch (\Exception $ex) {
-                    echo 'Error: ' . $ex->getMessage() . PHP_EOL;
-                }
-                return;
+                return $filePath;
             }
         }
+
+        throw new \RuntimeException("No filter matched this file");
     }
 }
