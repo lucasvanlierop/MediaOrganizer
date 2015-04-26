@@ -41,8 +41,8 @@ class GenreToDirMapper
         }
 
         $simplifiedGenre = preg_replace('/[^a-z]*/', '', strtolower($genre));
-        foreach ($this->genreToDirMapping as $genre => $dir) {
-            if ($genre == $simplifiedGenre) {
+        foreach ($this->genreToDirMapping as $mappedGenre => $dir) {
+            if ($mappedGenre == $simplifiedGenre) {
                 if (!$this->isKnownDir($dir)) {
                     throw new \Exception("Uknown dir '{$dir}'' configured");
                 }
