@@ -19,8 +19,6 @@ class MusicOrganizerTest extends PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        echo "Memory limit: " . ini_get('memory_limit') . PHP_EOL;
-        ini_set('memory_limit', '128M');
         $this->resourcesDir = __DIR__ . '/Resources';
         $this->targetDir = $this->resourcesDir . '/target-media';
     }
