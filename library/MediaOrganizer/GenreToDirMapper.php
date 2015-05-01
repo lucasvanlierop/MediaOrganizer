@@ -25,21 +25,14 @@ class GenreToDirMapper
     /**
      * @param string $genre
      * @return string
-     * @throws \Exception
      */
     public function toDir($genre)
     {
-        if (empty($genre)) {
-            throw new \Exception("Could not map empty genre");
-        }
-
         $simplifiedGenre = preg_replace('/[^a-z]*/', '', strtolower($genre));
         foreach ($this->directories as $dir => $acceptedGenres) {
             if (in_array($simplifiedGenre, $acceptedGenres)) {
                 return $dir;
             }
         }
-
-        throw new \Exception("Could not map genre '{$genre}'");
     }
 }
