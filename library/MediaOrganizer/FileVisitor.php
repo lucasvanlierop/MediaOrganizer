@@ -79,7 +79,7 @@ class FileVisitor
         }
 
         // Update current genre dir
-        if (in_array($relativePath, $this->config['genre']['knownDirs'])) {
+        if (in_array($relativePath, $this->config['directories'])) {
             $this->currentGenreDir = $relativePath;
         }
         echo "scanning dir: " . $dir->getPath() . "\n";

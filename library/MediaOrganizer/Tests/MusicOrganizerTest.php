@@ -29,12 +29,9 @@ class MusicOrganizerTest extends PHPUnit_Framework_TestCase
     public function shouldVisitRootDirectoryAndRenameSingleTrack()
     {
         $config = [
-            'genre' => [
-                'knownDirs' => [
-                    'Rock'
-                ],
-                'dirMapping' => [
-                    'rock' => 'Rock'
+            'directories' => [
+                'Rock' => [
+                    'rock'
                 ]
             ]
         ];
@@ -57,12 +54,9 @@ class MusicOrganizerTest extends PHPUnit_Framework_TestCase
     public function shouldVisitRootDirectoryAndRenameAlbumTrack()
     {
         $config = [
-            'genre' => [
-                'knownDirs' => [
-                    'Dance/Div'
-                ],
-                'dirMapping' => [
-                    'ambient' => 'Dance/Div'
+            'directories' => [
+                'Dance/Div' => [
+                    'ambient'
                 ]
             ]
         ];
@@ -85,12 +79,9 @@ class MusicOrganizerTest extends PHPUnit_Framework_TestCase
     public function shouldVisitRootDirectoryAndRenameCompilationTrack()
     {
         $config = [
-            'genre' => [
-                'knownDirs' => [
-                    'Dance/Electro'
-                ],
-                'dirMapping' => [
-                    'electro' => 'Dance/Electro'
+            'directories' => [
+                'Dance/Electro' => [
+                    'electro'
                 ]
             ]
         ];

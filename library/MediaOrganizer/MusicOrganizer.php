@@ -32,7 +32,7 @@ class MusicOrganizer
     public function __construct(array $config)
     {
         $this->config = $config;
-        $this->genreToDirMapper = new GenreToDirMapper($config['genre']);
+        $this->genreToDirMapper = new GenreToDirMapper($config['directories']);
     }
 
     /**

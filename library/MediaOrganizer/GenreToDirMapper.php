@@ -12,21 +12,14 @@ class GenreToDirMapper
     /**
      * @var array
      */
-    private $knownDirs;
+    private $directories;
 
     /**
-     * @var array
-     * @return void
+     * @param array $directories
      */
-    private $genreToDirMapping;
-
-    /**
-     * @param array $genreConfig
-     */
-    public function __construct(array $genreConfig)
+    public function __construct(array $directories)
     {
-        $this->knownDirs = $genreConfig['knownDirs'];
-        $this->genreToDirMapping = $genreConfig['dirMapping'];
+        $this->directories = $directories;
     }
 
     /**
@@ -41,25 +34,12 @@ class GenreToDirMapper
         }
 
         $simplifiedGenre = preg_replace('/[^a-z]*/', '', strtolower($genre));
-        foreach ($this->genreToDirMapping as $mappedGenre => $dir) {
-            if ($mappedGenre == $simplifiedGenre) {
-                if (!$this->isKnownDir($dir)) {
-                    throw new \Exception("Uknown dir '{$dir}'' configured");
-                }
-
+        foreach ($this->directories as $dir => $acceptedGenres) {
+            if (in_array($simplifiedGenre, $acceptedGenres)) {
                 return $dir;
             }
         }
 
         throw new \Exception("Could not map genre '{$genre}'");
-    }
-
-    /**
-     * @param string $dir
-     * @return boolean
-     */
-    private function isKnownDir($dir)
-    {
-        return in_array($dir, $this->knownDirs);
     }
 }
