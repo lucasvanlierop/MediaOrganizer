@@ -83,15 +83,6 @@ class CompilationTrackFilter extends NameFilterAbstract
             $numberedTitle = $trackNr . '_' . $numberedTitle;
         }
 
-        // Start with root dir
-        $filePath = $this->rootDir;
-
-        // Add genre
-        $genre = $metadata->getGenre();
-        $genreDir = $this->genreToDirMapper->toDir($genre);
-        if ($genreDir) {
-            $filePath .= DIRECTORY_SEPARATOR . $genreDir;
-        }
 
         // Add album_artist/album/numbered_title.extension
         return $filePath .
