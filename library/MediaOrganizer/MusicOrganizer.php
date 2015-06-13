@@ -32,7 +32,7 @@ class MusicOrganizer
     public function __construct(array $config)
     {
         $this->config = $config;
-        $this->genreToDirMapper = new GenreToDirMapper($config['directories']);
+
     }
 
     /**
@@ -41,6 +41,8 @@ class MusicOrganizer
      */
     public function run($sourceDirectoryPath)
     {
+        $this->genreToDirMapper = new GenreToDirMapper($this->config['directories'], $sourceDirectoryPath);
+
         // Filters in order of importance (most complex one first)
         $filters = array(
             new CompilationTrackFilter($sourceDirectoryPath, $this->genreToDirMapper),

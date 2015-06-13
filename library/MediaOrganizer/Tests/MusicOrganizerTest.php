@@ -76,6 +76,32 @@ class MusicOrganizerTest extends PHPUnit_Framework_TestCase
     /**
      * @test
      */
+    public function shouldVisitRootDirectoryAndKeepTrackWithoutGenreInDirIfThatDirIsKnown()
+    {
+        $config = [
+            'directories' => [
+                'Rock' => [
+                    'rock'
+                ]
+            ]
+        ];
+
+        // @todo: get rid of filesystem tests when code is refactored
+        $sourceFile = $this->resourcesDir . '/source-media/single-track-without-genre.mp3';
+        $targetFile = $this->targetDir . '/Rock/single-track-without-genre.mp3';
+        $this->createTargetDir($this->targetDir);
+        mkdir($this->targetDir . '/Rock');
+        copy($sourceFile, $targetFile);
+
+        $organizer = new MusicOrganizer($config);
+        $organizer->run(__DIR__ . '/Resources/target-media');
+        $this->assertFileExists($this->targetDir . '/Rock/Peter-Shilling/Major-Tom.mp3');
+        $this->assertFileNotExists($this->targetDir . '/Rock/single-track-without-genre.mp3');
+    }
+
+    /**
+     * @test
+     */
     public function shouldVisitRootDirectoryAndRenameAlbumTrack()
     {
         $config = [

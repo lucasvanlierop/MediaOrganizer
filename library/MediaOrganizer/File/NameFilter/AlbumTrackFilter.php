@@ -59,7 +59,7 @@ class AlbumTrackFilter extends NameFilterAbstract
 
         // Add genre
         $genre = $metadata->getGenre();
-        $genreDir = $this->genreToDirMapper->toDir($genre);
+        $genreDir = $this->genreToDirMapper->toDir($genre, $file->getPath());
         if ($genreDir) {
             $filePath .= DIRECTORY_SEPARATOR . $genreDir;
         }
