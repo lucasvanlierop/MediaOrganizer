@@ -50,12 +50,18 @@ class SingleTrackFilter extends NameFilterAbstract
             return;
         }
 
-        // Genre
+        // Start with root dir
+        $filePath = $this->rootDir;
+
+        // Add genre
         $genre = $metadata->getGenre();
+        $genreDir = $this->genreToDirMapper->toDir($genre, $file->getPath());
+        if ($genreDir) {
+            $filePath .= DIRECTORY_SEPARATOR . $genreDir;
+        }
 
-        $genreDir = $this->genreToDirMapper->toDir($genre);
-
-        return $this->rootDir . DIRECTORY_SEPARATOR . $genreDir .
+        // Add artist/title.extension
+        return $filePath .
         DIRECTORY_SEPARATOR . $this->cleanName($artist) .
         DIRECTORY_SEPARATOR . $this->cleanName($title) .
         '.' . $file->getExtension();

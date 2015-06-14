@@ -12,54 +12,47 @@ class GenreToDirMapper
     /**
      * @var array
      */
-    private $knownDirs;
+    private $directories;
 
     /**
-     * @var array
-     * @return void
+     * @var string
      */
-    private $genreToDirMapping;
+    private $rootDirectory;
 
     /**
-     * @param array $genreConfig
+     * @param array $directories
+     * @param string $rootDirectory
      */
-    public function __construct(array $genreConfig)
+    public function __construct(array $directories, $rootDirectory)
     {
-        $this->knownDirs = $genreConfig['knownDirs'];
-        $this->genreToDirMapping = $genreConfig['dirMapping'];
+        $this->directories = $directories;
+        $this->rootDirectory = $rootDirectory;
     }
 
     /**
      * @param string $genre
+     * @param string $filePath
      * @return string
-     * @throws \Exception
      */
-    public function toDir($genre)
+    public function toDir($genre, $filePath)
     {
-        if (empty($genre)) {
-            throw new \Exception("Could not map empty genre");
-        }
-
         $simplifiedGenre = preg_replace('/[^a-z]*/', '', strtolower($genre));
-        foreach ($this->genreToDirMapping as $mappedGenre => $dir) {
-            if ($mappedGenre == $simplifiedGenre) {
-                if (!$this->isKnownDir($dir)) {
-                    throw new \Exception("Uknown dir '{$dir}'' configured");
-                }
-
+        foreach ($this->directories as $dir => $acceptedGenres) {
+            if (in_array($simplifiedGenre, $acceptedGenres)) {
                 return $dir;
             }
         }
 
-        throw new \Exception("Could not map genre '{$genre}'");
-    }
+        // Fallback on current dir
+        $dirPath = substr($filePath, strlen($this->rootDirectory) + 1);
+        while (!array_key_exists($dirPath, $this->directories)) {
+            $dirPath = substr($dirPath, 0, strrpos($dirPath, DIRECTORY_SEPARATOR));
+            echo "Trying: {$dirPath}" . PHP_EOL;
+            if ($dirPath === '') {
+                return;
+            }
+        }
 
-    /**
-     * @param string $dir
-     * @return boolean
-     */
-    private function isKnownDir($dir)
-    {
-        return in_array($dir, $this->knownDirs);
+        return $dirPath;
     }
 }

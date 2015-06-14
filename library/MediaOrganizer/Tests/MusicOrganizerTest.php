@@ -29,12 +29,9 @@ class MusicOrganizerTest extends PHPUnit_Framework_TestCase
     public function shouldVisitRootDirectoryAndRenameSingleTrack()
     {
         $config = [
-            'genre' => [
-                'knownDirs' => [
-                    'Rock'
-                ],
-                'dirMapping' => [
-                    'rock' => 'Rock'
+            'directories' => [
+                'Rock' => [
+                    'rock'
                 ]
             ]
         ];
@@ -54,15 +51,63 @@ class MusicOrganizerTest extends PHPUnit_Framework_TestCase
     /**
      * @test
      */
+    public function shouldVisitRootDirectoryAndRenameSingleTrackWithoutGenre()
+    {
+        $config = [
+            'directories' => [
+                'Rock' => [
+                    'rock'
+                ]
+            ]
+        ];
+
+        // @todo: get rid of filesystem tests when code is refactored
+        $sourceFile = $this->resourcesDir . '/source-media/single-track-without-genre.mp3';
+        $targetFile = $this->targetDir . '/single-track-without-genre.mp3';
+        $this->createTargetDir($this->targetDir);
+        copy($sourceFile, $targetFile);
+
+        $organizer = new MusicOrganizer($config);
+        $organizer->run(__DIR__ . '/Resources/target-media');
+        $this->assertFileExists($this->targetDir . '/Peter-Shilling/Major-Tom.mp3');
+        $this->assertFileNotExists($this->targetDir . '/single-track-without-genre.mp3');
+    }
+
+    /**
+     * @test
+     */
+    public function shouldVisitRootDirectoryAndRenameTrackWithoutGenreInGenreDirWhenThatDirIsKnown()
+    {
+        $config = [
+            'directories' => [
+                'Rock' => [
+                    'rock'
+                ]
+            ]
+        ];
+
+        // @todo: get rid of filesystem tests when code is refactored
+        $sourceFile = $this->resourcesDir . '/source-media/single-track-without-genre.mp3';
+        $targetFile = $this->targetDir . '/Rock/single-track-without-genre.mp3';
+        $this->createTargetDir($this->targetDir);
+        mkdir($this->targetDir . '/Rock');
+        copy($sourceFile, $targetFile);
+
+        $organizer = new MusicOrganizer($config);
+        $organizer->run(__DIR__ . '/Resources/target-media');
+        $this->assertFileExists($this->targetDir . '/Rock/Peter-Shilling/Major-Tom.mp3');
+        $this->assertFileNotExists($this->targetDir . '/Rock/single-track-without-genre.mp3');
+    }
+
+    /**
+     * @test
+     */
     public function shouldVisitRootDirectoryAndRenameAlbumTrack()
     {
         $config = [
-            'genre' => [
-                'knownDirs' => [
-                    'Dance/Div'
-                ],
-                'dirMapping' => [
-                    'ambient' => 'Dance/Div'
+            'directories' => [
+                'Dance/Div' => [
+                    'ambient'
                 ]
             ]
         ];
@@ -85,12 +130,9 @@ class MusicOrganizerTest extends PHPUnit_Framework_TestCase
     public function shouldVisitRootDirectoryAndRenameCompilationTrack()
     {
         $config = [
-            'genre' => [
-                'knownDirs' => [
-                    'Dance/Electro'
-                ],
-                'dirMapping' => [
-                    'electro' => 'Dance/Electro'
+            'directories' => [
+                'Dance/Electro' => [
+                    'electro'
                 ]
             ]
         ];

@@ -54,10 +54,15 @@ class AlbumTrackFilter extends NameFilterAbstract
             return;
         }
 
-        // Genre
-        $genre = $metadata->getGenre();
+        // Start with root dir
+        $filePath = $this->rootDir;
 
-        $genreDir = $this->genreToDirMapper->toDir($genre);
+        // Add genre
+        $genre = $metadata->getGenre();
+        $genreDir = $this->genreToDirMapper->toDir($genre, $file->getPath());
+        if ($genreDir) {
+            $filePath .= DIRECTORY_SEPARATOR . $genreDir;
+        }
 
         // Try to prefix track number
         $numberedTitle = $this->cleanName($title);
@@ -67,7 +72,8 @@ class AlbumTrackFilter extends NameFilterAbstract
             $numberedTitle = $trackNr . '_' . $numberedTitle;
         }
 
-        return $this->rootDir . DIRECTORY_SEPARATOR . $genreDir .
+        // Add artist/album/numbered_title.extension
+        return $filePath .
         DIRECTORY_SEPARATOR . $this->cleanName($artist) .
         DIRECTORY_SEPARATOR . $this->cleanName($album) .
         DIRECTORY_SEPARATOR . $numberedTitle .
