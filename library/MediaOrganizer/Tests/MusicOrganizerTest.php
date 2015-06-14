@@ -76,7 +76,7 @@ class MusicOrganizerTest extends PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function shouldVisitRootDirectoryAndKeepTrackWithoutGenreInDirIfThatDirIsKnown()
+    public function shouldVisitRootDirectoryAndRenameTrackWithoutGenreInGenreDirWhenThatDirIsKnown()
     {
         $config = [
             'directories' => [
