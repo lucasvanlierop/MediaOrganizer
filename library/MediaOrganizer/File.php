@@ -98,6 +98,7 @@ class File implements Visitable
                 mkdir($dirPath, 0777, true);
             }
 
+            $oldFilePath = $this->filePath;
             rename($this->filePath, $filePath);
             $this->filePath = $filePath;
 
@@ -105,7 +106,7 @@ class File implements Visitable
             $this->metaData = null;
 
             echo "move: " . PHP_EOL .
-                "from : " . $this->filePath . PHP_EOL .
+                "from : " . $oldFilePath . PHP_EOL .
                 'to   : ' . $filePath . PHP_EOL;
         } else {
             echo "File exists, skipping: " . $this->filePath . PHP_EOL;
