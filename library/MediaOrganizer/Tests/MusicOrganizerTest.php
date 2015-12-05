@@ -150,6 +150,34 @@ class MusicOrganizerTest extends PHPUnit_Framework_TestCase
     }
 
     /**
+     * @test
+     */
+    public function shouldVisitRootDirectoryCreateHashForTrack()
+    {
+        $config = [
+            'directories' => [
+                'Dance/Electro' => [
+                    'electro'
+                ]
+            ]
+        ];
+
+        // @todo: get rid of filesystem tests when code is refactored
+        $sourceFile = $this->resourcesDir . '/source-media/compilation-track.mp3';
+        $targetFile = $this->targetDir . '/compilation-track.mp3';
+        $this->createTargetDir($this->targetDir);
+        copy($sourceFile, $targetFile);
+
+        $organizer = new MusicOrganizer($config);
+        $organizer->run(__DIR__ . '/Resources/target-media');
+        $this->assertFileExists($this->targetDir . '/_hashes/8608cbf740da39fbd559467abc36bfb0');
+        $this->assertEquals(
+            realpath($this->targetDir . '/_hashes/8608cbf740da39fbd559467abc36bfb0'),
+            $this->targetDir . '/Dance/Electro/Miss-Kittin/2002-Radio-Caroline-Volume-1/018_Maus-And-Stolle-Adore.mp3'
+        );
+    }
+
+    /**
      * @param $targetDir
      */
     private function createTargetDir($targetDir)

@@ -71,7 +71,7 @@ class File implements Visitable
     public function getMetaData()
     {
         if (empty($this->metaData)) {
-            $this->metaData = new MetaData($this->filePath);
+            $this->metaData = new MetaData($this);
         }
         return $this->metaData;
     }
@@ -99,6 +99,11 @@ class File implements Visitable
             }
 
             rename($this->filePath, $filePath);
+            $this->filePath = $filePath;
+
+            // Metadata is based on path in getid3 lib, so it has to be reset
+            $this->metaData = null;
+
             echo "move: " . PHP_EOL .
                 "from : " . $this->filePath . PHP_EOL .
                 'to   : ' . $filePath . PHP_EOL;
