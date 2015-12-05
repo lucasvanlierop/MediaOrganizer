@@ -20,9 +20,14 @@ class File implements Visitable
     private $filePath;
 
     /**
-     * @var \MediaOrganizer\MetaData
+     * @var MetaData
      */
     private $metaData;
+
+    /**
+     * @var string
+     */
+    private $contentHash;
 
     /**
      * @param FileVisitor $fileVisitor
@@ -55,6 +60,7 @@ class File implements Visitable
     protected function __construct($filePath)
     {
         $this->filePath = $filePath;
+        $this->contentHash = $this->getMetaData()->getContentHash();
     }
 
     /**
@@ -71,7 +77,7 @@ class File implements Visitable
     public function getMetaData()
     {
         if (empty($this->metaData)) {
-            $this->metaData = new MetaData($this->filePath);
+            $this->metaData = new MetaData($this);
         }
         return $this->metaData;
     }
@@ -83,6 +89,15 @@ class File implements Visitable
     {
         return static::EXTENSION;
     }
+
+    /**
+     * @return string
+     */
+    public function getContentHash()
+    {
+        return $this->contentHash;
+    }
+
 
     /**
      * @param string $filePath
@@ -98,9 +113,15 @@ class File implements Visitable
                 mkdir($dirPath, 0777, true);
             }
 
+            $filePathBeforeRename = $this->filePath;
             rename($this->filePath, $filePath);
+            $this->filePath = $filePath;
+
+            // Metadata is based on path in getid3 lib, so it has to be reset
+            $this->metaData = null;
+
             echo "move: " . PHP_EOL .
-                "from : " . $this->filePath . PHP_EOL .
+                "from : " . $filePathBeforeRename . PHP_EOL .
                 'to   : ' . $filePath . PHP_EOL;
         } else {
             echo "File exists, skipping: " . $this->filePath . PHP_EOL;

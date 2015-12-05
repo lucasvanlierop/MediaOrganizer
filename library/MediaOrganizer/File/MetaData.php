@@ -1,5 +1,8 @@
 <?php
+
 namespace MediaOrganizer\File;
+
+use MediaOrganizer\File;
 
 /**
  * Value object for metadata
@@ -15,15 +18,15 @@ class MetaData
     private $info;
 
     /**
-     * @param string $fileName
+     * @param File $file
      * @throws \RuntimeException
      */
-    public function __construct($fileName)
+    public function __construct(File $file)
     {
         $id3 = $this->getId3Instance();
 
         //  echo PHP_EOL . 'FN: ' . $fileName;
-        $this->info = $id3->analyze($fileName);
+        @$this->info = $id3->analyze($file->getPath());
         \getid3_lib::CopyTagsToComments($this->info);
         if (isset($this->info['error'][0])) {
             throw new \RuntimeException('getID3 failed: ' . $this->info['error'][0]);
@@ -55,8 +58,8 @@ class MetaData
             */
 
             $id3Instance = new \getID3;
-            $id3Instance->setOption('md5_data', true);
-            //       $id3Instance->setOption('md5_data_source', true); // where is this for?
+            $id3Instance->setOption('sha1_data', true);
+            //       $id3Instance->setOption('sha1_data_source', true); // where is this for?
             $id3Instance->setOption('encoding', 'UTF-8');
         }
 
@@ -64,13 +67,13 @@ class MetaData
     }
 
     /**
-     * @return mixed
+     * @return string
      */
-    public function getHash()
+    public function getContentHash()
     {
         $id3 = $this->getId3Instance();
-        $id3->getHashData('md5');
-        $hash = $id3->info['md5_data'];
+        $id3->getHashData('sha1');
+        $hash = $id3->info['sha1_data'];
         return $hash;
     }
 
