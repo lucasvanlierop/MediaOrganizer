@@ -2,6 +2,7 @@
 namespace MediaOrganizer;
 
 use MediaOrganizer\Visitor\FileVisitor\Task\AddMetaDataTask;
+use MediaOrganizer\Visitor\FileVisitor\Task\HashTask;
 use MediaOrganizer\Visitor\FileVisitor\Task\RenameTask;
 
 /**
@@ -95,7 +96,8 @@ class FileVisitor
 
         $tasks = array(
             new AddMetaDataTask(),
-            new RenameTask($this->filters)
+            new RenameTask($this->filters),
+            new HashTask($this->rootDir)
         );
 
         /** @var $task \MediaOrganizer\Visitor\FileVisitor\Task\TaskInterface */
