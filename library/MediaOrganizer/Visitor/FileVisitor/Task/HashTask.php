@@ -1,21 +1,36 @@
 <?php
 namespace MediaOrganizer\Visitor\FileVisitor\Task;
 
+use MediaOrganizer\Directory;
 use MediaOrganizer\File;
 
 /**
  * Class HashTask
  * @package MediaOrganizer\Visitor\FileVisitor\Task
- * @todo make this work
  */
 class HashTask implements TaskInterface
 {
+    /**
+     * @var Directory
+     */
+    private $rootDir;
+
+    /**
+     * HashTask constructor.
+     * 
+     * @param Directory $rootDir
+     */
+    public function __construct(Directory $rootDir)
+    {
+        $this->rootDir = $rootDir;
+    }
+
     /**
      * @return string
      */
     private function getHashDir()
     {
-        return ROOT_DIR . '_hashes' . '/';
+        return $this->rootDir->getPath() . DIRECTORY_SEPARATOR . '_hashes';
     }
 
     /**
@@ -24,7 +39,7 @@ class HashTask implements TaskInterface
      */
     protected function createAudioHashSoftLink(File $file)
     {
-        $hash = $file->getHash();
+        $hash = $file->getMetaData()->getHash();
         $command = 'ln -s "' . $file->getPath() . '" ' . $this->getHashDir() . $hash;
         exec($command);
 
@@ -37,18 +52,29 @@ class HashTask implements TaskInterface
      */
     public function execute(File $file)
     {
-//        $hashDir = ROOT_DIR . '_hashes' . '/';
-//        $hash = $this->getMetaData()->getHash();
-//        $hashLink = $hashDir . $hash;
-//
-//        if(file_exists($hashLink)){
-//            echo "\n org file = " . realpath($hashLink);
-//            exit;
-//        } else {
-//            echo "\n NO org file = " . $hashLink;
-//
-//        }
-//
-//        echo PHP_EOL;
+        $hash = $file->getMetaData()->getHash();
+
+        $hashDir = $this->getHashDir();
+        if (!is_dir($hashDir)) {
+            mkdir($hashDir);
+        }
+
+        $hashLink = $this->getHashDir() . DIRECTORY_SEPARATOR . $hash;
+
+        if ($this->isLinkUpToDate($file, $hashLink)) {
+            return;
+        }
+
+        symlink($file->getPath(), $hashLink);
+    }
+
+    /**
+     * @param File   $file
+     * @param string $hashLink
+     * @return boolean
+     */
+    private function isLinkUpToDate(File $file, $hashLink)
+    {
+        return is_link($hashLink) && realpath($hashLink) === realpath($file->getPath());
     }
 }
