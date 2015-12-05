@@ -20,7 +20,7 @@ class File implements Visitable
     private $filePath;
 
     /**
-     * @var \MediaOrganizer\MetaData
+     * @var MetaData
      */
     private $metaData;
 
