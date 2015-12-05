@@ -52,7 +52,7 @@ class RenameTask implements TaskInterface
         try {
             $file->rename($newName, $force);
         } catch (\Exception $ex) {
-            echo 'Error: ' . $ex->getMessage() . PHP_EOL;
+            echo 'Could not rename file: ' . $ex->getMessage() . PHP_EOL;
         }
 
         return;
