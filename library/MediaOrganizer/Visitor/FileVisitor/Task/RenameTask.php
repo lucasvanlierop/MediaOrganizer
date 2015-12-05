@@ -33,7 +33,7 @@ class RenameTask implements TaskInterface
         $filePath = $this->findPath($file);
 
         if ($filePath === $file->getPath()) {
-            echo "No renaming necessary: " . $filePath . " and " . $file->getPath() . "match" . PHP_EOL;
+//            echo "No renaming necessary: " . $filePath . " and " . $file->getPath() . "match" . PHP_EOL;
             // File does not have to be renamed
             return;
         }
@@ -66,7 +66,7 @@ class RenameTask implements TaskInterface
     private function findPath(File $file)
     {
         foreach ($this->filters as $fileNameFilter) {
-            echo "Starting filter " . get_class($fileNameFilter) . PHP_EOL;
+//            echo "Starting filter " . get_class($fileNameFilter) . PHP_EOL;
             $filePath = $fileNameFilter->filter($file);
 
             if ($filePath) {
@@ -74,6 +74,6 @@ class RenameTask implements TaskInterface
             }
         }
 
-        throw new \RuntimeException("No filter matched this file");
+        throw new \RuntimeException("No filter matched '{$file->getPath()}'");
     }
 }

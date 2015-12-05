@@ -47,7 +47,7 @@ class GenreToDirMapper
         $dirPath = substr($filePath, strlen($this->rootDirectory) + 1);
         while (!array_key_exists($dirPath, $this->directories)) {
             $dirPath = substr($dirPath, 0, strrpos($dirPath, DIRECTORY_SEPARATOR));
-            echo "Trying: {$dirPath}" . PHP_EOL;
+//            echo "Trying: {$dirPath}" . PHP_EOL;
             if ($dirPath === '') {
                 return;
             }

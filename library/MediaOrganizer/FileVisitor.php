@@ -82,7 +82,7 @@ class FileVisitor
         if (in_array($relativePath, $this->config['directories'])) {
             $this->currentGenreDir = $relativePath;
         }
-        echo "scanning dir: " . $dir->getPath() . "\n";
+//        echo "scanning dir: " . $dir->getPath() . "\n";
     }
 
     /**
@@ -91,7 +91,7 @@ class FileVisitor
      */
     protected function visitFile(File $file)
     {
-        echo "scanning file: " . $file->getPath() . "\n";
+//        echo "scanning file: " . $file->getPath() . "\n";
 
         $tasks = array(
             new AddMetaDataTask(),
