@@ -58,8 +58,8 @@ class MetaData
             */
 
             $id3Instance = new \getID3;
-            $id3Instance->setOption('md5_data', true);
-            //       $id3Instance->setOption('md5_data_source', true); // where is this for?
+            $id3Instance->setOption('sha1_data', true);
+            //       $id3Instance->setOption('sha1_data_source', true); // where is this for?
             $id3Instance->setOption('encoding', 'UTF-8');
         }
 
@@ -72,8 +72,8 @@ class MetaData
     public function getHash()
     {
         $id3 = $this->getId3Instance();
-        $id3->getHashData('md5');
-        $hash = $id3->info['md5_data'];
+        $id3->getHashData('sha1');
+        $hash = $id3->info['sha1_data'];
         return $hash;
     }
 

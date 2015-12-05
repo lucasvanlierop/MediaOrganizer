@@ -170,9 +170,9 @@ class MusicOrganizerTest extends PHPUnit_Framework_TestCase
 
         $organizer = new MusicOrganizer($config);
         $organizer->run(__DIR__ . '/Resources/target-media');
-        $this->assertFileExists($this->targetDir . '/_hashes/8608cbf740da39fbd559467abc36bfb0');
+        $this->assertFileExists($this->targetDir . '/_hashes/c2a7fcbee7235b234a1d0cecfa2eadc247d9903d');
         $this->assertEquals(
-            realpath($this->targetDir . '/_hashes/8608cbf740da39fbd559467abc36bfb0'),
+            realpath($this->targetDir . '/_hashes/c2a7fcbee7235b234a1d0cecfa2eadc247d9903d'),
             $this->targetDir . '/Dance/Electro/Miss-Kittin/2002-Radio-Caroline-Volume-1/018_Maus-And-Stolle-Adore.mp3'
         );
     }
