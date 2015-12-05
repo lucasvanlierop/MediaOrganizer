@@ -67,9 +67,9 @@ class MetaData
     }
 
     /**
-     * @return mixed
+     * @return string
      */
-    public function getHash()
+    public function getContentHash()
     {
         $id3 = $this->getId3Instance();
         $id3->getHashData('sha1');

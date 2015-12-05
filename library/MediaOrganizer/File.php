@@ -25,6 +25,11 @@ class File implements Visitable
     private $metaData;
 
     /**
+     * @var string
+     */
+    private $contentHash;
+
+    /**
      * @param FileVisitor $fileVisitor
      * @return void
      */
@@ -55,6 +60,7 @@ class File implements Visitable
     protected function __construct($filePath)
     {
         $this->filePath = $filePath;
+        $this->contentHash = $this->getMetaData()->getContentHash();
     }
 
     /**
@@ -83,6 +89,15 @@ class File implements Visitable
     {
         return static::EXTENSION;
     }
+
+    /**
+     * @return string
+     */
+    public function getContentHash()
+    {
+        return $this->contentHash;
+    }
+
 
     /**
      * @param string $filePath

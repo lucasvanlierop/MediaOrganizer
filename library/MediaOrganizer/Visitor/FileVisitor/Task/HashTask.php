@@ -17,7 +17,7 @@ class HashTask implements TaskInterface
 
     /**
      * HashTask constructor.
-     * 
+     *
      * @param Directory $rootDir
      */
     public function __construct(Directory $rootDir)
@@ -39,7 +39,7 @@ class HashTask implements TaskInterface
      */
     protected function createAudioHashSoftLink(File $file)
     {
-        $hash = $file->getMetaData()->getHash();
+        $hash = $file->getMetaData()->getContentHash();
         $command = 'ln -s "' . $file->getPath() . '" ' . $this->getHashDir() . $hash;
         exec($command);
 
@@ -52,15 +52,12 @@ class HashTask implements TaskInterface
      */
     public function execute(File $file)
     {
-        $hash = $file->getMetaData()->getHash();
-
         $hashDir = $this->getHashDir();
         if (!is_dir($hashDir)) {
             mkdir($hashDir);
         }
 
-        $hashLink = $this->getHashDir() . DIRECTORY_SEPARATOR . $hash;
-
+        $hashLink = $this->getHashDir() . DIRECTORY_SEPARATOR . $file->getContentHash();
         if ($this->isLinkUpToDate($file, $hashLink)) {
             return;
         }
