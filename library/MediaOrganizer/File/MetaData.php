@@ -23,7 +23,7 @@ class MetaData
         $id3 = $this->getId3Instance();
 
         //  echo PHP_EOL . 'FN: ' . $fileName;
-        $this->info = $id3->analyze($fileName);
+        @$this->info = $id3->analyze($fileName);
         \getid3_lib::CopyTagsToComments($this->info);
         if (isset($this->info['error'][0])) {
             throw new \RuntimeException('getID3 failed: ' . $this->info['error'][0]);
