@@ -8,9 +8,7 @@
         }
     ],
     "require": {
-        "james-heinrich/getid3": "~1.9",
-        "ricbra/php-discogs-api": "^1.1",
-        "lusitanian/oauth": "^0.3.5"
+        "james-heinrich/getid3": "~1.9"
     },
     "require-dev": {
         "ibuildings/qa-tools": "1.*"
