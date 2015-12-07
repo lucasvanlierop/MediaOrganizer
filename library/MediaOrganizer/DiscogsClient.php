@@ -1,11 +1,9 @@
 <?php
+
 namespace MediaOrganizer;
 
 /**
- * Connects to discogs
- *
- * Class DiscogsClient
- * @package MediaOrganizer
+ * Connects to Discogs to find metadata
  */
 class DiscogsClient
 {
@@ -13,34 +11,34 @@ class DiscogsClient
      * @param string $filename
      * @return void
      */
-    protected function findInfoByFilename($filename)
+    public function findInfoByFilename($filename)
     {
         $cleanFilename = trim(preg_replace('/[^a-z0-9]+/', ' ', strtolower(substr($filename, 0, -4))));
         echo "\n" . $cleanFilename . "\n";
 
-        $key = '53459d4211';
+        $key = 'clHKGUtXhaPvaySimOKUpuWiZZrFRdIJehXKxdaI';
         $urlSuffix = 'f=xml&api_key=' . $key;
         $apiUrl = 'http://www.discogs.com/search?type=all&q=' . urlencode($cleanFilename) . '&' . $urlSuffix;
 
-        $resultObject = loadUrl($apiUrl);
+        $resultObject = $this->loadUrl($apiUrl);
         $item = $resultObject->searchresults->result[0];
 
         if (empty($item)) {
             return;
         }
         $detailUrl = strval($item->uri) . '?' . $urlSuffix;
-        //printr($detailUrl);
-        $details = loadUrl($detailUrl);
+        printr($detailUrl);
+        $details = $this->loadUrl($detailUrl);
 
-        $comparableFileName = _createComparableName($cleanFilename);
+        $comparableFileName = $this->createComparableName($cleanFilename);
 
         // Find track
         $trackNr = 1;
         foreach ($details->release->tracklist->track as $track) {
             $title = strval($track->title);
 
-            $comparableTitle = _createComparableName($title);
-            //echo "\n" . $comparableTitle .' : ' . $comparableFileName . "\n";
+            $comparableTitle = $this->createComparableName($title);
+            echo "\n" . $comparableTitle . ' : ' . $comparableFileName . "\n";
             if (strstr($comparableFileName, $comparableTitle)) {
                 //printr($track);
                 $id3['title'][] = $title;
@@ -59,18 +57,16 @@ class DiscogsClient
     }
 
     /**
-     * @param string $url
-     * @return \SimpleXMLElement
-     * @todo use guzzle
+     * Creates comparable name for search reasons
+     *
+     * @param string $name
+     * @return string
      */
-    protected function loadUrl($url)
+    protected function createComparableName($name)
     {
-        $curlResource = curl_init($url);
-        curl_setopt($curlResource, CURLOPT_HEADER, 0);
-        curl_setopt($curlResource, CURLOPT_ENCODING, 'gzip');
-        curl_setopt($curlResource, CURLOPT_RETURNTRANSFER, true);
-        $resultXml = curl_exec($curlResource);
-        curl_close($curlResource);
-        return simplexml_load_string($resultXml);
+        return trim(preg_replace('/[^a-z]+/', '', strtolower($name)));
     }
 }
+
+//$client = new DiscogsClient();
+//$client->findInfoByFilename('test');
